@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import ControlPanel from "./components/ControlPanel.jsx";
 import HeaderBar from "./components/HeaderBar.jsx";
 import Stage from "./components/Stage.jsx";
@@ -20,7 +20,7 @@ export default function App() {
   const [direction, setDirection] = useState("lr");
   const [freqHz, setFreqHz] = useState(0.25);
   const [marginPct, setMarginPct] = useState(6);
-  const [dotSize, setDotSize] = useState(130);
+  const [dotSize, setDotSize] = useState(145);
   const [dotColorMode, setDotColorMode] = useState("blue");
   const [dotCustom, setDotCustom] = useState("#3b82f6");
   const [bgMode, setBgMode] = useState("gray");
@@ -59,6 +59,24 @@ export default function App() {
   const lastUiUpdateRef = useRef(0);
   const pausedAtRef = useRef(0);
   const lastCycleRef = useRef(0);
+  const stageSizeRef = useRef({ width: 0, height: 0 });
+
+  const audioLeadSec = 0.08;
+
+  const getBeatSide = useCallback(() => {
+    const { width, height } = stageSizeRef.current;
+    if (width <= 0 || height <= 0) return null;
+    const tSec = elapsedMsRef.current / 1000 + audioLeadSec;
+    const { x } = computePosition(tSec, width, height, {
+      marginPct,
+      freqHz,
+      posX,
+      posY,
+      direction,
+      phaseOffset: -Math.PI / 2
+    });
+    return x < width / 2 ? -1 : 1;
+  }, [marginPct, freqHz, posX, posY, direction, audioLeadSec]);
 
   const { ensureAudio, stopBeatClock, resetBeatSide, playImmediateBeat, canPlayAudioHint } = useAudioEngine({
     audioEnabled,
@@ -67,7 +85,8 @@ export default function App() {
     mute,
     freqHz,
     running,
-    paused
+    paused,
+    getBeatSide
   });
 
   const dotColor = useMemo(() => {
@@ -115,6 +134,26 @@ export default function App() {
     rafRef.current = requestAnimationFrame(loop);
     return () => cancelAnimationFrame(rafRef.current);
   }, [running, paused, direction, freqHz, marginPct, posX, posY]);
+
+  useEffect(() => {
+    const stage = stageRef.current;
+    if (!stage) return;
+
+    const updateSize = () => {
+      const rect = stage.getBoundingClientRect();
+      stageSizeRef.current = { width: rect.width, height: rect.height };
+    };
+
+    updateSize();
+    const ro = new ResizeObserver(() => updateSize());
+    ro.observe(stage);
+    window.addEventListener("resize", updateSize);
+
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", updateSize);
+    };
+  }, []);
 
   useEffect(() => {
     if (!randomizeEnabled) return;
@@ -200,7 +239,7 @@ export default function App() {
     setPosX(0);
     setPosY(0);
     setMarginPct(6);
-    setDotSize(130);
+    setDotSize(145);
     setDirection("lr");
     setFreqHz(0.25);
     setDotEmojiMode(false);
@@ -221,7 +260,10 @@ export default function App() {
     if (audioEnabled) await ensureAudio();
 
     resetBeatSide();
-    if (audioEnabled) playImmediateBeat(-1);
+    if (audioEnabled) {
+      const side = getBeatSide();
+      playImmediateBeat(side === -1 || side === 1 ? side : -1);
+    }
   };
 
   const stop = () => {
@@ -252,11 +294,10 @@ export default function App() {
     if (!running || paused || !visualEnabled) return;
     let raf = 0;
     const tick = () => {
-      const stage = stageRef.current;
-      if (stage) {
-        const rect = stage.getBoundingClientRect();
+      const { width, height } = stageSizeRef.current;
+      if (width > 0 && height > 0) {
         const tSec = elapsedMsRef.current / 1000;
-        const { x, y } = computePosition(tSec, rect.width, rect.height, {
+        const { x, y } = computePosition(tSec, width, height, {
           marginPct,
           freqHz,
           posX,
@@ -274,10 +315,9 @@ export default function App() {
 
   useEffect(() => {
     if (running) return;
-    const stage = stageRef.current;
-    if (!stage) return;
-    const rect = stage.getBoundingClientRect();
-    const { x, y } = computePosition(0, rect.width, rect.height, {
+    const { width, height } = stageSizeRef.current;
+    if (width <= 0 || height <= 0) return;
+    const { x, y } = computePosition(0, width, height, {
       marginPct,
       freqHz,
       posX,

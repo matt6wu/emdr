@@ -62,6 +62,16 @@ export default function ControlPanel({
 }) {
   return (
     <div className="w-full lg:w-[440px] border-r bg-white p-4 space-y-4 overflow-auto">
+      <div className="rounded-2xl border p-4 space-y-2">
+        <div className="font-semibold">使用方法 / How to Use</div>
+        <div className="text-xs text-slate-600">
+          在心里聚焦一个让你不舒服的念头或画面。按“开始”后，头尽量不动，只用眼睛跟随移动点；离屏幕不要太远。
+        </div>
+        <div className="text-xs text-slate-600">
+          Focus on a troubling thought or image. After pressing Start, keep your head still and follow the dot with your eyes; don’t sit too far from the screen.
+        </div>
+      </div>
+
       <div className="rounded-2xl border p-4">
         <div className="flex items-center justify-between">
           <div>
@@ -192,7 +202,7 @@ export default function ControlPanel({
                   <input
                     type="range"
                     min={60}
-                    max={150}
+                    max={200}
                     step={1}
                     value={dotSize}
                     onChange={(e) => setDotSize(parseInt(e.target.value, 10))}
@@ -440,6 +450,16 @@ export default function ControlPanel({
           <li>定义左右两路振动强度（0~1）与节拍同步（跟随 freqHz）。</li>
           <li>如果是手机：可用 Vibration API（但支持与控制很有限）。</li>
         </ul>
+      </div>
+
+      <div className="rounded-2xl border p-4 space-y-2">
+        <div className="font-semibold">免责声明 / Disclaimer</div>
+        <div className="text-xs text-slate-600">
+          免责声明（非医疗建议）：本网站仅用于信息与教育目的，不构成医疗/健康建议；使用前请咨询专业人士，风险自担。
+        </div>
+        <div className="text-xs text-slate-600">
+          Disclaimer (No Medical Advice): This site is for informational/educational use only and is not medical advice. Consult professionals and use at your own risk.
+        </div>
       </div>
     </div>
   );

@@ -19,7 +19,8 @@ export const useAudioEngine = ({
   mute,
   freqHz,
   running,
-  paused
+  paused,
+  getBeatSide
 }) => {
   const audioCtxRef = useRef(null);
   const masterGainRef = useRef(null);
@@ -242,10 +243,15 @@ export const useAudioEngine = ({
     const f = clamp(freqHz, 0.1, 0.8);
     const intervalMs = 1000 / f / 2;
     beatTimerRef.current = window.setInterval(() => {
-      lastBeatSideRef.current = lastBeatSideRef.current * -1;
+      const computedSide = getBeatSide ? getBeatSide() : null;
+      if (computedSide === -1 || computedSide === 1) {
+        lastBeatSideRef.current = computedSide;
+      } else {
+        lastBeatSideRef.current = lastBeatSideRef.current * -1;
+      }
       playBeat(lastBeatSideRef.current);
     }, intervalMs);
-  }, [audioEnabled, running, paused, freqHz, playBeat, stopBeatClock]);
+  }, [audioEnabled, running, paused, freqHz, playBeat, stopBeatClock, getBeatSide]);
 
   useEffect(() => {
     const g = masterGainRef.current;
