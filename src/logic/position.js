@@ -7,7 +7,7 @@ export const computePosition = (tSec, w, h, settings) => {
   const ampX = (w - marginX * 2) / 2;
   const ampY = (h - marginY * 2) / 2;
 
-  const omega = 2 * Math.PI * clamp(freqHz, 0.1, 6);
+  const omega = 2 * Math.PI * clamp(freqHz, 0.1, 0.8);
   const phase = omega * tSec;
 
   const cx = w / 2 + (posX / 100) * (w / 3);

@@ -19,7 +19,7 @@ export default function Stage({
   mmss
 }) {
   return (
-    <div className="flex-1 relative">
+    <div className="flex-1 relative h-full">
       <div ref={stageRef} className="absolute inset-0" style={{ background: bgColor }} />
 
       <div className="absolute right-4 bottom-4 flex flex-col gap-2 items-end pointer-events-none">

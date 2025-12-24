@@ -150,7 +150,7 @@ export default function ControlPanel({
               className="w-full px-3 py-2 rounded-xl border"
               step={0.05}
               min={0.1}
-              max={6}
+                    max={0.8}
               value={freqHz}
               onChange={(e) => setFreqHz(parseFloat(e.target.value || "0"))}
             />
@@ -165,7 +165,7 @@ export default function ControlPanel({
           <input
             type="range"
             min={0.1}
-            max={6}
+            max={0.8}
             step={0.01}
             value={freqHz}
             onChange={(e) => setFreqHz(parseFloat(e.target.value))}

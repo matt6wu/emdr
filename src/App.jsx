@@ -18,9 +18,9 @@ export default function App() {
 
   const [visualEnabled, setVisualEnabled] = useState(true);
   const [direction, setDirection] = useState("lr");
-  const [freqHz, setFreqHz] = useState(1.2);
+  const [freqHz, setFreqHz] = useState(0.3);
   const [marginPct, setMarginPct] = useState(6);
-  const [dotSize, setDotSize] = useState(36);
+  const [dotSize, setDotSize] = useState(90);
   const [dotColorMode, setDotColorMode] = useState("blue");
   const [dotCustom, setDotCustom] = useState("#3b82f6");
   const [bgMode, setBgMode] = useState("gray");
@@ -30,7 +30,7 @@ export default function App() {
   const [posX, setPosX] = useState(0);
   const [posY, setPosY] = useState(0);
 
-  const [audioEnabled, setAudioEnabled] = useState(false);
+  const [audioEnabled, setAudioEnabled] = useState(true);
   const [audioPreset, setAudioPreset] = useState("snap");
   const [volume, setVolume] = useState(0.5);
   const [mute, setMute] = useState(false);
@@ -128,7 +128,7 @@ export default function App() {
     setTimeout(() => {
       if (!randomizeEnabled) return;
 
-      if (randomizeTargets.freq) setFreqHz(parseFloat(randBetween(0.6, 2.4).toFixed(2)));
+      if (randomizeTargets.freq) setFreqHz(parseFloat(randBetween(0.4, 0.8).toFixed(2)));
       if (randomizeTargets.direction) setDirection(randItem(DIRECTIONS).id);
       if (randomizeTargets.dotColor) {
         const choices = DOT_COLORS.filter((c) => c.id !== "custom");
@@ -156,6 +156,7 @@ export default function App() {
     const onFsChange = () => {
       const isFs = !!document.fullscreenElement;
       setFullscreen(isFs);
+      if (isFs) setHideControls(true);
     };
     document.addEventListener("fullscreenchange", onFsChange);
     return () => document.removeEventListener("fullscreenchange", onFsChange);
@@ -176,8 +177,8 @@ export default function App() {
           stop();
         }
       }
-      if (e.key === "ArrowUp") setFreqHz((f) => parseFloat(clamp(f + 0.05, 0.1, 6).toFixed(2)));
-      if (e.key === "ArrowDown") setFreqHz((f) => parseFloat(clamp(f - 0.05, 0.1, 6).toFixed(2)));
+      if (e.key === "ArrowUp") setFreqHz((f) => parseFloat(clamp(f + 0.05, 0.1, 0.8).toFixed(2)));
+      if (e.key === "ArrowDown") setFreqHz((f) => parseFloat(clamp(f - 0.05, 0.1, 0.8).toFixed(2)));
       if (e.key.toLowerCase() === "h") setHideControls((v) => !v);
       if (e.key.toLowerCase() === "f") toggleFullscreen();
     };
@@ -196,14 +197,14 @@ export default function App() {
     setPosX(0);
     setPosY(0);
     setMarginPct(6);
-    setDotSize(36);
+    setDotSize(90);
     setDirection("lr");
-    setFreqHz(1.2);
+    setFreqHz(0.3);
     setDotEmojiMode(false);
     setDotEmoji("●");
     setDotColorMode("blue");
     setBgMode("gray");
-    setAudioEnabled(false);
+    setAudioEnabled(true);
     setMute(false);
     setVolume(0.5);
     setAudioPreset("snap");
@@ -260,6 +261,21 @@ export default function App() {
     return () => cancelAnimationFrame(raf);
   }, [elapsedMs, running, paused, visualEnabled, direction, freqHz, marginPct, posX, posY]);
 
+  useEffect(() => {
+    if (running) return;
+    const stage = stageRef.current;
+    if (!stage) return;
+    const rect = stage.getBoundingClientRect();
+    const { x, y } = computePosition(0, rect.width, rect.height, {
+      marginPct,
+      freqHz,
+      posX,
+      posY,
+      direction
+    });
+    setDotPos({ x, y });
+  }, [running, direction, freqHz, marginPct, posX, posY]);
+
   const mmss = useMemo(() => {
     const s = Math.floor(elapsedMs / 1000);
     const mm = String(Math.floor(s / 60)).padStart(2, "0");
@@ -268,7 +284,7 @@ export default function App() {
   }, [elapsedMs]);
 
   return (
-    <div className="min-h-screen w-full flex flex-col bg-white">
+    <div className="h-screen w-full flex flex-col bg-white">
       <HeaderBar
         hideControls={hideControls}
         setHideControls={setHideControls}
@@ -276,7 +292,7 @@ export default function App() {
         toggleFullscreen={toggleFullscreen}
       />
 
-      <div className="flex-1 w-full flex flex-col lg:flex-row">
+      <div className="flex-1 min-h-0 w-full flex flex-col lg:flex-row">
         {!hideControls && (
           <ControlPanel
             running={running}

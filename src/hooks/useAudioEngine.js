@@ -156,7 +156,7 @@ export const useAudioEngine = ({
     stopBeatClock();
     if (!audioEnabled) return;
     if (!running || paused) return;
-    const f = clamp(freqHz, 0.1, 6);
+    const f = clamp(freqHz, 0.1, 0.8);
     const intervalMs = 1000 / f / 2;
     beatTimerRef.current = window.setInterval(() => {
       lastBeatSideRef.current = lastBeatSideRef.current * -1;
