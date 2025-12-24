@@ -60,7 +60,7 @@ export default function App() {
   const pausedAtRef = useRef(0);
   const lastCycleRef = useRef(0);
 
-  const { ensureAudio, stopBeatClock, resetBeatSide, canPlayAudioHint } = useAudioEngine({
+  const { ensureAudio, stopBeatClock, resetBeatSide, playImmediateBeat, canPlayAudioHint } = useAudioEngine({
     audioEnabled,
     audioPreset,
     volume,
@@ -227,6 +227,7 @@ export default function App() {
     if (audioEnabled) await ensureAudio();
 
     resetBeatSide();
+    if (audioEnabled) playImmediateBeat(-1);
   };
 
   const stop = () => {

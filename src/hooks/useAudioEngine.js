@@ -220,6 +220,14 @@ export const useAudioEngine = ({
     [audioPreset, mute, volume]
   );
 
+  const playImmediateBeat = useCallback(
+    (side = -1) => {
+      lastBeatSideRef.current = side;
+      playBeat(side);
+    },
+    [playBeat]
+  );
+
   const stopBeatClock = useCallback(() => {
     if (beatTimerRef.current) {
       window.clearInterval(beatTimerRef.current);
@@ -262,6 +270,7 @@ export const useAudioEngine = ({
     startBeatClock,
     stopBeatClock,
     resetBeatSide,
+    playImmediateBeat,
     canPlayAudioHint
   };
 };
