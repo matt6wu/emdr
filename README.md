@@ -26,6 +26,7 @@ npm run start
 - 听觉刺激：左右交替双耳刺激（WebAudio 合成音色）、音量、静音
 - 会话控制：开始/暂停/停止、计时、轮数统计、全屏、隐藏控制面板
 - 随机化：可按“每 N 轮”随机速度/方向/颜色/声音/背景
+- 激活码：未激活时随机化锁定，激活后解锁
 
 快捷键：
 - `B` 开始/停止
@@ -112,3 +113,21 @@ HOST=0.0.0.0 PORT=3000 npm run start
 - 用 Nginx/Caddy 反向代理 `3000` 端口
 - 配置 HTTPS 证书
 - 绑定域名
+
+## 激活码（Cloudflare Worker）
+
+激活码验证在 `worker/` 目录，接口为 `POST /api/activate`，请求体：
+
+```json
+{ "code": "AB123" }
+```
+
+返回：
+
+```json
+{ "ok": true }
+```
+
+前端通过 `VITE_ACTIVATION_ENDPOINT` 指定验证地址（默认 `/api/activate`）。
+
+为避免泄露，建议把激活码放在 Cloudflare Worker 的环境变量 `CODES`（逗号或空格分隔），无需提交到仓库。`worker/codes.js` 默认为空，可选作本地调试使用。

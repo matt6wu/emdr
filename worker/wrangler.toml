@@ -1,0 +1,7 @@
+name = "rem-restore-activation"
+main = "worker/index.js"
+compatibility_date = "2024-11-01"
+
+[vars]
+# Optional: add extra codes via dashboard or here (comma/space separated)
+# CODES = "AB123,CD456"

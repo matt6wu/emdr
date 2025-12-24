@@ -58,7 +58,13 @@ export default function ControlPanel({
   randomizeEveryCycles,
   setRandomizeEveryCycles,
   randomizeTargets,
-  setRandomizeTargets
+  setRandomizeTargets,
+  isActivated,
+  activationInput,
+  setActivationInput,
+  activationStatus,
+  activationError,
+  activateCode
 }) {
   return (
     <div className="w-full lg:w-[440px] border-r bg-white p-4 space-y-4 overflow-auto">
@@ -70,6 +76,32 @@ export default function ControlPanel({
         <div className="text-xs text-slate-600">
           Focus on a troubling thought or image. After pressing Start, keep your head still and follow the dot with your eyes; don’t sit too far from the screen.
         </div>
+      </div>
+
+      <div className="rounded-2xl border p-4 space-y-2">
+        <div className="font-semibold">激活码 / Activation</div>
+        <div className="flex items-center gap-2">
+          <input
+            className="flex-1 px-3 py-2 rounded-xl border"
+            placeholder="输入激活码"
+            value={activationInput}
+            onChange={(e) => setActivationInput(e.target.value)}
+            disabled={isActivated}
+          />
+          <button
+            className="px-3 py-2 rounded-xl border"
+            onClick={activateCode}
+            disabled={isActivated || activationStatus === "loading"}
+          >
+            {isActivated ? "已激活" : activationStatus === "loading" ? "验证中" : "激活"}
+          </button>
+        </div>
+        {activationError && !isActivated && (
+          <div className="text-xs text-rose-600">{activationError}</div>
+        )}
+        {isActivated && (
+          <div className="text-xs text-emerald-600">激活成功</div>
+        )}
       </div>
 
       <div className="rounded-2xl border p-4">
@@ -387,33 +419,39 @@ export default function ControlPanel({
       </div>
 
       <div className="rounded-2xl border p-4 space-y-3">
-        <div className="flex items-center justify-between">
-          <div>
-            <div className="font-semibold">随机化（高级）</div>
-            <div className="text-xs text-slate-500">每 N 轮随机调整参数，用于增加工作记忆负荷。</div>
-          </div>
-          <label className="flex items-center gap-2 text-sm">
-            <input type="checkbox" checked={randomizeEnabled} onChange={(e) => setRandomizeEnabled(e.target.checked)} />
-            启用
-          </label>
-        </div>
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="font-semibold">随机化（高级）</div>
+                  <div className="text-xs text-slate-500">每 N 轮随机调整参数，用于增加工作记忆负荷。</div>
+                </div>
+                <label className="flex items-center gap-2 text-sm">
+                  <input
+                    type="checkbox"
+                    checked={randomizeEnabled}
+                    onChange={(e) => setRandomizeEnabled(e.target.checked)}
+                    disabled={!isActivated}
+                  />
+                  启用
+                </label>
+              </div>
 
         <div className="grid grid-cols-2 gap-3">
           <div>
             <div className="text-sm text-slate-600 mb-1">每多少轮触发</div>
-            <input
-              type="number"
-              className="w-full px-3 py-2 rounded-xl border"
-              min={1}
-              max={200}
-              value={randomizeEveryCycles}
-              onChange={(e) => setRandomizeEveryCycles(parseInt(e.target.value || "1", 10))}
-            />
-          </div>
-          <div className="text-xs text-slate-500 flex items-end">建议：10~30 轮一变，避免太频繁。</div>
-        </div>
+                  <input
+                    type="number"
+                    className="w-full px-3 py-2 rounded-xl border"
+                    min={1}
+                    max={200}
+                    value={randomizeEveryCycles}
+                    onChange={(e) => setRandomizeEveryCycles(parseInt(e.target.value || "1", 10))}
+                    disabled={!isActivated}
+                  />
+                </div>
+                <div className="text-xs text-slate-500 flex items-end">建议：10~30 轮一变，避免太频繁。</div>
+              </div>
 
-        <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-2 gap-2">
           {[
             ["freq", "频率"],
             ["direction", "方向"],
@@ -422,16 +460,20 @@ export default function ControlPanel({
             ["bg", "背景"]
           ].map(([key, label]) => (
             <label key={key} className="flex items-center gap-2 text-sm rounded-xl border p-2">
-              <input
-                type="checkbox"
-                checked={randomizeTargets[key]}
-                onChange={(e) => setRandomizeTargets((prev) => ({ ...prev, [key]: e.target.checked }))}
-              />
-              {label}
-            </label>
-          ))}
-        </div>
-      </div>
+                    <input
+                      type="checkbox"
+                      checked={randomizeTargets[key]}
+                      onChange={(e) => setRandomizeTargets((prev) => ({ ...prev, [key]: e.target.checked }))}
+                      disabled={!isActivated}
+                    />
+                    {label}
+                  </label>
+                ))}
+              </div>
+              {!isActivated && (
+                <div className="text-xs text-amber-700">激活后可使用随机化功能。</div>
+              )}
+            </div>
 
       <div className="rounded-2xl border p-4 space-y-2">
         <div className="font-semibold">待实现：来访者链接/远程控制</div>
