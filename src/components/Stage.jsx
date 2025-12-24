@@ -2,12 +2,12 @@ import React from "react";
 
 export default function Stage({
   stageRef,
+  dotRef,
   bgColor,
   running,
   paused,
   freqHz,
   visualEnabled,
-  dotPos,
   dotSize,
   dotEmojiMode,
   dotEmoji,
@@ -33,11 +33,13 @@ export default function Stage({
 
       {visualEnabled && (
         <div
+          ref={dotRef}
           className="absolute"
           style={{
-            left: dotPos.x,
-            top: dotPos.y,
-            transform: "translate(-50%, -50%)",
+            left: 0,
+            top: 0,
+            transform: "translate3d(0, 0, 0) translate(-50%, -50%)",
+            willChange: "transform",
             width: dotSize,
             height: dotSize,
             borderRadius: dotEmojiMode ? 0 : 9999,

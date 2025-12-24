@@ -20,7 +20,7 @@ export default function App() {
   const [direction, setDirection] = useState("lr");
   const [freqHz, setFreqHz] = useState(0.3);
   const [marginPct, setMarginPct] = useState(6);
-  const [dotSize, setDotSize] = useState(90);
+  const [dotSize, setDotSize] = useState(99);
   const [dotColorMode, setDotColorMode] = useState("blue");
   const [dotCustom, setDotCustom] = useState("#3b82f6");
   const [bgMode, setBgMode] = useState("gray");
@@ -52,8 +52,11 @@ export default function App() {
   });
 
   const stageRef = useRef(null);
+  const dotRef = useRef(null);
   const rafRef = useRef(0);
   const t0Ref = useRef(0);
+  const elapsedMsRef = useRef(0);
+  const lastUiUpdateRef = useRef(0);
   const pausedAtRef = useRef(0);
   const lastCycleRef = useRef(0);
 
@@ -87,7 +90,11 @@ export default function App() {
 
       if (!paused) {
         const t = ts - t0Ref.current;
-        setElapsedMs(t);
+        elapsedMsRef.current = t;
+        if (t - lastUiUpdateRef.current >= 100) {
+          lastUiUpdateRef.current = t;
+          setElapsedMs(t);
+        }
 
         const stage = stageRef.current;
         if (stage) {
@@ -188,6 +195,8 @@ export default function App() {
 
   const resetSession = () => {
     t0Ref.current = 0;
+    elapsedMsRef.current = 0;
+    lastUiUpdateRef.current = 0;
     lastCycleRef.current = 0;
     setElapsedMs(0);
     setCycles(0);
@@ -197,7 +206,7 @@ export default function App() {
     setPosX(0);
     setPosY(0);
     setMarginPct(6);
-    setDotSize(90);
+    setDotSize(99);
     setDirection("lr");
     setFreqHz(0.3);
     setDotEmojiMode(false);
@@ -238,14 +247,20 @@ export default function App() {
     }
   };
 
-  const [dotPos, setDotPos] = useState({ x: 0, y: 0 });
+  const applyDotPosition = (x, y) => {
+    const dot = dotRef.current;
+    if (!dot) return;
+    dot.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`;
+  };
+
   useEffect(() => {
+    if (!running || paused || !visualEnabled) return;
     let raf = 0;
     const tick = () => {
       const stage = stageRef.current;
-      if (stage && running && !paused && visualEnabled) {
+      if (stage) {
         const rect = stage.getBoundingClientRect();
-        const tSec = elapsedMs / 1000;
+        const tSec = elapsedMsRef.current / 1000;
         const { x, y } = computePosition(tSec, rect.width, rect.height, {
           marginPct,
           freqHz,
@@ -253,13 +268,13 @@ export default function App() {
           posY,
           direction
         });
-        setDotPos({ x, y });
+        applyDotPosition(x, y);
       }
       raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [elapsedMs, running, paused, visualEnabled, direction, freqHz, marginPct, posX, posY]);
+  }, [running, paused, visualEnabled, direction, freqHz, marginPct, posX, posY]);
 
   useEffect(() => {
     if (running) return;
@@ -273,7 +288,7 @@ export default function App() {
       posY,
       direction
     });
-    setDotPos({ x, y });
+    applyDotPosition(x, y);
   }, [running, direction, freqHz, marginPct, posX, posY]);
 
   const mmss = useMemo(() => {
@@ -351,12 +366,12 @@ export default function App() {
 
         <Stage
           stageRef={stageRef}
+          dotRef={dotRef}
           bgColor={bgColor}
           running={running}
           paused={paused}
           freqHz={freqHz}
           visualEnabled={visualEnabled}
-          dotPos={dotPos}
           dotSize={dotSize}
           dotEmojiMode={dotEmojiMode}
           dotEmoji={dotEmoji}

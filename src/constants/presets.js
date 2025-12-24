@@ -4,7 +4,13 @@ export const SOUND_PRESETS = [
   { id: "bass", label: "🎸 贝斯", desc: "低频正弦轻微失真" },
   { id: "drum", label: "🥁 鼓点", desc: "低频噪声+包络" },
   { id: "heartbeat", label: "💓 心跳", desc: "每拍双击（lub-dub）" },
-  { id: "whoosh", label: "🌬️ 呼呼声", desc: "带通噪声缓慢扫频" }
+  { id: "whoosh", label: "🌬️ 呼呼声", desc: "带通噪声缓慢扫频" },
+  { id: "shuttle", label: "🏸 羽毛球", desc: "短促噪声+轻微咔嗒" },
+  { id: "woodblock", label: "🪵 木鱼", desc: "短促敲击+共振" },
+  { id: "droplet", label: "💧 水滴", desc: "短促高频下滑" },
+  { id: "chime", label: "🎐 风铃", desc: "轻柔多音正弦衰减" },
+  { id: "click", label: "🖱️ 点击", desc: "极短促高频点击" },
+  { id: "rain", label: "🌧️ 雨声", desc: "柔和噪声冲击" }
 ];
 
 export const DIRECTIONS = [

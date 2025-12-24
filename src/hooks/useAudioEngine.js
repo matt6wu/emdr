@@ -117,6 +117,81 @@ export const useAudioEngine = ({
             tone(120, 0.05, "sine");
           }, 90);
           break;
+        case "woodblock": {
+          tone(520, 0.05, "triangle");
+          tone(860, 0.04, "sine");
+          break;
+        }
+        case "droplet": {
+          const osc = ctx.createOscillator();
+          osc.type = "sine";
+          osc.frequency.setValueAtTime(1600, now);
+          osc.frequency.exponentialRampToValueAtTime(600, now + 0.08);
+
+          const g = ctx.createGain();
+          g.gain.setValueAtTime(0.0001, now);
+          g.gain.exponentialRampToValueAtTime(v, now + 0.004);
+          g.gain.exponentialRampToValueAtTime(0.0001, now + 0.1);
+
+          osc.connect(g);
+          g.connect(gain);
+          osc.start(now);
+          osc.stop(now + 0.12);
+          break;
+        }
+        case "chime": {
+          tone(740, 0.18, "sine");
+          tone(990, 0.16, "sine");
+          tone(1240, 0.12, "triangle");
+          break;
+        }
+        case "click": {
+          noiseBurst(0.015, 2000);
+          tone(2400, 0.015, "square");
+          break;
+        }
+        case "shuttle": {
+          const src = ctx.createBufferSource();
+          src.buffer = noiseBufferRef.current;
+          const bp = ctx.createBiquadFilter();
+          bp.type = "bandpass";
+          bp.Q.value = 1.4;
+          bp.frequency.setValueAtTime(1200, now);
+          bp.frequency.exponentialRampToValueAtTime(700, now + 0.06);
+
+          const g = ctx.createGain();
+          g.gain.setValueAtTime(0.0001, now);
+          g.gain.exponentialRampToValueAtTime(v, now + 0.006);
+          g.gain.exponentialRampToValueAtTime(0.0001, now + 0.07);
+
+          src.connect(bp);
+          bp.connect(g);
+          g.connect(gain);
+          src.start(now);
+          src.stop(now + 0.08);
+
+          tone(700, 0.03, "triangle");
+          break;
+        }
+        case "rain": {
+          const src = ctx.createBufferSource();
+          src.buffer = noiseBufferRef.current;
+          const lp = ctx.createBiquadFilter();
+          lp.type = "lowpass";
+          lp.frequency.value = 1200;
+
+          const g = ctx.createGain();
+          g.gain.setValueAtTime(0.0001, now);
+          g.gain.exponentialRampToValueAtTime(v, now + 0.01);
+          g.gain.exponentialRampToValueAtTime(0.0001, now + 0.2);
+
+          src.connect(lp);
+          lp.connect(g);
+          g.connect(gain);
+          src.start(now);
+          src.stop(now + 0.22);
+          break;
+        }
         case "whoosh": {
           const src = ctx.createBufferSource();
           src.buffer = noiseBufferRef.current;
