@@ -18,7 +18,7 @@ export default function App() {
 
   const [visualEnabled, setVisualEnabled] = useState(true);
   const [direction, setDirection] = useState("lr");
-  const [freqHz, setFreqHz] = useState(0.3);
+  const [freqHz, setFreqHz] = useState(0.25);
   const [marginPct, setMarginPct] = useState(6);
   const [dotSize, setDotSize] = useState(99);
   const [dotColorMode, setDotColorMode] = useState("blue");
@@ -129,7 +129,7 @@ export default function App() {
     setTimeout(() => {
       if (!randomizeEnabled) return;
 
-      if (randomizeTargets.freq) setFreqHz(parseFloat(randBetween(0.4, 0.8).toFixed(2)));
+      if (randomizeTargets.freq) setFreqHz(parseFloat(randBetween(0.1, 0.35).toFixed(2)));
       if (randomizeTargets.direction) setDirection(randItem(DIRECTIONS).id);
       if (randomizeTargets.dotColor) {
         const choices = DOT_COLORS.filter((c) => c.id !== "custom");
@@ -202,7 +202,7 @@ export default function App() {
     setMarginPct(6);
     setDotSize(99);
     setDirection("lr");
-    setFreqHz(0.3);
+    setFreqHz(0.25);
     setDotEmojiMode(false);
     setDotEmoji("●");
     setDotColorMode("blue");

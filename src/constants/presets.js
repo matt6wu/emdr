@@ -26,6 +26,11 @@ export const DOT_COLORS = [
   { id: "green", hex: "#00b36b", name: "绿" },
   { id: "yellow", hex: "#ffd400", name: "黄" },
   { id: "red", hex: "#e53935", name: "红" },
+  { id: "cyan", hex: "#00c2ff", name: "青" },
+  { id: "purple", hex: "#7c3aed", name: "紫" },
+  { id: "orange", hex: "#ff7a00", name: "橙" },
+  { id: "pink", hex: "#ff4d8d", name: "粉" },
+  { id: "lime", hex: "#7bdc00", name: "黄绿" },
   { id: "custom", hex: "#ffffff", name: "自定义" }
 ];
 
