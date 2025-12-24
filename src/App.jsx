@@ -31,7 +31,7 @@ export default function App() {
   const [posY, setPosY] = useState(0);
 
   const [audioEnabled, setAudioEnabled] = useState(true);
-  const [audioPreset, setAudioPreset] = useState("snap");
+  const [audioPreset, setAudioPreset] = useState("shuttle");
   const [volume, setVolume] = useState(0.5);
   const [mute, setMute] = useState(false);
 
@@ -100,14 +100,8 @@ export default function App() {
         if (stage) {
           const rect = stage.getBoundingClientRect();
           const tSec = t / 1000;
-          const { phase } = computePosition(tSec, rect.width, rect.height, {
-            marginPct,
-            freqHz,
-            posX,
-            posY,
-            direction
-          });
-          const c = Math.floor(phase / (2 * Math.PI));
+          const cyclesFreq = clamp(freqHz, 0.1, 0.8);
+          const c = Math.floor(tSec * cyclesFreq);
           if (c !== lastCycleRef.current) {
             lastCycleRef.current = c;
             setCycles(c);
@@ -216,7 +210,7 @@ export default function App() {
     setAudioEnabled(true);
     setMute(false);
     setVolume(0.5);
-    setAudioPreset("snap");
+    setAudioPreset("shuttle");
   };
 
   const start = async () => {
@@ -267,7 +261,8 @@ export default function App() {
           freqHz,
           posX,
           posY,
-          direction
+          direction,
+          phaseOffset: -Math.PI / 2
         });
         applyDotPosition(x, y);
       }

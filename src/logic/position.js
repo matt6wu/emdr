@@ -1,14 +1,14 @@
 import { clamp } from "../utils/math.js";
 
 export const computePosition = (tSec, w, h, settings) => {
-  const { marginPct, freqHz, posX, posY, direction } = settings;
+  const { marginPct, freqHz, posX, posY, direction, phaseOffset = 0 } = settings;
   const marginX = (w * clamp(marginPct, 0, 30)) / 100;
   const marginY = (h * clamp(marginPct, 0, 30)) / 100;
   const ampX = (w - marginX * 2) / 2;
   const ampY = (h - marginY * 2) / 2;
 
   const omega = 2 * Math.PI * clamp(freqHz, 0.1, 0.8);
-  const phase = omega * tSec;
+  const phase = omega * tSec + phaseOffset;
 
   const cx = w / 2 + (posX / 100) * (w / 3);
   const cy = h / 2 + (posY / 100) * (h / 3);
