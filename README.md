@@ -131,3 +131,9 @@ HOST=0.0.0.0 PORT=3000 npm run start
 前端通过 `VITE_ACTIVATION_ENDPOINT` 指定验证地址（默认 `/api/activate`）。
 
 为避免泄露，建议把激活码放在 Cloudflare Worker 的环境变量 `CODES`（逗号或空格分隔），无需提交到仓库。`worker/codes.js` 默认为空，可选作本地调试使用。
+
+部署步骤（简版）：
+1) 打开本地 `activation-codes.txt`，复制 100 个码
+2) 在 Cloudflare Worker 里设置环境变量 `CODES`（逗号或空格分隔粘贴）
+3) 在 Cloudflare Pages 里设置 `VITE_ACTIVATION_ENDPOINT` 为 Worker 的 `/api/activate` 地址
+4) 重新部署 Pages
