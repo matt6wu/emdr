@@ -16,7 +16,9 @@ export default function Stage({
   start,
   stop,
   togglePaused,
-  mmss
+  mmss,
+  randomizeEnabled,
+  setRandomizeEnabled
 }) {
   return (
     <div className="flex-1 relative h-full">
@@ -74,6 +76,12 @@ export default function Stage({
                 </button>
               </>
             )}
+            <button
+              className="px-3 py-2 rounded-xl border"
+              onClick={() => setRandomizeEnabled((v) => !v)}
+            >
+              {randomizeEnabled ? "随机:开" : "随机:关"}
+            </button>
             <div className="text-sm text-slate-700 tabular-nums">{mmss}</div>
           </div>
         </div>

@@ -22,15 +22,15 @@ export const DIRECTIONS = [
 ];
 
 export const DOT_COLORS = [
-  { id: "blue", hex: "#0b3bff", name: "蓝" },
-  { id: "green", hex: "#00b36b", name: "绿" },
-  { id: "yellow", hex: "#ffd400", name: "黄" },
-  { id: "red", hex: "#e53935", name: "红" },
-  { id: "cyan", hex: "#00c2ff", name: "青" },
-  { id: "purple", hex: "#7c3aed", name: "紫" },
-  { id: "orange", hex: "#ff7a00", name: "橙" },
-  { id: "pink", hex: "#ff4d8d", name: "粉" },
-  { id: "lime", hex: "#7bdc00", name: "黄绿" },
+  { id: "blue", hex: "#0a2a8f", name: "深蓝" },
+  { id: "green", hex: "#007a4e", name: "深绿" },
+  { id: "yellow", hex: "#b88600", name: "深黄" },
+  { id: "red", hex: "#b3261e", name: "深红" },
+  { id: "cyan", hex: "#007aa6", name: "深青" },
+  { id: "purple", hex: "#5b21b6", name: "深紫" },
+  { id: "orange", hex: "#c24b00", name: "深橙" },
+  { id: "pink", hex: "#b31b5f", name: "深粉" },
+  { id: "lime", hex: "#4f8f00", name: "深黄绿" },
   { id: "custom", hex: "#ffffff", name: "自定义" }
 ];
 
@@ -42,4 +42,21 @@ export const BG_COLORS = [
   { id: "custom", hex: "#000000", name: "自定义" }
 ];
 
-export const DEFAULT_EMOJI_CHOICES = ["●", "🐵", "🐶", "🐱", "🦄", "⭐", "🌙", "🟦", "🟢", "🟡", "🔴"];
+export const DEFAULT_EMOJI_CHOICES = [
+  "🐵",
+  "🐶",
+  "🐱",
+  "🦊",
+  "🐼",
+  "🦄",
+  "🐧",
+  "🐸",
+  "⭐",
+  "🌙",
+  "🪐",
+  "☀️",
+  "🟦",
+  "🟢",
+  "🟡",
+  "🔴"
+];

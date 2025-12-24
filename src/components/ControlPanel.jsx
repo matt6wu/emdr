@@ -189,15 +189,15 @@ export default function ControlPanel({
           </div>
           <div>
             <div className="text-sm text-slate-600 mb-1">点大小</div>
-            <input
-              type="range"
-              min={10}
-              max={120}
-              step={1}
-              value={dotSize}
-              onChange={(e) => setDotSize(parseInt(e.target.value, 10))}
-              className="w-full"
-            />
+                  <input
+                    type="range"
+                    min={60}
+                    max={150}
+                    step={1}
+                    value={dotSize}
+                    onChange={(e) => setDotSize(parseInt(e.target.value, 10))}
+                    className="w-full"
+                  />
             <div className="text-xs text-slate-500">{dotSize}px</div>
           </div>
         </div>

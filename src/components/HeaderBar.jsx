@@ -4,7 +4,7 @@ export default function HeaderBar({ hideControls, setHideControls, fullscreen, t
   return (
     <div className="w-full px-4 py-3 flex items-center justify-between border-b bg-white">
       <div className="flex items-center gap-3">
-        <div className="font-semibold text-lg">BLS 双侧刺激（自建版）</div>
+        <div className="font-semibold text-lg">BLS 双侧刺激（matt版）</div>
         <div className="text-xs text-slate-500 hidden md:block">
           快捷键：B 开始/停止｜空格 暂停｜↑↓ 调频率｜H 隐藏面板｜F 全屏
         </div>

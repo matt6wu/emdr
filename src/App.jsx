@@ -20,13 +20,13 @@ export default function App() {
   const [direction, setDirection] = useState("lr");
   const [freqHz, setFreqHz] = useState(0.25);
   const [marginPct, setMarginPct] = useState(6);
-  const [dotSize, setDotSize] = useState(99);
+  const [dotSize, setDotSize] = useState(130);
   const [dotColorMode, setDotColorMode] = useState("blue");
   const [dotCustom, setDotCustom] = useState("#3b82f6");
   const [bgMode, setBgMode] = useState("gray");
   const [bgCustom, setBgCustom] = useState("#cfd3d6");
   const [dotEmojiMode, setDotEmojiMode] = useState(false);
-  const [dotEmoji, setDotEmoji] = useState("●");
+  const [dotEmoji, setDotEmoji] = useState("🐵");
   const [posX, setPosX] = useState(0);
   const [posY, setPosY] = useState(0);
 
@@ -200,11 +200,11 @@ export default function App() {
     setPosX(0);
     setPosY(0);
     setMarginPct(6);
-    setDotSize(99);
+    setDotSize(130);
     setDirection("lr");
     setFreqHz(0.25);
     setDotEmojiMode(false);
-    setDotEmoji("●");
+    setDotEmoji("🐵");
     setDotColorMode("blue");
     setBgMode("gray");
     setAudioEnabled(true);
@@ -377,6 +377,8 @@ export default function App() {
           stop={stop}
           togglePaused={() => setPaused((p) => !p)}
           mmss={mmss}
+          randomizeEnabled={randomizeEnabled}
+          setRandomizeEnabled={setRandomizeEnabled}
         />
       </div>
     </div>
