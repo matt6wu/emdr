@@ -1,0 +1,164 @@
+{
+  "common": {
+    "start": "开始",
+    "stop": "停止",
+    "pause": "暂停",
+    "continue": "继续",
+    "reset": "重置",
+    "close": "关闭",
+    "enable": "启用",
+    "show": "面板",
+    "hide": "隐藏"
+  },
+  "header": {
+    "title": "REM Restore Studio™",
+    "shortcuts": "快捷键：B 开始/停止｜空格 暂停｜↑↓ 调频率｜H 隐藏面板｜F 全屏",
+    "showPanel": "显示面板",
+    "hidePanel": "隐藏面板",
+    "panel": "面板",
+    "fullscreen": "全屏",
+    "exitFullscreen": "退出全屏",
+    "fullscreenTitle": "全屏 (F)",
+    "togglePanelTitle": "隐藏/显示控制面板 (H)"
+  },
+  "control": {
+    "panelTitle": "控制面板",
+    "session": "会话",
+    "time": "时间",
+    "cycles": "轮数",
+    "sessionInfo": "时间：{{time}}｜轮数：{{cycles}}",
+    "resetTimer": "重置计时/轮数",
+    "resetDefaults": "恢复默认"
+  },
+  "visual": {
+    "title": "视觉",
+    "direction": "方向",
+    "frequency": "频率 (Hz)",
+    "frequencySlider": "频率滑杆",
+    "margin": "留白（边缘距离）",
+    "dotSize": "点大小",
+    "horizontalPosition": "水平位置",
+    "verticalPosition": "垂直位置",
+    "dotColor": "点颜色",
+    "background": "背景",
+    "emojiMode": "用 Emoji / 图案作为移动点",
+    "emojiSelect": "选择或输入一个字符/emoji",
+    "emojiPlaceholder": "例如：🐵",
+    "emojiHint": "提示：可以输入任意字符（如"●"、emoji、甚至短文字）。"
+  },
+  "audio": {
+    "title": "听觉（左右交替）",
+    "soundType": "声音类型",
+    "volume": "音量",
+    "mute": "静音",
+    "muteDescription": "用于本机静音（如果你在同一房间，不想自己听见）。",
+    "muteLabel": "静音",
+    "description": "说明：这里用 WebAudio 合成音色，不依赖外部音频文件；"左右交替"用 StereoPanner 实现。",
+    "initRequired": "你开启了声音，但浏览器要求"用户交互后才能启动音频"。",
+    "initPrompt": "点一下下面的按钮即可初始化音频：",
+    "initButton": "初始化音频"
+  },
+  "activation": {
+    "title": "激活码 / Activation",
+    "placeholder": "输入激活码",
+    "activate": "激活",
+    "activated": "已激活",
+    "validating": "验证中",
+    "success": "激活成功",
+    "errorRequired": "请输入激活码",
+    "errorInvalid": "激活码无效",
+    "errorFailed": "激活失败，请稍后再试"
+  },
+  "randomize": {
+    "title": "随机化（高级）",
+    "description": "每 N 轮随机调整参数，用于增加工作记忆负荷。",
+    "triggerInterval": "每多少轮触发",
+    "hint": "建议：10~30 轮一变，避免太频繁。",
+    "targetFreq": "频率",
+    "targetDirection": "方向",
+    "targetDotColor": "点颜色",
+    "targetAudio": "声音",
+    "targetBg": "背景",
+    "requiresActivation": "激活后可使用随机化功能。"
+  },
+  "instructions": {
+    "title": "使用方法 / How to Use",
+    "zh": "在心里聚焦一个让你不舒服的念头或画面。按"开始"后，头尽量不动，只用眼睛跟随移动点；离屏幕不要太远。",
+    "en": "Focus on a troubling thought or image. After pressing Start, keep your head still and follow the dot with your eyes; don't sit too far from the screen."
+  },
+  "disclaimer": {
+    "title": "免责声明 / Disclaimer",
+    "zh": "免责声明（非医疗建议）：本网站仅用于信息与教育目的，不构成医疗/健康建议；使用前请咨询专业人士，风险自担。",
+    "en": "Disclaimer (No Medical Advice): This site is for informational/educational use only and is not medical advice. Consult professionals and use at your own risk."
+  },
+  "stage": {
+    "status": "状态",
+    "notStarted": "未开始",
+    "running": "运行中",
+    "paused": "已暂停",
+    "randomOn": "随机:开",
+    "randomOff": "随机:关",
+    "randomLocked": "随机:锁"
+  },
+  "portrait": {
+    "emoji": "📱 → 🔄",
+    "title": "横屏体验更佳",
+    "message": "EMDR 左右移动功能在横屏模式下效果最佳。请旋转设备至横屏以获得最佳体验。",
+    "dismiss": "知道了，继续使用"
+  },
+  "presets": {
+    "directions": {
+      "lr": "↔ 左右",
+      "ud": "↕ 上下",
+      "diag1": "↘ 对角1",
+      "diag2": "↗ 对角2",
+      "infinity": "∞ 8字"
+    },
+    "dotColors": {
+      "blue": "深蓝",
+      "green": "深绿",
+      "yellow": "深黄",
+      "red": "深红",
+      "cyan": "深青",
+      "purple": "深紫",
+      "orange": "深橙",
+      "pink": "深粉",
+      "lime": "深黄绿",
+      "custom": "自定义"
+    },
+    "bgColors": {
+      "gray": "浅灰",
+      "dark": "深色",
+      "white": "白",
+      "pink": "淡粉",
+      "custom": "自定义"
+    },
+    "sounds": {
+      "snap": "👏 响指/啪嗒",
+      "snapDesc": "短促噪声+高通，像响指",
+      "bell": "🔔 柔和铃声",
+      "bellDesc": "正弦/三角波衰减",
+      "bass": "🎸 贝斯",
+      "bassDesc": "低频正弦轻微失真",
+      "drum": "🥁 鼓点",
+      "drumDesc": "低频噪声+包络",
+      "heartbeat": "💓 心跳",
+      "heartbeatDesc": "每拍双击（lub-dub）",
+      "whoosh": "🌬️ 呼呼声",
+      "whooshDesc": "带通噪声缓慢扫频",
+      "shuttle": "🏸 羽毛球",
+      "shuttleDesc": "短促噪声+轻微咔嗒",
+      "woodblock": "🪵 木鱼",
+      "woodblockDesc": "短促敲击+共振",
+      "droplet": "💧 水滴",
+      "dropletDesc": "短促高频下滑",
+      "chime": "🎐 风铃",
+      "chimeDesc": "轻柔多音正弦衰减",
+      "click": "🖱️ 点击",
+      "clickDesc": "极短促高频点击",
+      "rain": "🌧️ 雨声",
+      "rainDesc": "柔和噪声冲击"
+    }
+  },
+  "locked": "🔒"
+}

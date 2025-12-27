@@ -1,0 +1,164 @@
+{
+  "common": {
+    "start": "Start",
+    "stop": "Stop",
+    "pause": "Pause",
+    "continue": "Resume",
+    "reset": "Reset",
+    "close": "Close",
+    "enable": "Enable",
+    "show": "Panel",
+    "hide": "Hide"
+  },
+  "header": {
+    "title": "REM Restore Studio™",
+    "shortcuts": "Shortcuts: B start/stop | Space pause | ↑↓ adjust frequency | H hide panel | F fullscreen",
+    "showPanel": "Show panel",
+    "hidePanel": "Hide panel",
+    "panel": "Panel",
+    "fullscreen": "Fullscreen",
+    "exitFullscreen": "Exit fullscreen",
+    "fullscreenTitle": "Fullscreen (F)",
+    "togglePanelTitle": "Hide/show control panel (H)"
+  },
+  "control": {
+    "panelTitle": "Control Panel",
+    "session": "Session",
+    "time": "Time",
+    "cycles": "Cycles",
+    "sessionInfo": "Time: {{time}} | Cycles: {{cycles}}",
+    "resetTimer": "Reset timer/cycles",
+    "resetDefaults": "Restore defaults"
+  },
+  "visual": {
+    "title": "Visual",
+    "direction": "Direction",
+    "frequency": "Frequency (Hz)",
+    "frequencySlider": "Frequency slider",
+    "margin": "Margin (edge distance)",
+    "dotSize": "Dot size",
+    "horizontalPosition": "Horizontal position",
+    "verticalPosition": "Vertical position",
+    "dotColor": "Dot color",
+    "background": "Background",
+    "emojiMode": "Use emoji/pattern as moving dot",
+    "emojiSelect": "Select or enter a character/emoji",
+    "emojiPlaceholder": "e.g., 🐵",
+    "emojiHint": "Tip: You can enter any character (like "●", emoji, or even short text)."
+  },
+  "audio": {
+    "title": "Audio (left-right alternating)",
+    "soundType": "Sound type",
+    "volume": "Volume",
+    "mute": "Mute",
+    "muteDescription": "For local mute (if you're in the same room and don't want to hear it yourself).",
+    "muteLabel": "Mute",
+    "description": "Note: Synthesized audio using WebAudio, no external files; left-right alternation uses StereoPanner.",
+    "initRequired": "You've enabled audio, but the browser requires user interaction to start audio.",
+    "initPrompt": "Click the button below to initialize audio:",
+    "initButton": "Initialize audio"
+  },
+  "activation": {
+    "title": "Activation Code / 激活码",
+    "placeholder": "Enter activation code",
+    "activate": "Activate",
+    "activated": "Activated",
+    "validating": "Validating",
+    "success": "Activation successful",
+    "errorRequired": "Please enter activation code",
+    "errorInvalid": "Invalid activation code",
+    "errorFailed": "Activation failed, please try again later"
+  },
+  "randomize": {
+    "title": "Randomize (Advanced)",
+    "description": "Randomly adjust parameters every N cycles to increase working memory load.",
+    "triggerInterval": "Trigger every N cycles",
+    "hint": "Recommendation: Change every 10-30 cycles, avoid too frequent.",
+    "targetFreq": "Frequency",
+    "targetDirection": "Direction",
+    "targetDotColor": "Dot color",
+    "targetAudio": "Sound",
+    "targetBg": "Background",
+    "requiresActivation": "Randomize feature available after activation."
+  },
+  "instructions": {
+    "title": "How to Use / 使用方法",
+    "zh": "在心里聚焦一个让你不舒服的念头或画面。按"开始"后，头尽量不动，只用眼睛跟随移动点；离屏幕不要太远。",
+    "en": "Focus on a troubling thought or image. After pressing Start, keep your head still and follow the dot with your eyes; don't sit too far from the screen."
+  },
+  "disclaimer": {
+    "title": "Disclaimer / 免责声明",
+    "zh": "免责声明（非医疗建议）：本网站仅用于信息与教育目的，不构成医疗/健康建议；使用前请咨询专业人士，风险自担。",
+    "en": "Disclaimer (No Medical Advice): This site is for informational/educational use only and is not medical advice. Consult professionals and use at your own risk."
+  },
+  "stage": {
+    "status": "Status",
+    "notStarted": "Not started",
+    "running": "Running",
+    "paused": "Paused",
+    "randomOn": "Random: on",
+    "randomOff": "Random: off",
+    "randomLocked": "Random: locked"
+  },
+  "portrait": {
+    "emoji": "📱 → 🔄",
+    "title": "Landscape mode works better",
+    "message": "EMDR left-right movement works best in landscape mode. Please rotate your device to landscape for the best experience.",
+    "dismiss": "OK, continue using"
+  },
+  "presets": {
+    "directions": {
+      "lr": "↔ Left-Right",
+      "ud": "↕ Up-Down",
+      "diag1": "↘ Diagonal 1",
+      "diag2": "↗ Diagonal 2",
+      "infinity": "∞ Figure 8"
+    },
+    "dotColors": {
+      "blue": "Deep Blue",
+      "green": "Deep Green",
+      "yellow": "Deep Yellow",
+      "red": "Deep Red",
+      "cyan": "Deep Cyan",
+      "purple": "Deep Purple",
+      "orange": "Deep Orange",
+      "pink": "Deep Pink",
+      "lime": "Deep Lime",
+      "custom": "Custom"
+    },
+    "bgColors": {
+      "gray": "Light Gray",
+      "dark": "Dark",
+      "white": "White",
+      "pink": "Light Pink",
+      "custom": "Custom"
+    },
+    "sounds": {
+      "snap": "👏 Snap/Click",
+      "snapDesc": "Short noise + highpass, like a snap",
+      "bell": "🔔 Soft Bell",
+      "bellDesc": "Sine/triangle wave decay",
+      "bass": "🎸 Bass",
+      "bassDesc": "Low freq sine with slight distortion",
+      "drum": "🥁 Drum",
+      "drumDesc": "Low freq noise + envelope",
+      "heartbeat": "💓 Heartbeat",
+      "heartbeatDesc": "Double beat per cycle (lub-dub)",
+      "whoosh": "🌬️ Whoosh",
+      "whooshDesc": "Bandpass noise slow sweep",
+      "shuttle": "🏸 Shuttle",
+      "shuttleDesc": "Short noise + slight click",
+      "woodblock": "🪵 Woodblock",
+      "woodblockDesc": "Short hit + resonance",
+      "droplet": "💧 Droplet",
+      "dropletDesc": "Short high freq descending",
+      "chime": "🎐 Wind Chime",
+      "chimeDesc": "Gentle multi-tone sine decay",
+      "click": "🖱️ Click",
+      "clickDesc": "Very short high freq click",
+      "rain": "🌧️ Rain",
+      "rainDesc": "Soft noise burst"
+    }
+  },
+  "locked": "🔒"
+}

@@ -1,29 +1,39 @@
 import React from "react";
+import { useTranslation } from "../i18n";
 
 export default function HeaderBar({ hideControls, setHideControls, fullscreen, toggleFullscreen }) {
+  const { t, language, setLanguage } = useTranslation();
+
   return (
     <div className="w-full px-3 lg:px-4 py-2 lg:py-3 flex items-center justify-between border-b bg-white">
       <div className="flex items-center gap-2 lg:gap-3">
-        <div className="font-semibold text-base lg:text-lg">REM Restore Studio™</div>
+        <div className="font-semibold text-base lg:text-lg">{t('header.title')}</div>
         <div className="text-xs text-slate-500 hidden md:block">
-          快捷键：B 开始/停止｜空格 暂停｜↑↓ 调频率｜H 隐藏面板｜F 全屏
+          {t('header.shortcuts')}
         </div>
       </div>
       <div className="flex items-center gap-2">
         <button
           className="px-3 py-2 rounded-xl border hover:bg-slate-50 text-sm min-h-[44px] touch-manipulation"
-          onClick={() => setHideControls((v) => !v)}
-          title="隐藏/显示控制面板 (H)"
+          onClick={() => setLanguage(language === 'zh-CN' ? 'en' : 'zh-CN')}
+          title={language === 'zh-CN' ? 'Switch to English' : '切换到中文'}
         >
-          <span className="hidden sm:inline">{hideControls ? "显示面板" : "隐藏面板"}</span>
-          <span className="sm:hidden">{hideControls ? "面板" : "隐藏"}</span>
+          {language === 'zh-CN' ? '🇬🇧 EN' : '🇨🇳 中文'}
+        </button>
+        <button
+          className="px-3 py-2 rounded-xl border hover:bg-slate-50 text-sm min-h-[44px] touch-manipulation"
+          onClick={() => setHideControls((v) => !v)}
+          title={t('header.togglePanelTitle')}
+        >
+          <span className="hidden sm:inline">{hideControls ? t('header.showPanel') : t('header.hidePanel')}</span>
+          <span className="sm:hidden">{hideControls ? t('common.show') : t('common.hide')}</span>
         </button>
         <button
           className="px-3 py-2 rounded-xl border hover:bg-slate-50 text-sm min-h-[44px] touch-manipulation hidden sm:block"
           onClick={toggleFullscreen}
-          title="全屏 (F)"
+          title={t('header.fullscreenTitle')}
         >
-          {fullscreen ? "退出全屏" : "全屏"}
+          {fullscreen ? t('header.exitFullscreen') : t('header.fullscreen')}
         </button>
       </div>
     </div>

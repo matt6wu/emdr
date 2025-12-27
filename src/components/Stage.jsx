@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "../i18n";
 
 export default function Stage({
   stageRef,
@@ -21,15 +22,17 @@ export default function Stage({
   setRandomizeEnabled,
   isActivated
 }) {
+  const { t } = useTranslation();
+
   return (
     <div className="flex-1 relative h-full overflow-hidden">
       <div ref={stageRef} className="absolute inset-0" style={{ background: bgColor }} />
 
       <div className="absolute right-4 bottom-4 flex flex-col gap-2 items-end pointer-events-none">
         <div className="pointer-events-auto rounded-2xl bg-white/80 backdrop-blur border px-3 py-2 text-sm text-slate-800 shadow">
-          <div className="font-medium">状态</div>
+          <div className="font-medium">{t('stage.status')}</div>
           <div className="text-xs text-slate-600">
-            {running ? (paused ? "已暂停" : "运行中") : "未开始"} · {freqHz.toFixed(2)} Hz
+            {running ? (paused ? t('stage.paused') : t('stage.running')) : t('stage.notStarted')} · {freqHz.toFixed(2)} Hz
           </div>
         </div>
       </div>
@@ -65,15 +68,15 @@ export default function Stage({
           <div className="pointer-events-auto rounded-2xl bg-white/90 backdrop-blur border shadow px-3 py-2 flex flex-wrap items-center justify-center gap-2">
             {!running ? (
               <button className="px-4 py-2 rounded-xl bg-emerald-600 text-white min-h-[44px] touch-manipulation" onClick={start}>
-                开始
+                {t('common.start')}
               </button>
             ) : (
               <>
                 <button className="px-3 py-2 rounded-xl border bg-white min-h-[44px] touch-manipulation" onClick={togglePaused}>
-                  {paused ? "继续" : "暂停"}
+                  {paused ? t('common.continue') : t('common.pause')}
                 </button>
                 <button className="px-3 py-2 rounded-xl bg-slate-900 text-white min-h-[44px] touch-manipulation" onClick={stop}>
-                  停止
+                  {t('common.stop')}
                 </button>
               </>
             )}
@@ -82,7 +85,7 @@ export default function Stage({
               onClick={() => setRandomizeEnabled((v) => !v)}
               disabled={!isActivated}
             >
-              {!isActivated ? "随机:锁" : randomizeEnabled ? "随机:开" : "随机:关"}
+              {!isActivated ? t('stage.randomLocked') : randomizeEnabled ? t('stage.randomOn') : t('stage.randomOff')}
             </button>
             <div className="text-sm text-slate-700 tabular-nums px-2">{mmss}</div>
           </div>

@@ -1,45 +1,45 @@
 export const SOUND_PRESETS = [
-  { id: "snap", label: "👏 响指/啪嗒", desc: "短促噪声+高通，像响指" },
-  { id: "bell", label: "🔔 柔和铃声", desc: "正弦/三角波衰减" },
-  { id: "bass", label: "🎸 贝斯", desc: "低频正弦轻微失真" },
-  { id: "drum", label: "🥁 鼓点", desc: "低频噪声+包络" },
-  { id: "heartbeat", label: "💓 心跳", desc: "每拍双击（lub-dub）" },
-  { id: "whoosh", label: "🌬️ 呼呼声", desc: "带通噪声缓慢扫频" },
-  { id: "shuttle", label: "🏸 羽毛球", desc: "短促噪声+轻微咔嗒" },
-  { id: "woodblock", label: "🪵 木鱼", desc: "短促敲击+共振" },
-  { id: "droplet", label: "💧 水滴", desc: "短促高频下滑" },
-  { id: "chime", label: "🎐 风铃", desc: "轻柔多音正弦衰减" },
-  { id: "click", label: "🖱️ 点击", desc: "极短促高频点击" },
-  { id: "rain", label: "🌧️ 雨声", desc: "柔和噪声冲击" }
+  { id: "snap", labelKey: "presets.sounds.snap", descKey: "presets.sounds.snapDesc" },
+  { id: "bell", labelKey: "presets.sounds.bell", descKey: "presets.sounds.bellDesc" },
+  { id: "bass", labelKey: "presets.sounds.bass", descKey: "presets.sounds.bassDesc" },
+  { id: "drum", labelKey: "presets.sounds.drum", descKey: "presets.sounds.drumDesc" },
+  { id: "heartbeat", labelKey: "presets.sounds.heartbeat", descKey: "presets.sounds.heartbeatDesc" },
+  { id: "whoosh", labelKey: "presets.sounds.whoosh", descKey: "presets.sounds.whooshDesc" },
+  { id: "shuttle", labelKey: "presets.sounds.shuttle", descKey: "presets.sounds.shuttleDesc" },
+  { id: "woodblock", labelKey: "presets.sounds.woodblock", descKey: "presets.sounds.woodblockDesc" },
+  { id: "droplet", labelKey: "presets.sounds.droplet", descKey: "presets.sounds.dropletDesc" },
+  { id: "chime", labelKey: "presets.sounds.chime", descKey: "presets.sounds.chimeDesc" },
+  { id: "click", labelKey: "presets.sounds.click", descKey: "presets.sounds.clickDesc" },
+  { id: "rain", labelKey: "presets.sounds.rain", descKey: "presets.sounds.rainDesc" }
 ];
 
 export const DIRECTIONS = [
-  { id: "lr", label: "↔ 左右" },
-  { id: "ud", label: "↕ 上下" },
-  { id: "diag1", label: "↘ 对角1" },
-  { id: "diag2", label: "↗ 对角2" },
-  { id: "infinity", label: "∞ 8字" }
+  { id: "lr", labelKey: "presets.directions.lr" },
+  { id: "ud", labelKey: "presets.directions.ud" },
+  { id: "diag1", labelKey: "presets.directions.diag1" },
+  { id: "diag2", labelKey: "presets.directions.diag2" },
+  { id: "infinity", labelKey: "presets.directions.infinity" }
 ];
 
 export const DOT_COLORS = [
-  { id: "blue", hex: "#0a2a8f", name: "深蓝" },
-  { id: "green", hex: "#007a4e", name: "深绿" },
-  { id: "yellow", hex: "#b88600", name: "深黄" },
-  { id: "red", hex: "#b3261e", name: "深红" },
-  { id: "cyan", hex: "#007aa6", name: "深青" },
-  { id: "purple", hex: "#5b21b6", name: "深紫" },
-  { id: "orange", hex: "#c24b00", name: "深橙" },
-  { id: "pink", hex: "#b31b5f", name: "深粉" },
-  { id: "lime", hex: "#4f8f00", name: "深黄绿" },
-  { id: "custom", hex: "#ffffff", name: "自定义" }
+  { id: "blue", hex: "#0a2a8f", nameKey: "presets.dotColors.blue" },
+  { id: "green", hex: "#007a4e", nameKey: "presets.dotColors.green" },
+  { id: "yellow", hex: "#b88600", nameKey: "presets.dotColors.yellow" },
+  { id: "red", hex: "#b3261e", nameKey: "presets.dotColors.red" },
+  { id: "cyan", hex: "#007aa6", nameKey: "presets.dotColors.cyan" },
+  { id: "purple", hex: "#5b21b6", nameKey: "presets.dotColors.purple" },
+  { id: "orange", hex: "#c24b00", nameKey: "presets.dotColors.orange" },
+  { id: "pink", hex: "#b31b5f", nameKey: "presets.dotColors.pink" },
+  { id: "lime", hex: "#4f8f00", nameKey: "presets.dotColors.lime" },
+  { id: "custom", hex: "#ffffff", nameKey: "presets.dotColors.custom" }
 ];
 
 export const BG_COLORS = [
-  { id: "gray", hex: "#cfd3d6", name: "浅灰" },
-  { id: "dark", hex: "#1f2328", name: "深色" },
-  { id: "white", hex: "#ffffff", name: "白" },
-  { id: "pink", hex: "#ffe3ee", name: "淡粉" },
-  { id: "custom", hex: "#000000", name: "自定义" }
+  { id: "gray", hex: "#cfd3d6", nameKey: "presets.bgColors.gray" },
+  { id: "dark", hex: "#1f2328", nameKey: "presets.bgColors.dark" },
+  { id: "white", hex: "#ffffff", nameKey: "presets.bgColors.white" },
+  { id: "pink", hex: "#ffe3ee", nameKey: "presets.bgColors.pink" },
+  { id: "custom", hex: "#000000", nameKey: "presets.bgColors.custom" }
 ];
 
 export const DEFAULT_EMOJI_CHOICES = [

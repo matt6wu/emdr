@@ -11,8 +11,10 @@ import {
 import { useAudioEngine } from "./hooks/useAudioEngine.js";
 import { computePosition } from "./logic/position.js";
 import { clamp, randBetween, randItem } from "./utils/math.js";
+import { useTranslation } from "./i18n";
 
 export default function App() {
+  const { t } = useTranslation();
   const [running, setRunning] = useState(false);
   const [paused, setPaused] = useState(false);
 
@@ -109,7 +111,7 @@ export default function App() {
     const code = normalizeCode(activationInput);
     if (!code) {
       setActivationStatus("error");
-      setActivationError("请输入激活码");
+      setActivationError(t('activation.errorRequired'));
       return;
     }
 
@@ -136,11 +138,11 @@ export default function App() {
         setActivationStatus("success");
       } else {
         setActivationStatus("error");
-        setActivationError("激活码无效");
+        setActivationError(t('activation.errorInvalid'));
       }
     } catch {
       setActivationStatus("error");
-      setActivationError("激活失败，请稍后再试");
+      setActivationError(t('activation.errorFailed'));
     }
   };
 
@@ -421,18 +423,16 @@ export default function App() {
       {isPortrait && !dismissedPortraitHint && (
         <div className="fixed inset-0 bg-black/90 z-[100] flex items-center justify-center p-6">
           <div className="bg-white rounded-2xl p-6 max-w-sm text-center space-y-4">
-            <div className="text-6xl">📱 → 🔄</div>
-            <div className="text-xl font-semibold">横屏体验更佳</div>
+            <div className="text-6xl">{t('portrait.emoji')}</div>
+            <div className="text-xl font-semibold">{t('portrait.title')}</div>
             <div className="text-sm text-slate-600">
-              EMDR 左右移动功能在横屏模式下效果最佳。
-              <br />
-              请旋转设备至横屏以获得最佳体验。
+              {t('portrait.message')}
             </div>
             <button
               className="w-full px-4 py-3 rounded-xl bg-slate-900 text-white hover:bg-slate-800 min-h-[44px] touch-manipulation"
               onClick={() => setDismissedPortraitHint(true)}
             >
-              知道了，继续使用
+              {t('portrait.dismiss')}
             </button>
           </div>
         </div>
