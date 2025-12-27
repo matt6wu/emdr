@@ -93,6 +93,57 @@ export default function App() {
     return x < width / 2 ? -1 : 1;
   }, [marginPct, freqHz, posX, posY, direction, audioLeadSec]);
 
+  const activationEndpoint = import.meta.env.VITE_ACTIVATION_ENDPOINT || "/api/activate";
+  const [activationCode, setActivationCode] = useState(() => localStorage.getItem("activation_code") || "");
+  const [activationInput, setActivationInput] = useState("");
+  const [activationStatus, setActivationStatus] = useState("idle");
+  const [activationError, setActivationError] = useState("");
+
+  const normalizeCode = (value) => value.trim().toUpperCase();
+
+  // 硬编码激活码（部署前删除）
+  const HARDCODED_CODE = "888888";
+  const isActivated = activationCode.length > 0;
+
+  const activateCode = async () => {
+    const code = normalizeCode(activationInput);
+    if (!code) {
+      setActivationStatus("error");
+      setActivationError("请输入激活码");
+      return;
+    }
+
+    // 检查硬编码激活码（部署前删除此段）
+    if (code === HARDCODED_CODE) {
+      localStorage.setItem("activation_code", code);
+      setActivationCode(code);
+      setActivationStatus("success");
+      return;
+    }
+
+    setActivationStatus("loading");
+    setActivationError("");
+    try {
+      const res = await fetch(activationEndpoint, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ code })
+      });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data?.ok) {
+        localStorage.setItem("activation_code", code);
+        setActivationCode(code);
+        setActivationStatus("success");
+      } else {
+        setActivationStatus("error");
+        setActivationError("激活码无效");
+      }
+    } catch {
+      setActivationStatus("error");
+      setActivationError("激活失败，请稍后再试");
+    }
+  };
+
   const { ensureAudio, stopBeatClock, resetBeatSide, playImmediateBeat, canPlayAudioHint } = useAudioEngine({
     audioEnabled,
     audioPreset,
@@ -130,16 +181,12 @@ export default function App() {
           setElapsedMs(t);
         }
 
-        const stage = stageRef.current;
-        if (stage) {
-          const rect = stage.getBoundingClientRect();
-          const tSec = t / 1000;
-          const cyclesFreq = clamp(freqHz, 0.1, 0.8);
-          const c = Math.floor(tSec * cyclesFreq);
-          if (c !== lastCycleRef.current) {
-            lastCycleRef.current = c;
-            setCycles(c);
-          }
+        const tSec = t / 1000;
+        const cyclesFreq = clamp(freqHz, 0.1, 0.8);
+        const c = Math.floor(tSec * cyclesFreq);
+        if (c !== lastCycleRef.current) {
+          lastCycleRef.current = c;
+          setCycles(c);
         }
       }
 
@@ -169,6 +216,10 @@ export default function App() {
       window.removeEventListener("resize", updateSize);
     };
   }, []);
+
+  useEffect(() => {
+    if (!isActivated && randomizeEnabled) setRandomizeEnabled(false);
+  }, [isActivated, randomizeEnabled]);
 
   useEffect(() => {
     if (!randomizeEnabled) return;
@@ -449,6 +500,12 @@ export default function App() {
             setRandomizeEveryCycles={setRandomizeEveryCycles}
             randomizeTargets={randomizeTargets}
             setRandomizeTargets={setRandomizeTargets}
+            isActivated={isActivated}
+            activationInput={activationInput}
+            setActivationInput={setActivationInput}
+            activationStatus={activationStatus}
+            activationError={activationError}
+            activateCode={activateCode}
             isMobile={false}
             onClose={() => {}}
           />
@@ -516,6 +573,12 @@ export default function App() {
                 setRandomizeEveryCycles={setRandomizeEveryCycles}
                 randomizeTargets={randomizeTargets}
                 setRandomizeTargets={setRandomizeTargets}
+                isActivated={isActivated}
+                activationInput={activationInput}
+                setActivationInput={setActivationInput}
+                activationStatus={activationStatus}
+                activationError={activationError}
+                activateCode={activateCode}
                 isMobile={true}
                 onClose={() => setHideControls(true)}
               />
@@ -542,6 +605,7 @@ export default function App() {
           mmss={mmss}
           randomizeEnabled={randomizeEnabled}
           setRandomizeEnabled={setRandomizeEnabled}
+          isActivated={isActivated}
         />
       </div>
     </div>

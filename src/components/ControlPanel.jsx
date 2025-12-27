@@ -59,6 +59,12 @@ export default function ControlPanel({
   setRandomizeEveryCycles,
   randomizeTargets,
   setRandomizeTargets,
+  isActivated,
+  activationInput,
+  setActivationInput,
+  activationStatus,
+  activationError,
+  activateCode,
   isMobile = false,
   onClose = () => {}
 }) {
@@ -87,6 +93,32 @@ export default function ControlPanel({
         <div className="text-xs text-slate-600">
           Focus on a troubling thought or image. After pressing Start, keep your head still and follow the dot with your eyes; don’t sit too far from the screen.
         </div>
+      </div>
+
+      <div className="rounded-2xl border p-4 space-y-2">
+        <div className="font-semibold">激活码 / Activation</div>
+        <div className="flex items-center gap-2">
+          <input
+            className="flex-1 px-3 py-2 rounded-xl border"
+            placeholder="输入激活码"
+            value={activationInput}
+            onChange={(e) => setActivationInput(e.target.value)}
+            disabled={isActivated}
+          />
+          <button
+            className="px-3 py-2 rounded-xl border"
+            onClick={activateCode}
+            disabled={isActivated || activationStatus === "loading"}
+          >
+            {isActivated ? "已激活" : activationStatus === "loading" ? "验证中" : "激活"}
+          </button>
+        </div>
+        {activationError && !isActivated && (
+          <div className="text-xs text-rose-600">{activationError}</div>
+        )}
+        {isActivated && (
+          <div className="text-xs text-emerald-600">激活成功</div>
+        )}
       </div>
 
       <div className="rounded-2xl border p-4">
@@ -171,22 +203,27 @@ export default function ControlPanel({
             </select>
           </div>
           <div>
-            <div className="text-sm text-slate-600 mb-1">频率 (Hz)</div>
+            <div className="text-sm text-slate-600 mb-1">
+              频率 (Hz) {!isActivated && <span className="text-xs text-amber-600">🔒</span>}
+            </div>
             <input
               type="number"
               className="w-full px-3 py-2 rounded-xl border"
               step={0.05}
               min={0.1}
-                    max={0.8}
+              max={0.8}
               value={freqHz}
               onChange={(e) => setFreqHz(parseFloat(e.target.value || "0"))}
+              disabled={!isActivated}
             />
           </div>
         </div>
 
         <div>
           <div className="flex items-center justify-between">
-            <div className="text-sm text-slate-600">频率滑杆</div>
+            <div className="text-sm text-slate-600">
+              频率滑杆 {!isActivated && <span className="text-xs text-amber-600">🔒</span>}
+            </div>
             <div className="text-sm tabular-nums text-slate-700">{freqHz.toFixed(2)} Hz</div>
           </div>
           <input
@@ -197,12 +234,15 @@ export default function ControlPanel({
             value={freqHz}
             onChange={(e) => setFreqHz(parseFloat(e.target.value))}
             className="w-full"
+            disabled={!isActivated}
           />
         </div>
 
         <div className="grid grid-cols-2 gap-3">
           <div>
-            <div className="text-sm text-slate-600 mb-1">留白（边缘距离）</div>
+            <div className="text-sm text-slate-600 mb-1">
+              留白（边缘距离） {!isActivated && <span className="text-xs text-amber-600">🔒</span>}
+            </div>
             <input
               type="range"
               min={0}
@@ -211,27 +251,33 @@ export default function ControlPanel({
               value={marginPct}
               onChange={(e) => setMarginPct(parseInt(e.target.value, 10))}
               className="w-full"
+              disabled={!isActivated}
             />
             <div className="text-xs text-slate-500">{marginPct}%</div>
           </div>
           <div>
-            <div className="text-sm text-slate-600 mb-1">点大小</div>
-                  <input
-                    type="range"
-                    min={60}
-                    max={200}
-                    step={1}
-                    value={dotSize}
-                    onChange={(e) => setDotSize(parseInt(e.target.value, 10))}
-                    className="w-full"
-                  />
+            <div className="text-sm text-slate-600 mb-1">
+              点大小 {!isActivated && <span className="text-xs text-amber-600">🔒</span>}
+            </div>
+            <input
+              type="range"
+              min={60}
+              max={200}
+              step={1}
+              value={dotSize}
+              onChange={(e) => setDotSize(parseInt(e.target.value, 10))}
+              className="w-full"
+              disabled={!isActivated}
+            />
             <div className="text-xs text-slate-500">{dotSize}px</div>
           </div>
         </div>
 
         <div className="grid grid-cols-2 gap-3">
           <div>
-            <div className="text-sm text-slate-600 mb-1">水平位置</div>
+            <div className="text-sm text-slate-600 mb-1">
+              水平位置 {!isActivated && <span className="text-xs text-amber-600">🔒</span>}
+            </div>
             <input
               type="range"
               min={-100}
@@ -240,11 +286,14 @@ export default function ControlPanel({
               value={posX}
               onChange={(e) => setPosX(parseInt(e.target.value, 10))}
               className="w-full"
+              disabled={!isActivated}
             />
             <div className="text-xs text-slate-500">{posX}</div>
           </div>
           <div>
-            <div className="text-sm text-slate-600 mb-1">垂直位置</div>
+            <div className="text-sm text-slate-600 mb-1">
+              垂直位置 {!isActivated && <span className="text-xs text-amber-600">🔒</span>}
+            </div>
             <input
               type="range"
               min={-100}
@@ -253,6 +302,7 @@ export default function ControlPanel({
               value={posY}
               onChange={(e) => setPosY(parseInt(e.target.value, 10))}
               className="w-full"
+              disabled={!isActivated}
             />
             <div className="text-xs text-slate-500">{posY}</div>
           </div>
@@ -260,50 +310,66 @@ export default function ControlPanel({
 
         <div className="grid grid-cols-2 gap-3">
           <div>
-            <div className="text-sm text-slate-600 mb-2">点颜色</div>
+            <div className="text-sm text-slate-600 mb-2">
+              点颜色 {!isActivated && !["blue", "green", "red"].includes(dotColorMode) && <span className="text-xs text-amber-600">🔒</span>}
+            </div>
             <div className="flex flex-wrap gap-2">
-              {DOT_COLORS.map((c) => (
-                <button
-                  key={c.id}
-                  className={`w-10 h-10 rounded-xl border ${dotColorMode === c.id ? "ring-2 ring-emerald-500" : ""}`}
-                  style={{ background: c.id === "custom" ? dotCustom : c.hex }}
-                  onClick={() => setDotColorMode(c.id)}
-                  title={c.name}
-                />
-              ))}
+              {DOT_COLORS.map((c) => {
+                const isFree = ["blue", "green", "red"].includes(c.id);
+                const isLocked = !isFree && !isActivated;
+                return (
+                  <button
+                    key={c.id}
+                    className={`w-10 h-10 rounded-xl border ${dotColorMode === c.id ? "ring-2 ring-emerald-500" : ""} ${isLocked ? "opacity-50 cursor-not-allowed" : ""}`}
+                    style={{ background: c.id === "custom" ? dotCustom : c.hex }}
+                    onClick={() => setDotColorMode(c.id)}
+                    disabled={isLocked}
+                    title={`${c.name}${isLocked ? " 🔒" : ""}`}
+                  />
+                );
+              })}
             </div>
             {dotColorMode === "custom" && (
               <div className="mt-2 flex items-center gap-2">
-                <input type="color" value={dotCustom} onChange={(e) => setDotCustom(e.target.value)} />
+                <input type="color" value={dotCustom} onChange={(e) => setDotCustom(e.target.value)} disabled={!isActivated} />
                 <input
                   className="flex-1 px-3 py-2 rounded-xl border"
                   value={dotCustom}
                   onChange={(e) => setDotCustom(e.target.value)}
+                  disabled={!isActivated}
                 />
               </div>
             )}
           </div>
 
           <div>
-            <div className="text-sm text-slate-600 mb-2">背景</div>
+            <div className="text-sm text-slate-600 mb-2">
+              背景 {!isActivated && !["gray", "white"].includes(bgMode) && <span className="text-xs text-amber-600">🔒</span>}
+            </div>
             <div className="flex flex-wrap gap-2">
-              {BG_COLORS.map((c) => (
-                <button
-                  key={c.id}
-                  className={`w-10 h-10 rounded-xl border ${bgMode === c.id ? "ring-2 ring-emerald-500" : ""}`}
-                  style={{ background: c.id === "custom" ? bgCustom : c.hex }}
-                  onClick={() => setBgMode(c.id)}
-                  title={c.name}
-                />
-              ))}
+              {BG_COLORS.map((c) => {
+                const isFree = ["gray", "white"].includes(c.id);
+                const isLocked = !isFree && !isActivated;
+                return (
+                  <button
+                    key={c.id}
+                    className={`w-10 h-10 rounded-xl border ${bgMode === c.id ? "ring-2 ring-emerald-500" : ""} ${isLocked ? "opacity-50 cursor-not-allowed" : ""}`}
+                    style={{ background: c.id === "custom" ? bgCustom : c.hex }}
+                    onClick={() => setBgMode(c.id)}
+                    disabled={isLocked}
+                    title={`${c.name}${isLocked ? " 🔒" : ""}`}
+                  />
+                );
+              })}
             </div>
             {bgMode === "custom" && (
               <div className="mt-2 flex items-center gap-2">
-                <input type="color" value={bgCustom} onChange={(e) => setBgCustom(e.target.value)} />
+                <input type="color" value={bgCustom} onChange={(e) => setBgCustom(e.target.value)} disabled={!isActivated} />
                 <input
                   className="flex-1 px-3 py-2 rounded-xl border"
                   value={bgCustom}
                   onChange={(e) => setBgCustom(e.target.value)}
+                  disabled={!isActivated}
                 />
               </div>
             )}
@@ -312,9 +378,11 @@ export default function ControlPanel({
 
         <div className="rounded-xl border p-3">
           <div className="flex items-center justify-between">
-            <div className="font-medium">用 Emoji / 图案作为移动点</div>
+            <div className="font-medium">
+              用 Emoji / 图案作为移动点 {!isActivated && <span className="text-xs text-amber-600">🔒</span>}
+            </div>
             <label className="flex items-center gap-2 text-sm">
-              <input type="checkbox" checked={dotEmojiMode} onChange={(e) => setDotEmojiMode(e.target.checked)} />
+              <input type="checkbox" checked={dotEmojiMode} onChange={(e) => setDotEmojiMode(e.target.checked)} disabled={!isActivated} />
               启用
             </label>
           </div>
@@ -325,8 +393,9 @@ export default function ControlPanel({
                 {DEFAULT_EMOJI_CHOICES.map((entry) => (
                   <button
                     key={entry}
-                    className={`px-3 py-2 rounded-xl border ${dotEmoji === entry ? "ring-2 ring-emerald-500" : ""}`}
+                    className={`px-3 py-2 rounded-xl border ${dotEmoji === entry ? "ring-2 ring-emerald-500" : ""} ${!isActivated ? "opacity-50 cursor-not-allowed" : ""}`}
                     onClick={() => setDotEmoji(entry)}
+                    disabled={!isActivated}
                   >
                     {entry}
                   </button>
@@ -337,8 +406,9 @@ export default function ControlPanel({
                 value={dotEmoji}
                 onChange={(e) => setDotEmoji(e.target.value)}
                 placeholder="例如：🐵"
+                disabled={!isActivated}
               />
-              <div className="text-xs text-slate-500 mt-1">提示：可以输入任意字符（如“●”、emoji、甚至短文字）。</div>
+              <div className="text-xs text-slate-500 mt-1">提示：可以输入任意字符（如"●"、emoji、甚至短文字）。</div>
             </div>
           )}
         </div>
@@ -363,13 +433,19 @@ export default function ControlPanel({
 
         <div className="grid grid-cols-2 gap-3">
           <div>
-            <div className="text-sm text-slate-600 mb-1">声音类型</div>
+            <div className="text-sm text-slate-600 mb-1">
+              声音类型 {!isActivated && !["shuttle", "snap"].includes(audioPreset) && <span className="text-xs text-amber-600">🔒</span>}
+            </div>
             <select className="w-full px-3 py-2 rounded-xl border" value={audioPreset} onChange={(e) => setAudioPreset(e.target.value)}>
-              {SOUND_PRESETS.map((s) => (
-                <option key={s.id} value={s.id}>
-                  {s.label}
-                </option>
-              ))}
+              {SOUND_PRESETS.map((s) => {
+                const isFree = ["shuttle", "snap"].includes(s.id);
+                const isLocked = !isFree && !isActivated;
+                return (
+                  <option key={s.id} value={s.id} disabled={isLocked}>
+                    {s.label} {isLocked ? "🔒" : ""}
+                  </option>
+                );
+              })}
             </select>
           </div>
           <div>
@@ -404,33 +480,39 @@ export default function ControlPanel({
       </div>
 
       <div className="rounded-2xl border p-4 space-y-3">
-        <div className="flex items-center justify-between">
-          <div>
-            <div className="font-semibold">随机化（高级）</div>
-            <div className="text-xs text-slate-500">每 N 轮随机调整参数，用于增加工作记忆负荷。</div>
-          </div>
-          <label className="flex items-center gap-2 text-sm">
-            <input type="checkbox" checked={randomizeEnabled} onChange={(e) => setRandomizeEnabled(e.target.checked)} />
-            启用
-          </label>
-        </div>
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="font-semibold">随机化（高级）</div>
+                  <div className="text-xs text-slate-500">每 N 轮随机调整参数，用于增加工作记忆负荷。</div>
+                </div>
+                <label className="flex items-center gap-2 text-sm">
+                  <input
+                    type="checkbox"
+                    checked={randomizeEnabled}
+                    onChange={(e) => setRandomizeEnabled(e.target.checked)}
+                    disabled={!isActivated}
+                  />
+                  启用
+                </label>
+              </div>
 
         <div className="grid grid-cols-2 gap-3">
           <div>
             <div className="text-sm text-slate-600 mb-1">每多少轮触发</div>
-            <input
-              type="number"
-              className="w-full px-3 py-2 rounded-xl border"
-              min={1}
-              max={200}
-              value={randomizeEveryCycles}
-              onChange={(e) => setRandomizeEveryCycles(parseInt(e.target.value || "1", 10))}
-            />
-          </div>
-          <div className="text-xs text-slate-500 flex items-end">建议：10~30 轮一变，避免太频繁。</div>
-        </div>
+                  <input
+                    type="number"
+                    className="w-full px-3 py-2 rounded-xl border"
+                    min={1}
+                    max={200}
+                    value={randomizeEveryCycles}
+                    onChange={(e) => setRandomizeEveryCycles(parseInt(e.target.value || "1", 10))}
+                    disabled={!isActivated}
+                  />
+                </div>
+                <div className="text-xs text-slate-500 flex items-end">建议：10~30 轮一变，避免太频繁。</div>
+              </div>
 
-        <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-2 gap-2">
           {[
             ["freq", "频率"],
             ["direction", "方向"],
@@ -439,16 +521,20 @@ export default function ControlPanel({
             ["bg", "背景"]
           ].map(([key, label]) => (
             <label key={key} className="flex items-center gap-2 text-sm rounded-xl border p-2">
-              <input
-                type="checkbox"
-                checked={randomizeTargets[key]}
-                onChange={(e) => setRandomizeTargets((prev) => ({ ...prev, [key]: e.target.checked }))}
-              />
-              {label}
-            </label>
-          ))}
-        </div>
-      </div>
+                    <input
+                      type="checkbox"
+                      checked={randomizeTargets[key]}
+                      onChange={(e) => setRandomizeTargets((prev) => ({ ...prev, [key]: e.target.checked }))}
+                      disabled={!isActivated}
+                    />
+                    {label}
+                  </label>
+                ))}
+              </div>
+              {!isActivated && (
+                <div className="text-xs text-amber-700">激活后可使用随机化功能。</div>
+              )}
+            </div>
 
       <div className="rounded-2xl border p-4 space-y-2">
         <div className="font-semibold">待实现：来访者链接/远程控制</div>
