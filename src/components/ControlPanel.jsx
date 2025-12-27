@@ -311,19 +311,23 @@ export default function ControlPanel({
         <div className="grid grid-cols-2 gap-3">
           <div>
             <div className="text-sm text-slate-600 mb-2">
-              点颜色 {!isActivated && dotColorMode === 'custom' && <span className="text-xs text-amber-600">🔒 自定义需激活</span>}
+              点颜色 {!isActivated && !["blue", "green", "red"].includes(dotColorMode) && <span className="text-xs text-amber-600">🔒</span>}
             </div>
             <div className="flex flex-wrap gap-2">
-              {DOT_COLORS.map((c) => (
-                <button
-                  key={c.id}
-                  className={`w-10 h-10 rounded-xl border ${dotColorMode === c.id ? "ring-2 ring-emerald-500" : ""} ${c.id === 'custom' && !isActivated ? "opacity-50 cursor-not-allowed" : ""}`}
-                  style={{ background: c.id === "custom" ? dotCustom : c.hex }}
-                  onClick={() => setDotColorMode(c.id)}
-                  disabled={c.id === 'custom' && !isActivated}
-                  title={c.name}
-                />
-              ))}
+              {DOT_COLORS.map((c) => {
+                const isFree = ["blue", "green", "red"].includes(c.id);
+                const isLocked = !isFree && !isActivated;
+                return (
+                  <button
+                    key={c.id}
+                    className={`w-10 h-10 rounded-xl border ${dotColorMode === c.id ? "ring-2 ring-emerald-500" : ""} ${isLocked ? "opacity-50 cursor-not-allowed" : ""}`}
+                    style={{ background: c.id === "custom" ? dotCustom : c.hex }}
+                    onClick={() => setDotColorMode(c.id)}
+                    disabled={isLocked}
+                    title={`${c.name}${isLocked ? " 🔒" : ""}`}
+                  />
+                );
+              })}
             </div>
             {dotColorMode === "custom" && (
               <div className="mt-2 flex items-center gap-2">
@@ -340,19 +344,23 @@ export default function ControlPanel({
 
           <div>
             <div className="text-sm text-slate-600 mb-2">
-              背景 {!isActivated && bgMode === 'custom' && <span className="text-xs text-amber-600">🔒 自定义需激活</span>}
+              背景 {!isActivated && !["gray", "white"].includes(bgMode) && <span className="text-xs text-amber-600">🔒</span>}
             </div>
             <div className="flex flex-wrap gap-2">
-              {BG_COLORS.map((c) => (
-                <button
-                  key={c.id}
-                  className={`w-10 h-10 rounded-xl border ${bgMode === c.id ? "ring-2 ring-emerald-500" : ""} ${c.id === 'custom' && !isActivated ? "opacity-50 cursor-not-allowed" : ""}`}
-                  style={{ background: c.id === "custom" ? bgCustom : c.hex }}
-                  onClick={() => setBgMode(c.id)}
-                  disabled={c.id === 'custom' && !isActivated}
-                  title={c.name}
-                />
-              ))}
+              {BG_COLORS.map((c) => {
+                const isFree = ["gray", "white"].includes(c.id);
+                const isLocked = !isFree && !isActivated;
+                return (
+                  <button
+                    key={c.id}
+                    className={`w-10 h-10 rounded-xl border ${bgMode === c.id ? "ring-2 ring-emerald-500" : ""} ${isLocked ? "opacity-50 cursor-not-allowed" : ""}`}
+                    style={{ background: c.id === "custom" ? bgCustom : c.hex }}
+                    onClick={() => setBgMode(c.id)}
+                    disabled={isLocked}
+                    title={`${c.name}${isLocked ? " 🔒" : ""}`}
+                  />
+                );
+              })}
             </div>
             {bgMode === "custom" && (
               <div className="mt-2 flex items-center gap-2">
@@ -385,8 +393,9 @@ export default function ControlPanel({
                 {DEFAULT_EMOJI_CHOICES.map((entry) => (
                   <button
                     key={entry}
-                    className={`px-3 py-2 rounded-xl border ${dotEmoji === entry ? "ring-2 ring-emerald-500" : ""}`}
+                    className={`px-3 py-2 rounded-xl border ${dotEmoji === entry ? "ring-2 ring-emerald-500" : ""} ${!isActivated ? "opacity-50 cursor-not-allowed" : ""}`}
                     onClick={() => setDotEmoji(entry)}
+                    disabled={!isActivated}
                   >
                     {entry}
                   </button>
@@ -397,8 +406,9 @@ export default function ControlPanel({
                 value={dotEmoji}
                 onChange={(e) => setDotEmoji(e.target.value)}
                 placeholder="例如：🐵"
+                disabled={!isActivated}
               />
-              <div className="text-xs text-slate-500 mt-1">提示：可以输入任意字符（如“●”、emoji、甚至短文字）。</div>
+              <div className="text-xs text-slate-500 mt-1">提示：可以输入任意字符（如"●"、emoji、甚至短文字）。</div>
             </div>
           )}
         </div>
@@ -423,13 +433,19 @@ export default function ControlPanel({
 
         <div className="grid grid-cols-2 gap-3">
           <div>
-            <div className="text-sm text-slate-600 mb-1">声音类型</div>
+            <div className="text-sm text-slate-600 mb-1">
+              声音类型 {!isActivated && !["shuttle", "snap"].includes(audioPreset) && <span className="text-xs text-amber-600">🔒</span>}
+            </div>
             <select className="w-full px-3 py-2 rounded-xl border" value={audioPreset} onChange={(e) => setAudioPreset(e.target.value)}>
-              {SOUND_PRESETS.map((s) => (
-                <option key={s.id} value={s.id}>
-                  {s.label}
-                </option>
-              ))}
+              {SOUND_PRESETS.map((s) => {
+                const isFree = ["shuttle", "snap"].includes(s.id);
+                const isLocked = !isFree && !isActivated;
+                return (
+                  <option key={s.id} value={s.id} disabled={isLocked}>
+                    {s.label} {isLocked ? "🔒" : ""}
+                  </option>
+                );
+              })}
             </select>
           </div>
           <div>
