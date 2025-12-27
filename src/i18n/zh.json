@@ -44,7 +44,7 @@
     "emojiMode": "用 Emoji / 图案作为移动点",
     "emojiSelect": "选择或输入一个字符/emoji",
     "emojiPlaceholder": "例如：🐵",
-    "emojiHint": "提示：可以输入任意字符（如"●"、emoji、甚至短文字）。"
+    "emojiHint": "提示：可以输入任意字符（如\"●\"、emoji、甚至短文字）。"
   },
   "audio": {
     "title": "听觉（左右交替）",
@@ -53,8 +53,8 @@
     "mute": "静音",
     "muteDescription": "用于本机静音（如果你在同一房间，不想自己听见）。",
     "muteLabel": "静音",
-    "description": "说明：这里用 WebAudio 合成音色，不依赖外部音频文件；"左右交替"用 StereoPanner 实现。",
-    "initRequired": "你开启了声音，但浏览器要求"用户交互后才能启动音频"。",
+    "description": "说明：这里用 WebAudio 合成音色，不依赖外部音频文件；\"左右交替\"用 StereoPanner 实现。",
+    "initRequired": "你开启了声音，但浏览器要求\"用户交互后才能启动音频\"。",
     "initPrompt": "点一下下面的按钮即可初始化音频：",
     "initButton": "初始化音频"
   },
@@ -83,7 +83,7 @@
   },
   "instructions": {
     "title": "使用方法 / How to Use",
-    "zh": "在心里聚焦一个让你不舒服的念头或画面。按"开始"后，头尽量不动，只用眼睛跟随移动点；离屏幕不要太远。",
+    "zh": "在心里聚焦一个让你不舒服的念头或画面。按\"开始\"后，头尽量不动，只用眼睛跟随移动点；离屏幕不要太远。",
     "en": "Focus on a troubling thought or image. After pressing Start, keep your head still and follow the dot with your eyes; don't sit too far from the screen."
   },
   "disclaimer": {

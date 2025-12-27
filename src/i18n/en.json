@@ -44,7 +44,7 @@
     "emojiMode": "Use emoji/pattern as moving dot",
     "emojiSelect": "Select or enter a character/emoji",
     "emojiPlaceholder": "e.g., 🐵",
-    "emojiHint": "Tip: You can enter any character (like "●", emoji, or even short text)."
+    "emojiHint": "Tip: You can enter any character (like \"●\", emoji, or even short text)."
   },
   "audio": {
     "title": "Audio (left-right alternating)",
@@ -83,7 +83,7 @@
   },
   "instructions": {
     "title": "How to Use / 使用方法",
-    "zh": "在心里聚焦一个让你不舒服的念头或画面。按"开始"后，头尽量不动，只用眼睛跟随移动点；离屏幕不要太远。",
+    "zh": "在心里聚焦一个让你不舒服的念头或画面。按\"开始\"后，头尽量不动，只用眼睛跟随移动点；离屏幕不要太远。",
     "en": "Focus on a troubling thought or image. After pressing Start, keep your head still and follow the dot with your eyes; don't sit too far from the screen."
   },
   "disclaimer": {
