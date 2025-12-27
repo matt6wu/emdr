@@ -203,22 +203,27 @@ export default function ControlPanel({
             </select>
           </div>
           <div>
-            <div className="text-sm text-slate-600 mb-1">频率 (Hz)</div>
+            <div className="text-sm text-slate-600 mb-1">
+              频率 (Hz) {!isActivated && <span className="text-xs text-amber-600">🔒</span>}
+            </div>
             <input
               type="number"
               className="w-full px-3 py-2 rounded-xl border"
               step={0.05}
               min={0.1}
-                    max={0.8}
+              max={0.8}
               value={freqHz}
               onChange={(e) => setFreqHz(parseFloat(e.target.value || "0"))}
+              disabled={!isActivated}
             />
           </div>
         </div>
 
         <div>
           <div className="flex items-center justify-between">
-            <div className="text-sm text-slate-600">频率滑杆</div>
+            <div className="text-sm text-slate-600">
+              频率滑杆 {!isActivated && <span className="text-xs text-amber-600">🔒</span>}
+            </div>
             <div className="text-sm tabular-nums text-slate-700">{freqHz.toFixed(2)} Hz</div>
           </div>
           <input
@@ -229,12 +234,15 @@ export default function ControlPanel({
             value={freqHz}
             onChange={(e) => setFreqHz(parseFloat(e.target.value))}
             className="w-full"
+            disabled={!isActivated}
           />
         </div>
 
         <div className="grid grid-cols-2 gap-3">
           <div>
-            <div className="text-sm text-slate-600 mb-1">留白（边缘距离）</div>
+            <div className="text-sm text-slate-600 mb-1">
+              留白（边缘距离） {!isActivated && <span className="text-xs text-amber-600">🔒</span>}
+            </div>
             <input
               type="range"
               min={0}
@@ -243,27 +251,33 @@ export default function ControlPanel({
               value={marginPct}
               onChange={(e) => setMarginPct(parseInt(e.target.value, 10))}
               className="w-full"
+              disabled={!isActivated}
             />
             <div className="text-xs text-slate-500">{marginPct}%</div>
           </div>
           <div>
-            <div className="text-sm text-slate-600 mb-1">点大小</div>
-                  <input
-                    type="range"
-                    min={60}
-                    max={200}
-                    step={1}
-                    value={dotSize}
-                    onChange={(e) => setDotSize(parseInt(e.target.value, 10))}
-                    className="w-full"
-                  />
+            <div className="text-sm text-slate-600 mb-1">
+              点大小 {!isActivated && <span className="text-xs text-amber-600">🔒</span>}
+            </div>
+            <input
+              type="range"
+              min={60}
+              max={200}
+              step={1}
+              value={dotSize}
+              onChange={(e) => setDotSize(parseInt(e.target.value, 10))}
+              className="w-full"
+              disabled={!isActivated}
+            />
             <div className="text-xs text-slate-500">{dotSize}px</div>
           </div>
         </div>
 
         <div className="grid grid-cols-2 gap-3">
           <div>
-            <div className="text-sm text-slate-600 mb-1">水平位置</div>
+            <div className="text-sm text-slate-600 mb-1">
+              水平位置 {!isActivated && <span className="text-xs text-amber-600">🔒</span>}
+            </div>
             <input
               type="range"
               min={-100}
@@ -272,11 +286,14 @@ export default function ControlPanel({
               value={posX}
               onChange={(e) => setPosX(parseInt(e.target.value, 10))}
               className="w-full"
+              disabled={!isActivated}
             />
             <div className="text-xs text-slate-500">{posX}</div>
           </div>
           <div>
-            <div className="text-sm text-slate-600 mb-1">垂直位置</div>
+            <div className="text-sm text-slate-600 mb-1">
+              垂直位置 {!isActivated && <span className="text-xs text-amber-600">🔒</span>}
+            </div>
             <input
               type="range"
               min={-100}
@@ -285,6 +302,7 @@ export default function ControlPanel({
               value={posY}
               onChange={(e) => setPosY(parseInt(e.target.value, 10))}
               className="w-full"
+              disabled={!isActivated}
             />
             <div className="text-xs text-slate-500">{posY}</div>
           </div>
@@ -292,50 +310,58 @@ export default function ControlPanel({
 
         <div className="grid grid-cols-2 gap-3">
           <div>
-            <div className="text-sm text-slate-600 mb-2">点颜色</div>
+            <div className="text-sm text-slate-600 mb-2">
+              点颜色 {!isActivated && dotColorMode === 'custom' && <span className="text-xs text-amber-600">🔒 自定义需激活</span>}
+            </div>
             <div className="flex flex-wrap gap-2">
               {DOT_COLORS.map((c) => (
                 <button
                   key={c.id}
-                  className={`w-10 h-10 rounded-xl border ${dotColorMode === c.id ? "ring-2 ring-emerald-500" : ""}`}
+                  className={`w-10 h-10 rounded-xl border ${dotColorMode === c.id ? "ring-2 ring-emerald-500" : ""} ${c.id === 'custom' && !isActivated ? "opacity-50 cursor-not-allowed" : ""}`}
                   style={{ background: c.id === "custom" ? dotCustom : c.hex }}
                   onClick={() => setDotColorMode(c.id)}
+                  disabled={c.id === 'custom' && !isActivated}
                   title={c.name}
                 />
               ))}
             </div>
             {dotColorMode === "custom" && (
               <div className="mt-2 flex items-center gap-2">
-                <input type="color" value={dotCustom} onChange={(e) => setDotCustom(e.target.value)} />
+                <input type="color" value={dotCustom} onChange={(e) => setDotCustom(e.target.value)} disabled={!isActivated} />
                 <input
                   className="flex-1 px-3 py-2 rounded-xl border"
                   value={dotCustom}
                   onChange={(e) => setDotCustom(e.target.value)}
+                  disabled={!isActivated}
                 />
               </div>
             )}
           </div>
 
           <div>
-            <div className="text-sm text-slate-600 mb-2">背景</div>
+            <div className="text-sm text-slate-600 mb-2">
+              背景 {!isActivated && bgMode === 'custom' && <span className="text-xs text-amber-600">🔒 自定义需激活</span>}
+            </div>
             <div className="flex flex-wrap gap-2">
               {BG_COLORS.map((c) => (
                 <button
                   key={c.id}
-                  className={`w-10 h-10 rounded-xl border ${bgMode === c.id ? "ring-2 ring-emerald-500" : ""}`}
+                  className={`w-10 h-10 rounded-xl border ${bgMode === c.id ? "ring-2 ring-emerald-500" : ""} ${c.id === 'custom' && !isActivated ? "opacity-50 cursor-not-allowed" : ""}`}
                   style={{ background: c.id === "custom" ? bgCustom : c.hex }}
                   onClick={() => setBgMode(c.id)}
+                  disabled={c.id === 'custom' && !isActivated}
                   title={c.name}
                 />
               ))}
             </div>
             {bgMode === "custom" && (
               <div className="mt-2 flex items-center gap-2">
-                <input type="color" value={bgCustom} onChange={(e) => setBgCustom(e.target.value)} />
+                <input type="color" value={bgCustom} onChange={(e) => setBgCustom(e.target.value)} disabled={!isActivated} />
                 <input
                   className="flex-1 px-3 py-2 rounded-xl border"
                   value={bgCustom}
                   onChange={(e) => setBgCustom(e.target.value)}
+                  disabled={!isActivated}
                 />
               </div>
             )}
@@ -344,9 +370,11 @@ export default function ControlPanel({
 
         <div className="rounded-xl border p-3">
           <div className="flex items-center justify-between">
-            <div className="font-medium">用 Emoji / 图案作为移动点</div>
+            <div className="font-medium">
+              用 Emoji / 图案作为移动点 {!isActivated && <span className="text-xs text-amber-600">🔒</span>}
+            </div>
             <label className="flex items-center gap-2 text-sm">
-              <input type="checkbox" checked={dotEmojiMode} onChange={(e) => setDotEmojiMode(e.target.checked)} />
+              <input type="checkbox" checked={dotEmojiMode} onChange={(e) => setDotEmojiMode(e.target.checked)} disabled={!isActivated} />
               启用
             </label>
           </div>

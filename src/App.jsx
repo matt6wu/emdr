@@ -98,9 +98,12 @@ export default function App() {
   const [activationInput, setActivationInput] = useState("");
   const [activationStatus, setActivationStatus] = useState("idle");
   const [activationError, setActivationError] = useState("");
-  const isActivated = activationCode.length > 0;
 
   const normalizeCode = (value) => value.trim().toUpperCase();
+
+  // 硬编码激活码（部署前删除）
+  const HARDCODED_CODE = "888888";
+  const isActivated = activationCode.length > 0;
 
   const activateCode = async () => {
     const code = normalizeCode(activationInput);
@@ -109,6 +112,15 @@ export default function App() {
       setActivationError("请输入激活码");
       return;
     }
+
+    // 检查硬编码激活码（部署前删除此段）
+    if (code === HARDCODED_CODE) {
+      localStorage.setItem("activation_code", code);
+      setActivationCode(code);
+      setActivationStatus("success");
+      return;
+    }
+
     setActivationStatus("loading");
     setActivationError("");
     try {
