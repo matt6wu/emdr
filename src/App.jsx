@@ -421,10 +421,21 @@ export default function App() {
   // Navigation functions for landing page
   const enterTool = useCallback(() => {
     localStorage.setItem('emdr_has_visited', 'true');
+
+    // Reset critical state when entering tool
+    setRunning(false);
+    setPaused(false);
+    setElapsedMs(0);
+    setCycles(0);
+
     setCurrentView('tool');
   }, []);
 
   const returnToLanding = useCallback(() => {
+    // Stop any running processes before returning to landing
+    setRunning(false);
+    setPaused(false);
+
     setCurrentView('landing');
   }, []);
 
