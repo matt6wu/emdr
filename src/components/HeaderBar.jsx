@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "../i18n";
 
-export default function HeaderBar({ hideControls, setHideControls, fullscreen, toggleFullscreen }) {
+export default function HeaderBar({ hideControls, setHideControls, fullscreen, toggleFullscreen, returnToLanding }) {
   const { t, language, setLanguage } = useTranslation();
 
   return (
@@ -13,6 +13,15 @@ export default function HeaderBar({ hideControls, setHideControls, fullscreen, t
         </div>
       </div>
       <div className="flex items-center gap-2">
+        {returnToLanding && (
+          <button
+            className="px-3 py-2 rounded-xl border hover:bg-slate-50 text-sm min-h-[44px] touch-manipulation"
+            onClick={returnToLanding}
+            title={t('header.backToHome')}
+          >
+            {t('header.backToHome')}
+          </button>
+        )}
         <button
           className="px-3 py-2 rounded-xl border hover:bg-slate-50 text-sm min-h-[44px] touch-manipulation"
           onClick={() => setLanguage(language === 'zh-CN' ? 'en' : 'zh-CN')}

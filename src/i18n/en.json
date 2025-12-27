@@ -160,5 +160,146 @@
       "rainDesc": "Soft noise burst"
     }
   },
-  "locked": "🔒"
+  "locked": "🔒",
+  "landing": {
+    "nav": {
+      "features": "Features",
+      "pricing": "Pricing",
+      "startFree": "Start Free"
+    },
+    "hero": {
+      "headline": "Professional EMDR Therapy Tool for Self-Healing",
+      "subheadline": "Scientifically-backed bilateral stimulation therapy, now accessible at home",
+      "ctaPrimary": "Start Free Trial",
+      "ctaSecondary": "Learn How EMDR Works",
+      "noCreditCard": "No credit card required"
+    },
+    "education": {
+      "title": "Understanding EMDR Therapy",
+      "whatTitle": "What is EMDR?",
+      "whatDesc": "Eye Movement Desensitization and Reprocessing is a scientifically-proven therapy for processing traumatic memories and reducing emotional distress.",
+      "howTitle": "How Does It Work?",
+      "howDesc": "EMDR uses bilateral stimulation (eye movements, sounds, or touch) to help your brain reprocess difficult memories and reduce their emotional impact.",
+      "whoTitle": "Who Can Benefit?",
+      "whoDesc": "People dealing with PTSD, anxiety, phobias, traumatic memories, or chronic stress. EMDR is recognized by WHO and major health organizations."
+    },
+    "features": {
+      "title": "Powerful Features for Effective Therapy",
+      "subtitle": "Everything you need for professional EMDR therapy at home",
+      "visual": {
+        "title": "Visual Stimulation",
+        "desc": "Customizable directions, colors, and speeds for optimal bilateral stimulation",
+        "badge": "Free"
+      },
+      "audio": {
+        "title": "Bilateral Audio",
+        "desc": "Left-right alternating sounds with multiple professional presets",
+        "badge": "Free"
+      },
+      "advanced": {
+        "title": "Advanced Customization",
+        "desc": "Fine-tune frequency, position, margin, and visual parameters",
+        "badge": "Premium"
+      },
+      "randomize": {
+        "title": "Randomization Engine",
+        "desc": "Increase cognitive load with automatic parameter variation",
+        "badge": "Premium"
+      },
+      "multilingual": {
+        "title": "Multi-Language Support",
+        "desc": "Full support for English and Chinese interfaces",
+        "badge": "Free"
+      },
+      "responsive": {
+        "title": "Mobile & Desktop",
+        "desc": "Works perfectly on all devices with responsive design",
+        "badge": "Free"
+      }
+    },
+    "pricing": {
+      "title": "Affordable Pricing for Everyone",
+      "subtitle": "Start free, upgrade when you're ready",
+      "free": {
+        "name": "Free Plan",
+        "badge": "Most Popular",
+        "price": "$0",
+        "period": "Forever",
+        "cta": "Start Free Now",
+        "features": [
+          "Basic EMDR therapy (horizontal movement)",
+          "2 audio presets",
+          "3 dot colors",
+          "2 backgrounds",
+          "Session timer & cycles",
+          "Mobile & desktop support"
+        ]
+      },
+      "premium": {
+        "name": "Premium Plan",
+        "badge": "Best Value",
+        "price": "$9.99",
+        "period": "One-time payment",
+        "cta": "Get Activation Code",
+        "features": [
+          "All Free features",
+          "5 movement directions",
+          "12 audio presets",
+          "9 colors + custom",
+          "4 backgrounds + custom",
+          "Emoji mode",
+          "Advanced controls",
+          "Randomization engine",
+          "Lifetime access"
+        ]
+      },
+      "comparison": "vs $200+ per therapy session",
+      "guarantee": "30-day money-back guarantee"
+    },
+    "testimonials": {
+      "title": "Trusted by Users Worldwide",
+      "subtitle": "Real stories from real people",
+      "testimonial1": {
+        "quote": "This tool helped me process difficult memories at my own pace. The randomization feature keeps my brain engaged. Worth every penny!",
+        "name": "Sarah L.",
+        "location": "USA"
+      },
+      "testimonial2": {
+        "quote": "As someone with anxiety, this tool allows me to heal myself anytime. The Chinese interface is thoughtful and the features are professional.",
+        "name": "Li Ming",
+        "location": "China"
+      },
+      "testimonial3": {
+        "quote": "I was skeptical at first, but the science is solid. The free version got me started, and the premium features are incredible.",
+        "name": "James T.",
+        "location": "UK"
+      }
+    },
+    "cta": {
+      "title": "Ready to Start Your Healing Journey?",
+      "subtitle": "Try it free, upgrade when you're ready",
+      "button": "Launch EMDR Tool",
+      "note": "No credit card required"
+    },
+    "footer": {
+      "tagline": "Professional EMDR therapy, accessible to everyone",
+      "about": "About",
+      "contact": "Contact",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service",
+      "copyright": "© 2025 REM Restore Studio. All rights reserved."
+    }
+  },
+  "header": {
+    "backToHome": "← Back to Home",
+    "title": "REM Restore Studio™",
+    "shortcuts": "Shortcuts: B start/stop | Space pause | ↑↓ adjust frequency | H hide panel | F fullscreen",
+    "showPanel": "Show panel",
+    "hidePanel": "Hide panel",
+    "panel": "Panel",
+    "fullscreen": "Fullscreen",
+    "exitFullscreen": "Exit fullscreen",
+    "fullscreenTitle": "Fullscreen (F)",
+    "togglePanelTitle": "Hide/show control panel (H)"
+  }
 }

@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import LandingPage from "./components/LandingPage.jsx";
 import ControlPanel from "./components/ControlPanel.jsx";
 import HeaderBar from "./components/HeaderBar.jsx";
 import Stage from "./components/Stage.jsx";
@@ -15,6 +16,13 @@ import { useTranslation } from "./i18n";
 
 export default function App() {
   const { t } = useTranslation();
+
+  // Landing page view state
+  const [currentView, setCurrentView] = useState(() => {
+    const hasVisited = localStorage.getItem('emdr_has_visited');
+    return hasVisited === 'true' ? 'tool' : 'landing';
+  });
+
   const [running, setRunning] = useState(false);
   const [paused, setPaused] = useState(false);
 
@@ -410,12 +418,27 @@ export default function App() {
     applyDotPosition(x, y);
   }, [running, direction, freqHz, marginPct, posX, posY]);
 
+  // Navigation functions for landing page
+  const enterTool = useCallback(() => {
+    localStorage.setItem('emdr_has_visited', 'true');
+    setCurrentView('tool');
+  }, []);
+
+  const returnToLanding = useCallback(() => {
+    setCurrentView('landing');
+  }, []);
+
   const mmss = useMemo(() => {
     const s = Math.floor(elapsedMs / 1000);
     const mm = String(Math.floor(s / 60)).padStart(2, "0");
     const ss = String(s % 60).padStart(2, "0");
     return `${mm}:${ss}`;
   }, [elapsedMs]);
+
+  // Show landing page or tool based on currentView
+  if (currentView === 'landing') {
+    return <LandingPage enterTool={enterTool} />;
+  }
 
   return (
     <div className="h-screen w-full flex flex-col bg-white">
@@ -443,6 +466,7 @@ export default function App() {
         setHideControls={setHideControls}
         fullscreen={fullscreen}
         toggleFullscreen={toggleFullscreen}
+        returnToLanding={returnToLanding}
       />
 
       <div className="flex-1 min-h-0 w-full flex flex-col lg:flex-row relative">

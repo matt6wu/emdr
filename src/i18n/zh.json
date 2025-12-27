@@ -160,5 +160,146 @@
       "rainDesc": "柔和噪声冲击"
     }
   },
-  "locked": "🔒"
+  "locked": "🔒",
+  "landing": {
+    "nav": {
+      "features": "功能特色",
+      "pricing": "价格方案",
+      "startFree": "免费开始"
+    },
+    "hero": {
+      "headline": "专业级 EMDR 自愈疗愈工具",
+      "subheadline": "科学认证的双侧刺激疗法，现在可在家中使用",
+      "ctaPrimary": "免费试用",
+      "ctaSecondary": "了解 EMDR 原理",
+      "noCreditCard": "无需信用卡"
+    },
+    "education": {
+      "title": "了解 EMDR 疗法",
+      "whatTitle": "什么是 EMDR？",
+      "whatDesc": "眼动脱敏与再加工疗法是一种经科学验证的疗法，用于处理创伤性记忆并减少情绪困扰。",
+      "howTitle": "它如何工作？",
+      "howDesc": "EMDR 使用双侧刺激（眼动、声音或触觉）来帮助大脑重新处理困难记忆，减少其情绪影响。",
+      "whoTitle": "谁能受益？",
+      "whoDesc": "适用于处理创伤后应激障碍、焦虑、恐惧症、创伤记忆或慢性压力的人群。EMDR 获世卫组织和主要健康机构认可。"
+    },
+    "features": {
+      "title": "强大功能助力有效疗愈",
+      "subtitle": "在家进行专业 EMDR 疗法所需的一切",
+      "visual": {
+        "title": "视觉刺激",
+        "desc": "可自定义方向、颜色和速度，实现最佳双侧刺激",
+        "badge": "免费"
+      },
+      "audio": {
+        "title": "双侧音频",
+        "desc": "左右交替声音，多种专业预设",
+        "badge": "免费"
+      },
+      "advanced": {
+        "title": "高级自定义",
+        "desc": "微调频率、位置、边距和视觉参数",
+        "badge": "高级"
+      },
+      "randomize": {
+        "title": "随机化引擎",
+        "desc": "通过自动参数变化增加认知负荷",
+        "badge": "高级"
+      },
+      "multilingual": {
+        "title": "多语言支持",
+        "desc": "完整支持中英文界面",
+        "badge": "免费"
+      },
+      "responsive": {
+        "title": "移动和桌面",
+        "desc": "响应式设计，在所有设备上完美运行",
+        "badge": "免费"
+      }
+    },
+    "pricing": {
+      "title": "人人可负担的价格",
+      "subtitle": "免费开始，随时升级",
+      "free": {
+        "name": "免费版",
+        "badge": "最受欢迎",
+        "price": "¥0",
+        "period": "永久免费",
+        "cta": "立即免费使用",
+        "features": [
+          "基础 EMDR 疗法（横向移动）",
+          "2 种音频预设",
+          "3 种点颜色",
+          "2 种背景",
+          "会话计时器和轮数",
+          "移动和桌面支持"
+        ]
+      },
+      "premium": {
+        "name": "高级版",
+        "badge": "最超值",
+        "price": "¥68",
+        "period": "一次性付费",
+        "cta": "获取激活码",
+        "features": [
+          "所有免费功能",
+          "5 种移动方向",
+          "12 种音频预设",
+          "9 种颜色 + 自定义",
+          "4 种背景 + 自定义",
+          "Emoji 模式",
+          "高级控制",
+          "随机化引擎",
+          "终身访问"
+        ]
+      },
+      "comparison": "对比单次治疗 ¥1500+",
+      "guarantee": "30 天退款保证"
+    },
+    "testimonials": {
+      "title": "全球用户信赖",
+      "subtitle": "真实用户的真实故事",
+      "testimonial1": {
+        "quote": "这个工具帮助我按自己的节奏处理困难记忆。随机化功能让我的大脑保持专注。物超所值！",
+        "name": "Sarah L.",
+        "location": "美国"
+      },
+      "testimonial2": {
+        "quote": "作为一个焦虑症患者，这个工具让我可以随时进行自我疗愈。中文界面很贴心，功能专业。",
+        "name": "李明",
+        "location": "中国"
+      },
+      "testimonial3": {
+        "quote": "起初我持怀疑态度，但科学依据很扎实。免费版让我入门，高级功能令人惊艳。",
+        "name": "James T.",
+        "location": "英国"
+      }
+    },
+    "cta": {
+      "title": "准备好开始您的疗愈之旅了吗？",
+      "subtitle": "免费试用，随时升级",
+      "button": "启动 EMDR 工具",
+      "note": "无需信用卡"
+    },
+    "footer": {
+      "tagline": "专业 EMDR 疗法，人人可用",
+      "about": "关于我们",
+      "contact": "联系我们",
+      "privacy": "隐私政策",
+      "terms": "服务条款",
+      "copyright": "© 2025 REM Restore Studio. 版权所有。"
+    }
+  },
+  "header": {
+    "backToHome": "← 返回首页",
+    "title": "REM Restore Studio™",
+    "shortcuts": "快捷键：B 开始/停止｜空格 暂停｜↑↓ 调频率｜H 隐藏面板｜F 全屏",
+    "showPanel": "显示面板",
+    "hidePanel": "隐藏面板",
+    "panel": "面板",
+    "fullscreen": "全屏",
+    "exitFullscreen": "退出全屏",
+    "fullscreenTitle": "全屏 (F)",
+    "togglePanelTitle": "隐藏/显示控制面板 (H)"
+  }
 }
