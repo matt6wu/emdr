@@ -30,7 +30,13 @@ export const useAudioEngine = ({
   const lastBeatSideRef = useRef(-1);
 
   const ensureAudio = useCallback(async () => {
-    if (audioCtxRef.current) return;
+    if (audioCtxRef.current) {
+      // Resume if suspended (important for mobile browsers)
+      if (audioCtxRef.current.state === 'suspended') {
+        await audioCtxRef.current.resume();
+      }
+      return;
+    }
     const AudioCtx = window.AudioContext || window.webkitAudioContext;
     const ctx = new AudioCtx();
     const gain = ctx.createGain();
@@ -46,14 +52,29 @@ export const useAudioEngine = ({
     masterGainRef.current = gain;
     panRef.current = pan;
     noiseBufferRef.current = createNoiseBuffer(ctx, 0.25);
+
+    // Resume audio context (critical for mobile browsers)
+    if (ctx.state === 'suspended') {
+      await ctx.resume();
+    }
   }, [mute, volume]);
 
   const playBeat = useCallback(
-    (side) => {
+    async (side) => {
       const ctx = audioCtxRef.current;
       const gain = masterGainRef.current;
       const pan = panRef.current;
       if (!ctx || !gain || !pan) return;
+
+      // Resume audio context if suspended (mobile browser requirement)
+      if (ctx.state === 'suspended') {
+        try {
+          await ctx.resume();
+        } catch (e) {
+          console.warn('Failed to resume audio context:', e);
+          return;
+        }
+      }
 
       const now = ctx.currentTime;
       pan.pan.setValueAtTime(side, now);
@@ -269,7 +290,7 @@ export const useAudioEngine = ({
     lastBeatSideRef.current = -1;
   }, []);
 
-  const canPlayAudioHint = audioEnabled && !audioCtxRef.current;
+  const canPlayAudioHint = audioEnabled && (!audioCtxRef.current || audioCtxRef.current?.state === 'suspended');
 
   return {
     ensureAudio,
