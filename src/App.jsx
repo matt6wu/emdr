@@ -47,6 +47,15 @@ export default function App() {
   });
   const [fullscreen, setFullscreen] = useState(false);
 
+  // 检测屏幕方向（移动端竖屏提示）
+  const [isPortrait, setIsPortrait] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return window.innerHeight > window.innerWidth && window.innerWidth < 1024;
+    }
+    return false;
+  });
+  const [dismissedPortraitHint, setDismissedPortraitHint] = useState(false);
+
   const [randomizeEnabled, setRandomizeEnabled] = useState(false);
   const [randomizeEveryCycles, setRandomizeEveryCycles] = useState(10);
   const [randomizeTargets, setRandomizeTargets] = useState({
@@ -209,6 +218,21 @@ export default function App() {
   }, []);
 
   useEffect(() => {
+    const checkOrientation = () => {
+      if (typeof window !== 'undefined') {
+        const portrait = window.innerHeight > window.innerWidth && window.innerWidth < 1024;
+        setIsPortrait(portrait);
+      }
+    };
+    window.addEventListener("resize", checkOrientation);
+    window.addEventListener("orientationchange", checkOrientation);
+    return () => {
+      window.removeEventListener("resize", checkOrientation);
+      window.removeEventListener("orientationchange", checkOrientation);
+    };
+  }, []);
+
+  useEffect(() => {
     const onKey = async (e) => {
       if (e.key === " ") {
         e.preventDefault();
@@ -342,6 +366,27 @@ export default function App() {
 
   return (
     <div className="h-screen w-full flex flex-col bg-white">
+      {/* 移动端竖屏提示 */}
+      {isPortrait && !dismissedPortraitHint && (
+        <div className="fixed inset-0 bg-black/90 z-[100] flex items-center justify-center p-6">
+          <div className="bg-white rounded-2xl p-6 max-w-sm text-center space-y-4">
+            <div className="text-6xl">📱 → 🔄</div>
+            <div className="text-xl font-semibold">横屏体验更佳</div>
+            <div className="text-sm text-slate-600">
+              EMDR 左右移动功能在横屏模式下效果最佳。
+              <br />
+              请旋转设备至横屏以获得最佳体验。
+            </div>
+            <button
+              className="w-full px-4 py-3 rounded-xl bg-slate-900 text-white hover:bg-slate-800 min-h-[44px] touch-manipulation"
+              onClick={() => setDismissedPortraitHint(true)}
+            >
+              知道了，继续使用
+            </button>
+          </div>
+        </div>
+      )}
+
       <HeaderBar
         hideControls={hideControls}
         setHideControls={setHideControls}
