@@ -137,3 +137,24 @@ HOST=0.0.0.0 PORT=3000 npm run start
 2) 在 Cloudflare Worker 里设置环境变量 `CODES`（逗号或空格分隔粘贴）
 3) 在 Cloudflare Pages 里设置 `VITE_ACTIVATION_ENDPOINT` 为 Worker 的 `/api/activate` 地址
 4) 重新部署 Pages
+
+## Worker 详细配置（手动）
+
+1) Cloudflare → Workers & Pages → Create Application → Worker（命名如 `rem-restore-activation`）
+2) 打开 Worker 编辑器，粘贴 `worker/index.js` 的内容并部署
+3) Worker → Settings → Variables → 新增 `CODES`，粘贴 `activation-codes.txt` 的全部激活码（空格或逗号分隔）
+4) 记录 Worker 地址，例如 `https://rem-restore-activation.<子域>.workers.dev`
+5) Cloudflare Pages → Settings → Environment variables → 添加 `VITE_ACTIVATION_ENDPOINT` 为：
+   `https://rem-restore-activation.<子域>.workers.dev/api/activate`
+6) 重新部署 Pages
+
+## 本地先看效果
+
+可以先跳过 Worker，用临时地址占位，前端会显示“激活码无效”。正式接入后再替换：
+
+```bash
+# 可选：在本地创建 .env
+VITE_ACTIVATION_ENDPOINT=http://localhost:8787/api/activate
+```
+
+若想本地跑 Worker，可用 Wrangler CLI（可选）。

@@ -154,16 +154,12 @@ export default function App() {
           setElapsedMs(t);
         }
 
-        const stage = stageRef.current;
-        if (stage) {
-          const rect = stage.getBoundingClientRect();
-          const tSec = t / 1000;
-          const cyclesFreq = clamp(freqHz, 0.1, 0.8);
-          const c = Math.floor(tSec * cyclesFreq);
-          if (c !== lastCycleRef.current) {
-            lastCycleRef.current = c;
-            setCycles(c);
-          }
+        const tSec = t / 1000;
+        const cyclesFreq = clamp(freqHz, 0.1, 0.8);
+        const c = Math.floor(tSec * cyclesFreq);
+        if (c !== lastCycleRef.current) {
+          lastCycleRef.current = c;
+          setCycles(c);
         }
       }
 
