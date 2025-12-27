@@ -61,30 +61,30 @@ export default function Stage({
       )}
 
       {hideControls && (
-        <div className="absolute inset-x-0 top-4 flex justify-center">
-          <div className="pointer-events-auto rounded-2xl bg-white/80 backdrop-blur border shadow px-3 py-2 flex items-center gap-2">
+        <div className="absolute inset-x-0 top-4 flex justify-center px-2">
+          <div className="pointer-events-auto rounded-2xl bg-white/90 backdrop-blur border shadow px-3 py-2 flex flex-wrap items-center justify-center gap-2">
             {!running ? (
-              <button className="px-4 py-2 rounded-xl bg-emerald-600 text-white" onClick={start}>
+              <button className="px-4 py-2 rounded-xl bg-emerald-600 text-white min-h-[44px] touch-manipulation" onClick={start}>
                 开始
               </button>
             ) : (
               <>
-                <button className="px-3 py-2 rounded-xl border" onClick={togglePaused}>
+                <button className="px-3 py-2 rounded-xl border bg-white min-h-[44px] touch-manipulation" onClick={togglePaused}>
                   {paused ? "继续" : "暂停"}
                 </button>
-                <button className="px-3 py-2 rounded-xl bg-slate-900 text-white" onClick={stop}>
+                <button className="px-3 py-2 rounded-xl bg-slate-900 text-white min-h-[44px] touch-manipulation" onClick={stop}>
                   停止
                 </button>
               </>
             )}
             <button
-              className={`px-3 py-2 rounded-xl border ${!isActivated ? "opacity-50 cursor-not-allowed" : ""}`}
+              className={`px-3 py-2 rounded-xl border bg-white min-h-[44px] touch-manipulation ${!isActivated ? "opacity-50 cursor-not-allowed" : ""}`}
               onClick={() => setRandomizeEnabled((v) => !v)}
               disabled={!isActivated}
             >
               {!isActivated ? "随机:锁" : randomizeEnabled ? "随机:开" : "随机:关"}
             </button>
-            <div className="text-sm text-slate-700 tabular-nums">{mmss}</div>
+            <div className="text-sm text-slate-700 tabular-nums px-2">{mmss}</div>
           </div>
         </div>
       )}
