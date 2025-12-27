@@ -58,10 +58,27 @@ export default function ControlPanel({
   randomizeEveryCycles,
   setRandomizeEveryCycles,
   randomizeTargets,
-  setRandomizeTargets
+  setRandomizeTargets,
+  isMobile = false,
+  onClose = () => {}
 }) {
   return (
-    <div className="w-full lg:w-[440px] border-r bg-white p-4 space-y-4 overflow-auto">
+    <div className="w-full lg:w-[440px] border-r bg-white h-full flex flex-col">
+      {/* 移动端顶部关闭按钮 */}
+      {isMobile && (
+        <div className="flex items-center justify-between p-4 border-b bg-slate-50 shrink-0">
+          <div className="font-semibold text-lg">控制面板</div>
+          <button
+            className="px-4 py-2 rounded-xl bg-slate-900 text-white hover:bg-slate-800 min-h-[44px]"
+            onClick={onClose}
+          >
+            关闭
+          </button>
+        </div>
+      )}
+
+      {/* 可滚动内容区 */}
+      <div className="flex-1 overflow-auto p-4 space-y-4">
       <div className="rounded-2xl border p-4 space-y-2">
         <div className="font-semibold">使用方法 / How to Use</div>
         <div className="text-xs text-slate-600">
@@ -81,7 +98,7 @@ export default function ControlPanel({
           <div className="flex items-center gap-2">
             {!running ? (
               <button
-                className="px-4 py-2 rounded-xl bg-emerald-600 text-white hover:bg-emerald-700"
+                className="px-4 py-2 rounded-xl bg-emerald-600 text-white hover:bg-emerald-700 min-h-[44px]"
                 onClick={start}
               >
                 开始
@@ -89,13 +106,13 @@ export default function ControlPanel({
             ) : (
               <>
                 <button
-                  className="px-3 py-2 rounded-xl border hover:bg-slate-50"
+                  className="px-3 py-2 rounded-xl border hover:bg-slate-50 min-h-[44px]"
                   onClick={togglePaused}
                 >
                   {paused ? "继续" : "暂停"}
                 </button>
                 <button
-                  className="px-3 py-2 rounded-xl bg-slate-900 text-white hover:bg-slate-800"
+                  className="px-3 py-2 rounded-xl bg-slate-900 text-white hover:bg-slate-800 min-h-[44px]"
                   onClick={stop}
                 >
                   停止
@@ -105,11 +122,11 @@ export default function ControlPanel({
           </div>
         </div>
         <div className="mt-3 grid grid-cols-2 gap-2">
-          <button className="px-3 py-2 rounded-xl border hover:bg-slate-50" onClick={resetSession}>
+          <button className="px-3 py-2 rounded-xl border hover:bg-slate-50 min-h-[44px]" onClick={resetSession}>
             重置计时/轮数
           </button>
           <button
-            className="px-3 py-2 rounded-xl border hover:bg-slate-50"
+            className="px-3 py-2 rounded-xl border hover:bg-slate-50 min-h-[44px]"
             onClick={resetDefaults}
           >
             恢复默认
@@ -460,6 +477,7 @@ export default function ControlPanel({
         <div className="text-xs text-slate-600">
           Disclaimer (No Medical Advice): This site is for informational/educational use only and is not medical advice. Consult professionals and use at your own risk.
         </div>
+      </div>
       </div>
     </div>
   );

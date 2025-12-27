@@ -38,7 +38,13 @@ export default function App() {
   const [elapsedMs, setElapsedMs] = useState(0);
   const [cycles, setCycles] = useState(0);
 
-  const [hideControls, setHideControls] = useState(false);
+  // 移动端默认隐藏控制面板
+  const [hideControls, setHideControls] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return window.innerWidth < 1024; // lg breakpoint
+    }
+    return false;
+  });
   const [fullscreen, setFullscreen] = useState(false);
 
   const [randomizeEnabled, setRandomizeEnabled] = useState(false);
@@ -343,8 +349,9 @@ export default function App() {
         toggleFullscreen={toggleFullscreen}
       />
 
-      <div className="flex-1 min-h-0 w-full flex flex-col lg:flex-row">
-        {!hideControls && (
+      <div className="flex-1 min-h-0 w-full flex flex-col lg:flex-row relative">
+        {/* 桌面端：侧边栏布局 */}
+        <div className={`hidden lg:block ${hideControls ? 'lg:hidden' : ''}`}>
           <ControlPanel
             running={running}
             paused={paused}
@@ -397,7 +404,78 @@ export default function App() {
             setRandomizeEveryCycles={setRandomizeEveryCycles}
             randomizeTargets={randomizeTargets}
             setRandomizeTargets={setRandomizeTargets}
+            isMobile={false}
+            onClose={() => {}}
           />
+        </div>
+
+        {/* 移动端：抽屉式覆盖层 */}
+        {!hideControls && (
+          <>
+            {/* 遮罩层 */}
+            <div
+              className="lg:hidden fixed inset-0 bg-black/50 z-40"
+              onClick={() => setHideControls(true)}
+            />
+            {/* 抽屉面板 */}
+            <div className="lg:hidden fixed inset-y-0 left-0 w-full max-w-md bg-white z-50 shadow-2xl">
+              <ControlPanel
+                running={running}
+                paused={paused}
+                start={start}
+                stop={stop}
+                togglePaused={() => setPaused((p) => !p)}
+                resetSession={resetSession}
+                resetDefaults={resetDefaults}
+                mmss={mmss}
+                cycles={cycles}
+                canPlayAudioHint={canPlayAudioHint}
+                ensureAudio={ensureAudio}
+                visualEnabled={visualEnabled}
+                setVisualEnabled={setVisualEnabled}
+                direction={direction}
+                setDirection={setDirection}
+                freqHz={freqHz}
+                setFreqHz={setFreqHz}
+                marginPct={marginPct}
+                setMarginPct={setMarginPct}
+                dotSize={dotSize}
+                setDotSize={setDotSize}
+                posX={posX}
+                setPosX={setPosX}
+                posY={posY}
+                setPosY={setPosY}
+                dotColorMode={dotColorMode}
+                setDotColorMode={setDotColorMode}
+                dotCustom={dotCustom}
+                setDotCustom={setDotCustom}
+                bgMode={bgMode}
+                setBgMode={setBgMode}
+                bgCustom={bgCustom}
+                setBgCustom={setBgCustom}
+                dotEmojiMode={dotEmojiMode}
+                setDotEmojiMode={setDotEmojiMode}
+                dotEmoji={dotEmoji}
+                setDotEmoji={setDotEmoji}
+                audioEnabled={audioEnabled}
+                setAudioEnabled={setAudioEnabled}
+                audioPreset={audioPreset}
+                setAudioPreset={setAudioPreset}
+                volume={volume}
+                setVolume={setVolume}
+                mute={mute}
+                setMute={setMute}
+                randomizeEnabled={randomizeEnabled}
+                setRandomizeEnabled={setRandomizeEnabled}
+                randomizeEveryCycles={randomizeEveryCycles}
+                setRandomizeEveryCycles={setRandomizeEveryCycles}
+                randomizeTargets={randomizeTargets}
+                setRandomizeTargets={setRandomizeTargets}
+                isMobile={true}
+                onClose={() => setHideControls(true)}
+              />
+            </div>
+          </>
         )}
 
         <Stage
