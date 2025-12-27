@@ -312,22 +312,23 @@ src/components/
 - [x] 添加英文翻译到 `en.json`
 - [x] 添加中文翻译到 `zh.json`
 
-#### Phase 3: Build Components ⏳
-- [ ] Navbar.jsx - 导航栏
-- [ ] HeroSection.jsx - 首屏英雄区
-- [ ] EducationSection.jsx - 科普教育
-- [ ] FeaturesSection.jsx - 功能展示
-- [ ] PricingSection.jsx - 定价对比
-- [ ] TestimonialsSection.jsx - 用户见证
-- [ ] CTASection.jsx - 最终转化
-- [ ] Footer.jsx - 页脚
+#### Phase 3: Build Components ✅
+- [x] Navbar.jsx - 导航栏（sticky，语言切换，CTA 按钮）
+- [x] HeroSection.jsx - 首屏英雄区（渐变背景，动画预览）
+- [x] EducationSection.jsx - 科普教育（3 栏卡片，渐变效果）
+- [x] FeaturesSection.jsx - 功能展示（6 功能卡片，免费/高级标记）
+- [x] PricingSection.jsx - 定价对比（2 栏对比，信任徽章）
+- [x] TestimonialsSection.jsx - 用户见证（3 用户评价，5 星评分）
+- [x] CTASection.jsx - 最终转化（渐变背景，动画效果）
+- [x] Footer.jsx - 页脚（链接，免责声明，语言切换）
 
 #### Phase 4: Polish ⏳
-- [ ] 响应式设计（mobile-first）
-- [ ] Hover 效果和过渡动画
-- [ ] 滚动动画（fade-in）
+- [x] 响应式设计（mobile-first）- 已在组件中实现
+- [x] Hover 效果和过渡动画 - 已在组件中实现
+- [ ] 滚动动画（fade-in）- 可选优化
 - [ ] 测试所有 CTA 按钮
 - [ ] 测试语言切换
+- [ ] 最终测试和优化
 
 **预计时间**：6-8 小时
 
