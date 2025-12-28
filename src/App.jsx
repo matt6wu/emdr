@@ -85,6 +85,7 @@ export default function App() {
   const pausedAtRef = useRef(0);
   const lastCycleRef = useRef(0);
   const stageSizeRef = useRef({ width: 0, height: 0 });
+  const [stageMounted, setStageMounted] = useState(false);
 
   const audioLeadSec = 0.08;
 
@@ -214,6 +215,10 @@ export default function App() {
     const updateSize = () => {
       const rect = stage.getBoundingClientRect();
       stageSizeRef.current = { width: rect.width, height: rect.height };
+      // Trigger re-render after size is measured
+      if (rect.width > 0 && rect.height > 0) {
+        setStageMounted(true);
+      }
     };
 
     updateSize();
@@ -416,7 +421,7 @@ export default function App() {
       direction
     });
     applyDotPosition(x, y);
-  }, [running, direction, freqHz, marginPct, posX, posY]);
+  }, [running, direction, freqHz, marginPct, posX, posY, stageMounted]);
 
   // Navigation functions for landing page
   const enterTool = useCallback(() => {
@@ -427,6 +432,7 @@ export default function App() {
     setPaused(false);
     setElapsedMs(0);
     setCycles(0);
+    setStageMounted(false); // Reset to trigger position calculation after remount
 
     setCurrentView('tool');
   }, []);
