@@ -50,16 +50,15 @@ export default function HeroSection({ enterTool }) {
             {t('landing.hero.noCreditCard')}
           </p>
 
-          {/* Preview animation - simple moving dot */}
+          {/* Preview animation - single moving dot */}
           <div className="pt-12">
             <div className="relative w-full max-w-md mx-auto h-24 bg-white/10 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/20">
-              <div className="absolute top-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow-lg animate-pulse">
-                <div className="w-full h-full bg-white rounded-full"
-                  style={{
-                    animation: 'slideLeftRight 3s ease-in-out infinite'
-                  }}
-                />
-              </div>
+              <div
+                className="absolute top-1/2 w-12 h-12 bg-white rounded-full shadow-lg"
+                style={{
+                  animation: 'slideLeftRight 3s ease-in-out infinite'
+                }}
+              />
             </div>
             <p className="text-white/60 text-sm mt-3">Preview of bilateral stimulation</p>
           </div>
@@ -75,8 +74,14 @@ export default function HeroSection({ enterTool }) {
 
       <style dangerouslySetInnerHTML={{__html: `
         @keyframes slideLeftRight {
-          0%, 100% { transform: translateX(0); }
-          50% { transform: translateX(350px); }
+          0%, 100% {
+            left: 6%;
+            transform: translateY(-50%);
+          }
+          50% {
+            left: calc(94% - 48px);
+            transform: translateY(-50%);
+          }
         }
       `}} />
     </section>

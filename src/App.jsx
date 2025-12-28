@@ -221,7 +221,11 @@ export default function App() {
       }
     };
 
-    updateSize();
+    // Use requestAnimationFrame to ensure DOM is fully rendered
+    requestAnimationFrame(() => {
+      updateSize();
+    });
+
     const ro = new ResizeObserver(() => updateSize());
     ro.observe(stage);
     window.addEventListener("resize", updateSize);
@@ -230,7 +234,7 @@ export default function App() {
       ro.disconnect();
       window.removeEventListener("resize", updateSize);
     };
-  }, []);
+  }, [currentView]);
 
   useEffect(() => {
     if (!isActivated && randomizeEnabled) setRandomizeEnabled(false);
