@@ -176,6 +176,7 @@ export default function ControlPanel({
         </div>
         {canPlayAudioHint && (
           <div className="mt-3 text-sm text-amber-700 bg-amber-50 border border-amber-200 rounded-xl p-3">
+            <div className="font-semibold text-red-600 mb-2">{t('audio.muteWarning')}</div>
             {t('audio.initRequired')}
             <div className="mt-1">{t('audio.initPrompt')}</div>
             <button

@@ -56,7 +56,8 @@
     "description": "Note: Synthesized audio using WebAudio, no external files; left-right alternation uses StereoPanner.",
     "initRequired": "You've enabled audio, but the browser requires user interaction to start audio.",
     "initPrompt": "Click the button below to initialize audio:",
-    "initButton": "Initialize audio"
+    "initButton": "Initialize audio",
+    "muteWarning": "📱 iPhone users: Please turn off silent mode to hear audio!"
   },
   "ambient": {
     "title": "Ambient Sound",

@@ -56,7 +56,8 @@
     "description": "说明：这里用 WebAudio 合成音色，不依赖外部音频文件；\"左右交替\"用 StereoPanner 实现。",
     "initRequired": "你开启了声音，但浏览器要求\"用户交互后才能启动音频\"。",
     "initPrompt": "点一下下面的按钮即可初始化音频：",
-    "initButton": "初始化音频"
+    "initButton": "初始化音频",
+    "muteWarning": "📱 iPhone 用户请注意：必须关闭静音模式才能播放声音！"
   },
   "ambient": {
     "title": "环境音",

@@ -35,14 +35,11 @@ export const useAudioEngine = ({
       if (audioCtxRef.current) {
         // Resume if suspended (important for mobile browsers)
         if (audioCtxRef.current.state === 'suspended') {
-          console.log('Resuming suspended AudioContext...');
           await audioCtxRef.current.resume();
-          console.log('AudioContext resumed, state:', audioCtxRef.current.state);
         }
         return;
       }
 
-      console.log('Creating new AudioContext...');
       const AudioCtx = window.AudioContext || window.webkitAudioContext;
       if (!AudioCtx) {
         alert('您的浏览器不支持音频播放 / Your browser does not support audio');
@@ -50,8 +47,6 @@ export const useAudioEngine = ({
       }
 
       const ctx = new AudioCtx();
-      console.log('AudioContext created, state:', ctx.state);
-
       const gain = ctx.createGain();
       const pan = ctx.createStereoPanner();
 
@@ -68,13 +63,10 @@ export const useAudioEngine = ({
 
       // Resume audio context (critical for mobile browsers)
       if (ctx.state === 'suspended') {
-        console.log('Resuming new AudioContext...');
         await ctx.resume();
-        console.log('AudioContext resumed, state:', ctx.state);
       }
 
       // 播放一个极短的静音来解锁移动端音频（关键！）
-      console.log('Playing unlock sound...');
       const osc = ctx.createOscillator();
       const g = ctx.createGain();
       g.gain.value = 0.001; // 几乎静音
@@ -82,11 +74,7 @@ export const useAudioEngine = ({
       g.connect(ctx.destination);
       osc.start(ctx.currentTime);
       osc.stop(ctx.currentTime + 0.01); // 10ms 极短音
-      console.log('Audio unlocked successfully!');
-
-      alert('音频初始化成功！/ Audio initialized successfully!');
     } catch (e) {
-      console.error('Audio initialization failed:', e);
       alert('音频初始化失败：' + e.message + ' / Audio initialization failed: ' + e.message);
     }
   }, [mute, volume]);
