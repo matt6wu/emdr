@@ -132,7 +132,9 @@
       "ud": "↕ Up-Down",
       "diag1": "↘ Diagonal 1",
       "diag2": "↗ Diagonal 2",
-      "infinity": "∞ Figure 8"
+      "infinity": "∞ Figure 8",
+      "pendulumBottom": "⌄ Pendulum Down",
+      "pendulumTop": "⌃ Pendulum Up"
     },
     "dotColors": {
       "blue": "Deep Blue",

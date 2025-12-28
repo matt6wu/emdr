@@ -18,7 +18,9 @@ export const DIRECTIONS = [
   { id: "ud", labelKey: "presets.directions.ud" },
   { id: "diag1", labelKey: "presets.directions.diag1" },
   { id: "diag2", labelKey: "presets.directions.diag2" },
-  { id: "infinity", labelKey: "presets.directions.infinity" }
+  { id: "infinity", labelKey: "presets.directions.infinity" },
+  { id: "pendulum-bottom", labelKey: "presets.directions.pendulumBottom" },
+  { id: "pendulum-top", labelKey: "presets.directions.pendulumTop" }
 ];
 
 export const DOT_COLORS = [

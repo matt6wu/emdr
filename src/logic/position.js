@@ -37,6 +37,16 @@ export const computePosition = (tSec, w, h, settings) => {
       x = cx + ampX * Math.sin(phase);
       y = cy + ampY * 0.55 * Math.sin(2 * phase);
       break;
+    case "pendulum-bottom":
+      // 钟摆向下摆动：整体向上移，充分利用屏幕
+      x = cx + ampX * Math.sin(phase);
+      y = (cy - ampY * 0.5) + ampY * Math.abs(Math.cos(phase));
+      break;
+    case "pendulum-top":
+      // 钟摆向上摆动：整体向下移，充分利用屏幕
+      x = cx + ampX * Math.sin(phase);
+      y = (cy + ampY * 0.5) - ampY * Math.abs(Math.cos(phase));
+      break;
     default:
       x = cx + ampX * Math.sin(phase);
       y = cy;

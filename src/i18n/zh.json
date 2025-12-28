@@ -132,7 +132,9 @@
       "ud": "↕ 上下",
       "diag1": "↘ 对角1",
       "diag2": "↗ 对角2",
-      "infinity": "∞ 8字"
+      "infinity": "∞ 8字",
+      "pendulumBottom": "⌄ 下摆（钟摆）",
+      "pendulumTop": "⌃ 上摆（钟摆）"
     },
     "dotColors": {
       "blue": "深蓝",
