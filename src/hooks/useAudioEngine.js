@@ -31,36 +31,50 @@ export const useAudioEngine = ({
   const lastBeatSideRef = useRef(-1);
 
   const ensureAudio = useCallback(async () => {
-    if (audioCtxRef.current) {
-      // Resume if suspended (important for mobile browsers)
-      if (audioCtxRef.current.state === 'suspended') {
-        await audioCtxRef.current.resume();
-      }
-      return;
-    }
-    const AudioCtx = window.AudioContext || window.webkitAudioContext;
-    const ctx = new AudioCtx();
-    const gain = ctx.createGain();
-    const pan = ctx.createStereoPanner();
-
-    gain.gain.value = mute ? 0 : clamp(volume, 0, 1);
-    pan.pan.value = -1;
-
-    gain.connect(pan);
-    pan.connect(ctx.destination);
-
-    audioCtxRef.current = ctx;
-    masterGainRef.current = gain;
-    panRef.current = pan;
-    noiseBufferRef.current = createNoiseBuffer(ctx, 0.25);
-
-    // Resume audio context (critical for mobile browsers)
-    if (ctx.state === 'suspended') {
-      await ctx.resume();
-    }
-
-    // 播放一个极短的静音来解锁移动端音频（关键！）
     try {
+      if (audioCtxRef.current) {
+        // Resume if suspended (important for mobile browsers)
+        if (audioCtxRef.current.state === 'suspended') {
+          console.log('Resuming suspended AudioContext...');
+          await audioCtxRef.current.resume();
+          console.log('AudioContext resumed, state:', audioCtxRef.current.state);
+        }
+        return;
+      }
+
+      console.log('Creating new AudioContext...');
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtx) {
+        alert('您的浏览器不支持音频播放 / Your browser does not support audio');
+        return;
+      }
+
+      const ctx = new AudioCtx();
+      console.log('AudioContext created, state:', ctx.state);
+
+      const gain = ctx.createGain();
+      const pan = ctx.createStereoPanner();
+
+      gain.gain.value = mute ? 0 : clamp(volume, 0, 1);
+      pan.pan.value = -1;
+
+      gain.connect(pan);
+      pan.connect(ctx.destination);
+
+      audioCtxRef.current = ctx;
+      masterGainRef.current = gain;
+      panRef.current = pan;
+      noiseBufferRef.current = createNoiseBuffer(ctx, 0.25);
+
+      // Resume audio context (critical for mobile browsers)
+      if (ctx.state === 'suspended') {
+        console.log('Resuming new AudioContext...');
+        await ctx.resume();
+        console.log('AudioContext resumed, state:', ctx.state);
+      }
+
+      // 播放一个极短的静音来解锁移动端音频（关键！）
+      console.log('Playing unlock sound...');
       const osc = ctx.createOscillator();
       const g = ctx.createGain();
       g.gain.value = 0.001; // 几乎静音
@@ -68,8 +82,12 @@ export const useAudioEngine = ({
       g.connect(ctx.destination);
       osc.start(ctx.currentTime);
       osc.stop(ctx.currentTime + 0.01); // 10ms 极短音
+      console.log('Audio unlocked successfully!');
+
+      alert('音频初始化成功！/ Audio initialized successfully!');
     } catch (e) {
-      console.warn('Failed to play unlock sound:', e);
+      console.error('Audio initialization failed:', e);
+      alert('音频初始化失败：' + e.message + ' / Audio initialization failed: ' + e.message);
     }
   }, [mute, volume]);
 
