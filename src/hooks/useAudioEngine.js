@@ -314,7 +314,7 @@ export const useAudioEngine = ({
     lastBeatSideRef.current = -1;
   }, []);
 
-  const canPlayAudioHint = audioEnabled && (!audioCtxRef.current || audioCtxRef.current?.state === 'suspended');
+  const canPlayAudioHint = audioEnabled && !audioCtxRef.current;
 
   return {
     ensureAudio,
