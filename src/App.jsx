@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import LandingPage from "./components/LandingPage.jsx";
 import ControlPanel from "./components/ControlPanel.jsx";
 import HeaderBar from "./components/HeaderBar.jsx";
@@ -16,12 +17,8 @@ import { useTranslation } from "./i18n";
 
 export default function App() {
   const { t } = useTranslation();
-
-  // Landing page view state
-  const [currentView, setCurrentView] = useState(() => {
-    const hasVisited = localStorage.getItem('emdr_has_visited');
-    return hasVisited === 'true' ? 'tool' : 'landing';
-  });
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const [running, setRunning] = useState(false);
   const [paused, setPaused] = useState(false);
@@ -209,32 +206,65 @@ export default function App() {
   }, [running, paused, direction, freqHz, marginPct, posX, posY]);
 
   useEffect(() => {
-    const stage = stageRef.current;
-    if (!stage) return;
+    // Reset state when entering tool view - do this FIRST before any measurements
+    if (location.pathname === '/tool') {
+      setRunning(false);
+      setPaused(false);
+      setElapsedMs(0);
+      setCycles(0);
+      setStageMounted(false);
+    }
 
-    const updateSize = () => {
+    let ro = null;
+    let resizeHandler = null;
+    let cancelled = false;
+
+    const updateSize = (stage) => {
+      if (cancelled) return;
       const rect = stage.getBoundingClientRect();
       stageSizeRef.current = { width: rect.width, height: rect.height };
-      // Trigger re-render after size is measured
       if (rect.width > 0 && rect.height > 0) {
         setStageMounted(true);
       }
     };
 
-    // Use requestAnimationFrame to ensure DOM is fully rendered
-    requestAnimationFrame(() => {
-      updateSize();
-    });
+    const checkAndUpdate = () => {
+      if (cancelled) return;
+      const stage = stageRef.current;
 
-    const ro = new ResizeObserver(() => updateSize());
-    ro.observe(stage);
-    window.addEventListener("resize", updateSize);
+      // Wait for stage to exist
+      if (!stage) {
+        requestAnimationFrame(checkAndUpdate);
+        return;
+      }
+
+      // Wait for stage to have non-zero dimensions
+      const rect = stage.getBoundingClientRect();
+      if (rect.width <= 0 || rect.height <= 0) {
+        requestAnimationFrame(checkAndUpdate);
+        return;
+      }
+
+      // Stage exists and has dimensions, update size
+      stageSizeRef.current = { width: rect.width, height: rect.height };
+      setStageMounted(true);
+
+      // Set up observers
+      ro = new ResizeObserver(() => updateSize(stage));
+      ro.observe(stage);
+
+      resizeHandler = () => updateSize(stage);
+      window.addEventListener("resize", resizeHandler);
+    };
+
+    requestAnimationFrame(checkAndUpdate);
 
     return () => {
-      ro.disconnect();
-      window.removeEventListener("resize", updateSize);
+      cancelled = true;
+      if (ro) ro.disconnect();
+      if (resizeHandler) window.removeEventListener("resize", resizeHandler);
     };
-  }, [currentView]);
+  }, [location.pathname]);
 
   useEffect(() => {
     if (!isActivated && randomizeEnabled) setRandomizeEnabled(false);
@@ -429,25 +459,16 @@ export default function App() {
 
   // Navigation functions for landing page
   const enterTool = useCallback(() => {
-    localStorage.setItem('emdr_has_visited', 'true');
-
-    // Reset critical state when entering tool
-    setRunning(false);
-    setPaused(false);
-    setElapsedMs(0);
-    setCycles(0);
-    setStageMounted(false); // Reset to trigger position calculation after remount
-
-    setCurrentView('tool');
-  }, []);
+    navigate('/tool');
+  }, [navigate]);
 
   const returnToLanding = useCallback(() => {
     // Stop any running processes before returning to landing
     setRunning(false);
     setPaused(false);
 
-    setCurrentView('landing');
-  }, []);
+    navigate('/');
+  }, [navigate]);
 
   const mmss = useMemo(() => {
     const s = Math.floor(elapsedMs / 1000);
@@ -456,11 +477,12 @@ export default function App() {
     return `${mm}:${ss}`;
   }, [elapsedMs]);
 
-  // Show landing page or tool based on currentView
-  if (currentView === 'landing') {
+  // Show landing page based on route
+  if (location.pathname === '/') {
     return <LandingPage enterTool={enterTool} />;
   }
 
+  // Show tool view
   return (
     <div className="h-screen w-full flex flex-col bg-white">
       {/* 移动端竖屏提示 */}
