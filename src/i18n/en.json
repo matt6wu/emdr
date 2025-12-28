@@ -58,6 +58,26 @@
     "initPrompt": "Click the button below to initialize audio:",
     "initButton": "Initialize audio"
   },
+  "ambient": {
+    "title": "Ambient Sound",
+    "soundType": "Ambient Type",
+    "volume": "Volume",
+    "inDevelopment": "In Dev",
+    "description": "Ambient sounds help create a relaxing atmosphere, playing independently from bilateral audio. ⚠️ Requires manual audio file download, see AUDIO_DOWNLOAD_GUIDE.md",
+    "presets": {
+      "none": "None",
+      "rain": "🌧️ Rain",
+      "ocean": "🌊 Ocean Waves",
+      "forest": "🌲 Forest",
+      "fireplace": "🔥 Fireplace",
+      "cafe": "☕ Coffee Shop",
+      "whitenoise": "🌬️ White Noise",
+      "night": "🌃 Night Ambience",
+      "wind": "💨 Wind",
+      "stream": "🏞️ Stream",
+      "thunder": "⚡ Thunder Storm"
+    }
+  },
   "activation": {
     "title": "Activation Code / 激活码",
     "placeholder": "Enter activation code",

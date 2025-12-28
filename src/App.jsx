@@ -11,6 +11,7 @@ import {
   SOUND_PRESETS
 } from "./constants/presets.js";
 import { useAudioEngine } from "./hooks/useAudioEngine.js";
+import { useAmbientAudio } from "./hooks/useAmbientAudio.js";
 import { computePosition } from "./logic/position.js";
 import { clamp, randBetween, randItem } from "./utils/math.js";
 import { useTranslation } from "./i18n";
@@ -41,6 +42,11 @@ export default function App() {
   const [audioPreset, setAudioPreset] = useState("shuttle");
   const [volume, setVolume] = useState(0.5);
   const [mute, setMute] = useState(false);
+
+  // Ambient audio states
+  const [ambientEnabled, setAmbientEnabled] = useState(false);
+  const [ambientPreset, setAmbientPreset] = useState("none");
+  const [ambientVolume, setAmbientVolume] = useState(0.3);
 
   const [elapsedMs, setElapsedMs] = useState(0);
   const [cycles, setCycles] = useState(0);
@@ -161,6 +167,13 @@ export default function App() {
     running,
     paused,
     getBeatSide
+  });
+
+  // Ambient audio hook
+  useAmbientAudio({
+    ambientEnabled,
+    ambientPreset,
+    ambientVolume
   });
 
   const dotColor = useMemo(() => {
@@ -561,6 +574,12 @@ export default function App() {
             setVolume={setVolume}
             mute={mute}
             setMute={setMute}
+            ambientEnabled={ambientEnabled}
+            setAmbientEnabled={setAmbientEnabled}
+            ambientPreset={ambientPreset}
+            setAmbientPreset={setAmbientPreset}
+            ambientVolume={ambientVolume}
+            setAmbientVolume={setAmbientVolume}
             randomizeEnabled={randomizeEnabled}
             setRandomizeEnabled={setRandomizeEnabled}
             randomizeEveryCycles={randomizeEveryCycles}
@@ -634,6 +653,12 @@ export default function App() {
                 setVolume={setVolume}
                 mute={mute}
                 setMute={setMute}
+                ambientEnabled={ambientEnabled}
+                setAmbientEnabled={setAmbientEnabled}
+                ambientPreset={ambientPreset}
+                setAmbientPreset={setAmbientPreset}
+                ambientVolume={ambientVolume}
+                setAmbientVolume={setAmbientVolume}
                 randomizeEnabled={randomizeEnabled}
                 setRandomizeEnabled={setRandomizeEnabled}
                 randomizeEveryCycles={randomizeEveryCycles}

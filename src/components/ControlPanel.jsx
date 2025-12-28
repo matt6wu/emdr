@@ -6,6 +6,7 @@ import {
   DOT_COLORS,
   SOUND_PRESETS
 } from "../constants/presets.js";
+import { AMBIENT_PRESETS } from "../constants/ambientPresets.js";
 import { useTranslation } from "../i18n";
 
 export default function ControlPanel({
@@ -54,6 +55,12 @@ export default function ControlPanel({
   setVolume,
   mute,
   setMute,
+  ambientEnabled,
+  setAmbientEnabled,
+  ambientPreset,
+  setAmbientPreset,
+  ambientVolume,
+  setAmbientVolume,
   randomizeEnabled,
   setRandomizeEnabled,
   randomizeEveryCycles,
@@ -479,6 +486,62 @@ export default function ControlPanel({
 
         <div className="text-xs text-slate-500">
           {t('audio.description')}
+        </div>
+      </div>
+
+      {/* Ambient Audio Section */}
+      <div className="rounded-2xl border p-4 space-y-3 bg-gradient-to-br from-blue-50/50 to-purple-50/50">
+        <div className="flex items-center justify-between">
+          <div className="font-semibold flex items-center gap-2">
+            🎵 {t('ambient.title')}
+            <span className="text-xs px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 font-normal">
+              {t('ambient.inDevelopment')}
+            </span>
+          </div>
+          <label className="flex items-center gap-2 text-sm">
+            <input
+              type="checkbox"
+              checked={ambientEnabled}
+              onChange={(e) => setAmbientEnabled(e.target.checked)}
+            />
+            {t('common.enable')}
+          </label>
+        </div>
+
+        <div className="grid grid-cols-2 gap-3">
+          <div>
+            <div className="text-sm text-slate-600 mb-1">{t('ambient.soundType')}</div>
+            <select
+              className="w-full px-3 py-2 rounded-xl border bg-white"
+              value={ambientPreset}
+              onChange={(e) => setAmbientPreset(e.target.value)}
+              disabled={!ambientEnabled}
+            >
+              {AMBIENT_PRESETS.map((preset) => (
+                <option key={preset.id} value={preset.id}>
+                  {t(`ambient.presets.${preset.id}`)}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <div className="text-sm text-slate-600 mb-1">{t('ambient.volume')}</div>
+            <input
+              type="range"
+              min={0}
+              max={1}
+              step={0.01}
+              value={ambientVolume}
+              onChange={(e) => setAmbientVolume(parseFloat(e.target.value))}
+              className="w-full"
+              disabled={!ambientEnabled}
+            />
+            <div className="text-xs text-slate-500">{Math.round(ambientVolume * 100)}%</div>
+          </div>
+        </div>
+
+        <div className="text-xs text-slate-500">
+          {t('ambient.description')}
         </div>
       </div>
 
