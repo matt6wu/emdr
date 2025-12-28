@@ -47,6 +47,20 @@ export const computePosition = (tSec, w, h, settings) => {
       x = cx + ampX * Math.sin(phase);
       y = (cy + ampY * 0.5) - ampY * Math.abs(Math.cos(phase));
       break;
+    case "bounce":
+      // 打砖块模式：使用多个不同频率的波形叠加，产生看似随机的弹跳
+      // 使用非整数频率比，产生非周期性的复杂轨迹
+      let vx = Math.sin(phase * 1.618) + Math.sin(phase * 2.414) * 0.5;
+      let vy = Math.cos(phase * 1.732) + Math.cos(phase * 2.236) * 0.5;
+      // 归一化速度向量，保持恒定速度
+      const magnitude = Math.sqrt(vx * vx + vy * vy);
+      if (magnitude > 0) {
+        vx = vx / magnitude;
+        vy = vy / magnitude;
+      }
+      x = cx + ampX * vx;
+      y = cy + ampY * vy;
+      break;
     default:
       x = cx + ampX * Math.sin(phase);
       y = cy;

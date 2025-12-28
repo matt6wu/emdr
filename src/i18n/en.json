@@ -134,7 +134,8 @@
       "diag2": "↗ Diagonal 2",
       "infinity": "∞ Figure 8",
       "pendulumBottom": "⌄ Pendulum Down",
-      "pendulumTop": "⌃ Pendulum Up"
+      "pendulumTop": "⌃ Pendulum Up",
+      "bounce": "🎮 Bounce (Breakout)"
     },
     "dotColors": {
       "blue": "Deep Blue",

@@ -20,7 +20,8 @@ export const DIRECTIONS = [
   { id: "pendulum-top", labelKey: "presets.directions.pendulumTop" },
   { id: "diag1", labelKey: "presets.directions.diag1" },
   { id: "diag2", labelKey: "presets.directions.diag2" },
-  { id: "infinity", labelKey: "presets.directions.infinity" }
+  { id: "infinity", labelKey: "presets.directions.infinity" },
+  { id: "bounce", labelKey: "presets.directions.bounce" }
 ];
 
 export const DOT_COLORS = [
