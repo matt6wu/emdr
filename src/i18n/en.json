@@ -163,6 +163,7 @@
   "locked": "🔒",
   "landing": {
     "nav": {
+      "difference": "Why Us",
       "features": "Features",
       "pricing": "Pricing",
       "startFree": "Start Free"

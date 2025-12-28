@@ -25,6 +25,12 @@ export default function Navbar({ enterTool }) {
           {/* Navigation Links - Hidden on mobile */}
           <div className="hidden md:flex items-center space-x-8">
             <button
+              onClick={() => scrollToSection("studio-difference")}
+              className="text-slate-600 hover:text-slate-900 transition-colors"
+            >
+              {t('landing.nav.difference')}
+            </button>
+            <button
               onClick={() => scrollToSection("features")}
               className="text-slate-600 hover:text-slate-900 transition-colors"
             >
