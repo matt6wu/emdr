@@ -275,6 +275,38 @@
         "location": "英国"
       }
     },
+    "studioDifference": {
+      "badge": "为什么选择我们",
+      "title": "REM Restore Studio™ 与普通 EMDR 的区别",
+      "subtitle": "专业级工具，带来治疗级体验",
+      "regularLabel": "普通 EMDR 工具",
+      "customization": {
+        "studio": "专业级控制面板：精确调节频率、方向、位置、大小等 20+ 参数",
+        "regular": "基础设置：通常只有简单的开始/停止按钮，缺乏个性化调节"
+      },
+      "randomization": {
+        "studio": "智能随机化引擎：自动变化参数增加工作记忆负荷，提升疗效",
+        "regular": "静态单调：每次会话完全相同，缺少认知挑战"
+      },
+      "multiSensory": {
+        "studio": "多感官刺激：12 种专业音频预设 + 视觉刺激，双侧同步",
+        "regular": "单一模式：通常仅提供视觉或音频，很少两者结合"
+      },
+      "accessibility": {
+        "studio": "随时随地：在家、办公室、旅行中都能使用，完全掌控进度",
+        "regular": "诊所限制：需要预约治疗师，时间地点受限，费用高昂"
+      },
+      "cost": {
+        "studio": "一次性支付 ¥68：终身使用，无限次会话，平均每次不到 ¥1",
+        "regular": "按次收费：每次治疗 ¥1500-3000，累计花费数万元"
+      },
+      "technology": {
+        "studio": "现代 Web 技术：实时渲染、精准同步、跨平台支持，持续更新",
+        "regular": "落后技术：老旧软件或简单视频，体验差，兼容性问题多"
+      },
+      "ctaTitle": "升级到专业级 EMDR 体验",
+      "ctaSubtitle": "免费试用基础功能，体验差异"
+    },
     "cta": {
       "title": "准备好开始您的疗愈之旅了吗？",
       "subtitle": "免费试用，随时升级",

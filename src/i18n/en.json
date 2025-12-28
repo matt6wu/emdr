@@ -275,6 +275,38 @@
         "location": "UK"
       }
     },
+    "studioDifference": {
+      "badge": "Why Choose Us",
+      "title": "REM Restore Studio™ vs Regular EMDR Tools",
+      "subtitle": "Professional-grade technology for therapeutic-level results",
+      "regularLabel": "Regular EMDR Tools",
+      "customization": {
+        "studio": "Professional control panel: Fine-tune 20+ parameters including frequency, direction, position, size, and more",
+        "regular": "Basic settings: Usually just simple start/stop buttons with no personalization options"
+      },
+      "randomization": {
+        "studio": "Smart randomization engine: Automatically varies parameters to increase working memory load and enhance effectiveness",
+        "regular": "Static and monotonous: Every session is identical, lacking cognitive challenge"
+      },
+      "multiSensory": {
+        "studio": "Multi-sensory stimulation: 12 professional audio presets + visual stimulation, perfectly synchronized bilaterally",
+        "regular": "Single modality: Usually only visual or audio, rarely both combined"
+      },
+      "accessibility": {
+        "studio": "Anytime, anywhere: Use at home, office, or while traveling with complete control over your pace",
+        "regular": "Clinic-bound: Requires therapist appointments, limited by time and location, high cost per session"
+      },
+      "cost": {
+        "studio": "One-time payment of $9.99: Lifetime access, unlimited sessions, less than $0.10 per session average",
+        "regular": "Pay per session: $200-400 per therapy session, thousands of dollars in cumulative costs"
+      },
+      "technology": {
+        "studio": "Modern web technology: Real-time rendering, precise synchronization, cross-platform support, continuous updates",
+        "regular": "Outdated technology: Old software or simple videos, poor experience, many compatibility issues"
+      },
+      "ctaTitle": "Upgrade to Professional-Grade EMDR",
+      "ctaSubtitle": "Try basic features free and experience the difference"
+    },
     "cta": {
       "title": "Ready to Start Your Healing Journey?",
       "subtitle": "Try it free, upgrade when you're ready",

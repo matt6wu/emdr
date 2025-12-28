@@ -484,7 +484,7 @@ export default function App() {
 
   // Show tool view
   return (
-    <div className="h-screen w-full flex flex-col bg-white">
+    <div className="h-screen w-full flex flex-col bg-white overflow-hidden">
       {/* 移动端竖屏提示 */}
       {isPortrait && !dismissedPortraitHint && (
         <div className="fixed inset-0 bg-black/90 z-[100] flex items-center justify-center p-6">

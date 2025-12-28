@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "./landing/Navbar.jsx";
 import HeroSection from "./landing/HeroSection.jsx";
 import EducationSection from "./landing/EducationSection.jsx";
+import StudioDifferenceSection from "./landing/StudioDifferenceSection.jsx";
 import FeaturesSection from "./landing/FeaturesSection.jsx";
 import PricingSection from "./landing/PricingSection.jsx";
 import TestimonialsSection from "./landing/TestimonialsSection.jsx";
@@ -14,6 +15,7 @@ export default function LandingPage({ enterTool }) {
       <Navbar enterTool={enterTool} />
       <HeroSection enterTool={enterTool} />
       <EducationSection />
+      <StudioDifferenceSection />
       <FeaturesSection />
       <PricingSection enterTool={enterTool} />
       <TestimonialsSection />

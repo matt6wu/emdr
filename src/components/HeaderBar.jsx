@@ -7,7 +7,13 @@ export default function HeaderBar({ hideControls, setHideControls, fullscreen, t
   return (
     <div className="w-full px-3 lg:px-4 py-2 lg:py-3 flex items-center justify-between border-b bg-white">
       <div className="flex items-center gap-2 lg:gap-3">
-        <div className="font-semibold text-base lg:text-lg">{t('header.title')}</div>
+        <button
+          className="font-semibold text-base lg:text-lg hover:text-blue-600 transition-colors cursor-pointer"
+          onClick={returnToLanding}
+          title={t('header.backToHome')}
+        >
+          {t('header.title')}
+        </button>
         <div className="text-xs text-slate-500 hidden md:block">
           {t('header.shortcuts')}
         </div>
