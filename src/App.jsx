@@ -96,6 +96,16 @@ export default function App() {
     const { width, height } = stageSizeRef.current;
     if (width <= 0 || height <= 0) return null;
     const tSec = elapsedMsRef.current / 1000 + audioLeadSec;
+
+    // 眼睛模式：基于运动方向而非位置判断左右声道
+    if (direction === 'eye') {
+      const omega = 2 * Math.PI * clamp(freqHz, 0.1, 0.8);
+      const phase = omega * tSec + (-Math.PI / 2);
+      const vx = Math.sin(phase * 0.65);  // 主频率分量
+      return vx > 0 ? 1 : -1;
+    }
+
+    // 其他模式：基于位置判断左右声道
     const { x } = computePosition(tSec, width, height, {
       marginPct,
       freqHz,
@@ -166,7 +176,8 @@ export default function App() {
     freqHz,
     running,
     paused,
-    getBeatSide
+    getBeatSide,
+    direction
   });
 
   // Ambient audio hook

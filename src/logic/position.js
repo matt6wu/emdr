@@ -47,11 +47,11 @@ export const computePosition = (tSec, w, h, settings) => {
       x = cx + ampX * Math.sin(phase);
       y = (cy + ampY * 0.5) - ampY * Math.abs(Math.cos(phase));
       break;
-    case "bounce":
-      // 打砖块模式：使用多个不同频率的波形叠加，产生看似随机的弹跳
-      // 使用非整数频率比，产生非周期性的复杂轨迹
-      let vx = Math.sin(phase * 1.618) + Math.sin(phase * 2.414) * 0.5;
-      let vy = Math.cos(phase * 1.732) + Math.cos(phase * 2.236) * 0.5;
+    case "eye":
+      // 眼睛模式：利萨如曲线变体，形成眼睛形状的轨迹
+      // 使用接近的频率（0.65倍），保持声画同步
+      let vx = Math.sin(phase * 0.65) + Math.sin(phase * 0.67) * 0.15;
+      let vy = Math.cos(phase * 0.65) + Math.cos(phase * 0.67) * 0.15;
       // 归一化速度向量，保持恒定速度
       const magnitude = Math.sqrt(vx * vx + vy * vy);
       if (magnitude > 0) {

@@ -198,19 +198,23 @@ export default function ControlPanel({
         </div>
 
         <div className="grid grid-cols-2 gap-3">
-          <div>
-            <div className="text-sm text-slate-600 mb-1">{t('visual.direction')}</div>
-            <select
-              className="w-full px-3 py-2 rounded-xl border"
-              value={direction}
-              onChange={(e) => setDirection(e.target.value)}
-            >
+          <div className="col-span-2">
+            <div className="text-sm text-slate-600 mb-2">{t('visual.direction')}</div>
+            <div className="flex flex-wrap gap-2">
               {DIRECTIONS.map((d) => (
-                <option key={d.id} value={d.id}>
+                <button
+                  key={d.id}
+                  onClick={() => setDirection(d.id)}
+                  className={`px-3 py-2 rounded-xl border text-sm transition-colors ${
+                    direction === d.id
+                      ? 'bg-blue-500 text-white border-blue-500'
+                      : 'bg-white text-slate-700 border-slate-300 hover:border-blue-300 hover:bg-blue-50'
+                  }`}
+                >
                   {t(d.labelKey)}
-                </option>
+                </button>
               ))}
-            </select>
+            </div>
           </div>
           <div>
             <div className="text-sm text-slate-600 mb-1">

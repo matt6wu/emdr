@@ -20,7 +20,8 @@ export const useAudioEngine = ({
   freqHz,
   running,
   paused,
-  getBeatSide
+  getBeatSide,
+  direction
 }) => {
   const audioCtxRef = useRef(null);
   const masterGainRef = useRef(null);
@@ -261,7 +262,11 @@ export const useAudioEngine = ({
     stopBeatClock();
     if (!audioEnabled) return;
     if (!running || paused) return;
-    const f = clamp(freqHz, 0.1, 0.8);
+    let f = clamp(freqHz, 0.1, 0.8);
+    // 眼睛模式的视觉速度是0.65倍，音频也需要同步调整
+    if (direction === 'eye') {
+      f = f * 0.65;
+    }
     const intervalMs = 1000 / f / 2;
     beatTimerRef.current = window.setInterval(() => {
       const computedSide = getBeatSide ? getBeatSide() : null;
@@ -272,7 +277,7 @@ export const useAudioEngine = ({
       }
       playBeat(lastBeatSideRef.current);
     }, intervalMs);
-  }, [audioEnabled, running, paused, freqHz, playBeat, stopBeatClock, getBeatSide]);
+  }, [audioEnabled, running, paused, freqHz, playBeat, stopBeatClock, getBeatSide, direction]);
 
   useEffect(() => {
     const g = masterGainRef.current;

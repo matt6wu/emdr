@@ -21,7 +21,7 @@ export const DIRECTIONS = [
   { id: "diag1", labelKey: "presets.directions.diag1" },
   { id: "diag2", labelKey: "presets.directions.diag2" },
   { id: "infinity", labelKey: "presets.directions.infinity" },
-  { id: "bounce", labelKey: "presets.directions.bounce" }
+  { id: "eye", labelKey: "presets.directions.eye" }
 ];
 
 export const DOT_COLORS = [
