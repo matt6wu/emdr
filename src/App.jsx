@@ -411,7 +411,12 @@ export default function App() {
     setRunning(true);
     setPaused(false);
 
-    if (audioEnabled) await ensureAudio();
+    if (audioEnabled) {
+      await ensureAudio();
+      // 移动端需要在用户交互中播放音频来解锁
+      // 等待一小段时间确保 AudioContext 完全初始化
+      await new Promise(resolve => setTimeout(resolve, 50));
+    }
 
     resetBeatSide();
     if (audioEnabled) {

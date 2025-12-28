@@ -58,6 +58,19 @@ export const useAudioEngine = ({
     if (ctx.state === 'suspended') {
       await ctx.resume();
     }
+
+    // 播放一个极短的静音来解锁移动端音频（关键！）
+    try {
+      const osc = ctx.createOscillator();
+      const g = ctx.createGain();
+      g.gain.value = 0.001; // 几乎静音
+      osc.connect(g);
+      g.connect(ctx.destination);
+      osc.start(ctx.currentTime);
+      osc.stop(ctx.currentTime + 0.01); // 10ms 极短音
+    } catch (e) {
+      console.warn('Failed to play unlock sound:', e);
+    }
   }, [mute, volume]);
 
   const playBeat = useCallback(
