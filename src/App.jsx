@@ -15,6 +15,16 @@ import { useAmbientAudio } from "./hooks/useAmbientAudio.js";
 import { computePosition } from "./logic/position.js";
 import { clamp, randBetween, randItem } from "./utils/math.js";
 import { useTranslation } from "./i18n";
+import { SCENES } from "./constants/scenes.js";
+import {
+  SceneSelect,
+  CountdownOverlay,
+  RestOverlay,
+  PausedOverlay,
+  DoneOverlay,
+  SessionChrome,
+  TapHint
+} from "./components/guided/GuidedOverlays.jsx";
 
 export default function App() {
   const { t } = useTranslation();
@@ -23,6 +33,20 @@ export default function App() {
 
   const [running, setRunning] = useState(false);
   const [paused, setPaused] = useState(false);
+
+  // 引导模式状态机：idle -> countdown -> running <-> rest -> done
+  const [mode, setMode] = useState("guided"); // guided | free
+  const [phase, setPhase] = useState("idle");
+  const [guided, setGuidedCfg] = useState(null);
+  const [selectedSceneId, setSelectedSceneId] = useState("calm");
+  const [guidedDuration, setGuidedDuration] = useState(10);
+  const [countdown, setCountdown] = useState(3);
+  const [setsDone, setSetsDone] = useState(0);
+  const [restLeft, setRestLeft] = useState(0);
+  const [uiHidden, setUiHidden] = useState(false);
+  const countdownRef = useRef(null);
+  const restTimeoutRef = useRef(null);
+  const restIntervalRef = useRef(null);
 
   const [visualEnabled, setVisualEnabled] = useState(true);
   const [direction, setDirection] = useState("lr");
@@ -210,6 +234,9 @@ export default function App() {
           lastCycleRef.current = c;
           setCycles(c);
         }
+      } else {
+        // 暂停期间持续校正起点，恢复后计时不会跳变
+        t0Ref.current = ts - elapsedMsRef.current;
       }
 
       rafRef.current = requestAnimationFrame(loop);
@@ -227,6 +254,10 @@ export default function App() {
       setElapsedMs(0);
       setCycles(0);
       setStageMounted(false);
+      clearGuidedTimers();
+      setGuidedCfg(null);
+      setPhase("idle");
+      setUiHidden(false);
     }
 
     let ro = null;
@@ -354,10 +385,14 @@ export default function App() {
       if (e.key === " ") {
         e.preventDefault();
         if (!running) return;
+        // 引导模式的休息/倒计时阶段不响应空格
+        if (mode === "guided" && phase !== "running") return;
         setPaused((p) => !p);
       }
       if (e.key.toLowerCase() === "b") {
         e.preventDefault();
+        // B 快捷键只在自由模式下开始/停止
+        if (mode !== "free") return;
         if (!running) {
           await start();
         } else {
@@ -371,7 +406,7 @@ export default function App() {
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [running]);
+  }, [running, mode, phase]);
 
   const resetSession = () => {
     t0Ref.current = 0;
@@ -422,6 +457,133 @@ export default function App() {
     setRunning(false);
     setPaused(false);
     stopBeatClock();
+  };
+
+  // ---------- 引导模式 ----------
+  const clearGuidedTimers = () => {
+    clearInterval(countdownRef.current);
+    clearTimeout(restTimeoutRef.current);
+    clearInterval(restIntervalRef.current);
+  };
+
+  const applyScene = (scene) => {
+    setVisualEnabled(true);
+    setDotEmojiMode(false);
+    setDirection("lr");
+    setFreqHz(scene.freqHz);
+    setBgMode(scene.bgMode);
+    setDotColorMode(scene.dotColorMode);
+    setAudioEnabled(true);
+    setMute(false);
+    setAudioPreset(scene.audioPreset);
+    setVolume(scene.volume);
+  };
+
+  const beginGuided = async () => {
+    const scene = SCENES.find((s) => s.id === selectedSceneId);
+    if (!scene) return;
+    applyScene(scene);
+    setGuidedCfg({
+      sceneId: scene.id,
+      durationMs: guidedDuration * 60000,
+      setMs: scene.setSec * 1000,
+      restMs: scene.restSec * 1000
+    });
+    setSetsDone(0);
+    // 在用户点击手势内解锁音频（iOS 需要）
+    await ensureAudio();
+    setCountdown(3);
+    setPhase("countdown");
+  };
+
+  const resumeFromRest = () => {
+    clearTimeout(restTimeoutRef.current);
+    clearInterval(restIntervalRef.current);
+    setSetsDone((s) => s + 1);
+    setPaused(false);
+    setPhase("running");
+  };
+
+  const finishGuided = () => {
+    clearGuidedTimers();
+    stop();
+    setUiHidden(false);
+    setPhase("done");
+  };
+
+  const exitGuidedToIdle = () => {
+    clearGuidedTimers();
+    stop();
+    setGuidedCfg(null);
+    setUiHidden(false);
+    setPhase("idle");
+  };
+
+  // 倒计时：3-2-1 后柔和进入会话
+  useEffect(() => {
+    if (phase !== "countdown") return;
+    countdownRef.current = setInterval(() => setCountdown((c) => c - 1), 1000);
+    return () => clearInterval(countdownRef.current);
+  }, [phase]);
+
+  useEffect(() => {
+    if (phase !== "countdown" || countdown > 0) return;
+    clearInterval(countdownRef.current);
+    (async () => {
+      await start();
+      setPhase("running");
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [countdown, phase]);
+
+  // 分组调度：到达组边界进入休息，到达总时长收尾
+  useEffect(() => {
+    if (mode !== "guided" || phase !== "running" || !guided || !running || paused) return;
+    if (elapsedMs >= guided.durationMs) {
+      finishGuided();
+      return;
+    }
+    const boundary = (setsDone + 1) * guided.setMs;
+    if (elapsedMs >= boundary) {
+      setPaused(true);
+      setPhase("rest");
+      setRestLeft(Math.round(guided.restMs / 1000));
+      restIntervalRef.current = setInterval(
+        () => setRestLeft((s) => Math.max(0, s - 1)),
+        1000
+      );
+      restTimeoutRef.current = setTimeout(resumeFromRest, guided.restMs);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [elapsedMs, mode, phase, guided, setsDone, running, paused]);
+
+  // 会话进行中：3 秒无操作自动隐藏 UI 与光标
+  useEffect(() => {
+    const active = running && !paused && (mode === "free" || phase === "running");
+    if (!active) {
+      setUiHidden(false);
+      return;
+    }
+    let timer = setTimeout(() => setUiHidden(true), 3000);
+    const wake = () => {
+      setUiHidden(false);
+      clearTimeout(timer);
+      timer = setTimeout(() => setUiHidden(true), 3000);
+    };
+    window.addEventListener("mousemove", wake);
+    window.addEventListener("touchstart", wake);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("mousemove", wake);
+      window.removeEventListener("touchstart", wake);
+    };
+  }, [running, paused, mode, phase]);
+
+  // 点击画面暂停/继续（休息阶段除外）
+  const handleStageClick = () => {
+    if (!running) return;
+    if (mode === "guided" && phase !== "running") return;
+    setPaused((p) => !p);
   };
 
   const toggleFullscreen = async () => {
@@ -488,8 +650,13 @@ export default function App() {
     // Stop any running processes before returning to landing
     setRunning(false);
     setPaused(false);
+    clearGuidedTimers();
+    setGuidedCfg(null);
+    setPhase("idle");
+    setUiHidden(false);
 
     navigate('/');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigate]);
 
   const mmss = useMemo(() => {
@@ -498,6 +665,17 @@ export default function App() {
     const ss = String(s % 60).padStart(2, "0");
     return `${mm}:${ss}`;
   }, [elapsedMs]);
+
+  const guidedRemaining = useMemo(() => {
+    if (!guided) return "";
+    const s = Math.ceil(Math.max(0, guided.durationMs - elapsedMs) / 1000);
+    const mm = String(Math.floor(s / 60)).padStart(2, "0");
+    const ss = String(s % 60).padStart(2, "0");
+    return `${mm}:${ss}`;
+  }, [guided, elapsedMs]);
+
+  const inSession = mode === "guided" && ["countdown", "running", "rest"].includes(phase);
+  const showHeader = !(inSession || (mode === "guided" && phase === "done"));
 
   // Show landing page based on route
   if (location.pathname === '/') {
@@ -526,17 +704,28 @@ export default function App() {
         </div>
       )}
 
-      <HeaderBar
-        hideControls={hideControls}
-        setHideControls={setHideControls}
-        fullscreen={fullscreen}
-        toggleFullscreen={toggleFullscreen}
-        returnToLanding={returnToLanding}
-      />
+      {showHeader && (
+        <HeaderBar
+          hideControls={hideControls}
+          setHideControls={setHideControls}
+          fullscreen={fullscreen}
+          toggleFullscreen={toggleFullscreen}
+          returnToLanding={returnToLanding}
+          mode={mode}
+          onBackToGuided={() => {
+            stop();
+            setMode("guided");
+            setPhase("idle");
+          }}
+        />
+      )}
 
-      <div className="flex-1 min-h-0 w-full flex flex-col lg:flex-row relative">
-        {/* 桌面端：侧边栏布局 */}
-        <div className={`hidden lg:block ${hideControls ? 'lg:hidden' : ''}`}>
+      <div
+        className="flex-1 min-h-0 w-full flex flex-col lg:flex-row relative"
+        style={uiHidden ? { cursor: "none" } : undefined}
+      >
+        {/* 桌面端：侧边栏布局（仅自由模式） */}
+        <div className={`hidden ${mode === 'free' ? 'lg:block' : ''} ${hideControls ? 'lg:hidden' : ''}`}>
           <ControlPanel
             running={running}
             paused={paused}
@@ -606,8 +795,8 @@ export default function App() {
           />
         </div>
 
-        {/* 移动端：抽屉式覆盖层 */}
-        {!hideControls && (
+        {/* 移动端：抽屉式覆盖层（仅自由模式） */}
+        {mode === 'free' && !hideControls && (
           <>
             {/* 遮罩层 */}
             <div
@@ -699,7 +888,9 @@ export default function App() {
           dotEmojiMode={dotEmojiMode}
           dotEmoji={dotEmoji}
           dotColor={dotColor}
-          hideControls={hideControls}
+          showMiniBar={mode === 'free' && hideControls}
+          uiHidden={uiHidden}
+          onStageClick={handleStageClick}
           start={start}
           stop={stop}
           togglePaused={() => setPaused((p) => !p)}
@@ -708,6 +899,52 @@ export default function App() {
           setRandomizeEnabled={setRandomizeEnabled}
           isActivated={isActivated}
         />
+
+        {/* 引导模式覆盖层 */}
+        {mode === 'guided' && phase === 'idle' && (
+          <SceneSelect
+            scenes={SCENES}
+            selected={selectedSceneId}
+            setSelected={setSelectedSceneId}
+            duration={guidedDuration}
+            setDuration={setGuidedDuration}
+            onBegin={beginGuided}
+            onFreeMode={() => setMode('free')}
+            t={t}
+          />
+        )}
+        {mode === 'guided' && phase === 'countdown' && (
+          <CountdownOverlay n={Math.max(1, countdown)} t={t} />
+        )}
+        {mode === 'guided' && phase === 'rest' && (
+          <RestOverlay secs={restLeft} onSkip={resumeFromRest} t={t} />
+        )}
+        {mode === 'guided' && phase === 'running' && paused && (
+          <PausedOverlay t={t} onResume={() => setPaused(false)} />
+        )}
+        {mode === 'guided' && phase === 'done' && (
+          <DoneOverlay
+            mmss={mmss}
+            sets={setsDone + 1}
+            cycles={cycles}
+            onAgain={beginGuided}
+            onChangeScene={exitGuidedToIdle}
+            onHome={returnToLanding}
+            t={t}
+          />
+        )}
+        {inSession && phase !== 'countdown' && (
+          <SessionChrome
+            hidden={uiHidden}
+            setNum={setsDone + 1}
+            remainingLabel={guidedRemaining}
+            onEnd={finishGuided}
+            t={t}
+          />
+        )}
+        {mode === 'guided' && phase === 'running' && !paused && setsDone === 0 && elapsedMs < 5000 && (
+          <TapHint t={t} />
+        )}
       </div>
     </div>
   );

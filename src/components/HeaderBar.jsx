@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "../i18n";
 
-export default function HeaderBar({ hideControls, setHideControls, fullscreen, toggleFullscreen, returnToLanding }) {
+export default function HeaderBar({ hideControls, setHideControls, fullscreen, toggleFullscreen, returnToLanding, mode = "free", onBackToGuided = null }) {
   const { t, language, setLanguage } = useTranslation();
 
   const ghostBtn =
@@ -28,6 +28,11 @@ export default function HeaderBar({ hideControls, setHideControls, fullscreen, t
         </div>
       </div>
       <div className="flex items-center gap-2">
+        {mode === "free" && onBackToGuided && (
+          <button className={ghostBtn} onClick={onBackToGuided}>
+            {t('guided.backToGuided')}
+          </button>
+        )}
         <button
           className={ghostBtn}
           onClick={() => setLanguage(language === 'zh-CN' ? 'en' : 'zh-CN')}
@@ -35,14 +40,16 @@ export default function HeaderBar({ hideControls, setHideControls, fullscreen, t
         >
           {language === 'zh-CN' ? 'EN' : '中文'}
         </button>
-        <button
-          className={ghostBtn}
-          onClick={() => setHideControls((v) => !v)}
-          title={t('header.togglePanelTitle')}
-        >
-          <span className="hidden sm:inline">{hideControls ? t('header.showPanel') : t('header.hidePanel')}</span>
-          <span className="sm:hidden">{hideControls ? t('common.show') : t('common.hide')}</span>
-        </button>
+        {mode === "free" && (
+          <button
+            className={ghostBtn}
+            onClick={() => setHideControls((v) => !v)}
+            title={t('header.togglePanelTitle')}
+          >
+            <span className="hidden sm:inline">{hideControls ? t('header.showPanel') : t('header.hidePanel')}</span>
+            <span className="sm:hidden">{hideControls ? t('common.show') : t('common.hide')}</span>
+          </button>
+        )}
         <button
           className={`${ghostBtn} hidden sm:block`}
           onClick={toggleFullscreen}

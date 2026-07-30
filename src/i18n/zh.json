@@ -1,7 +1,7 @@
 {
   "common": {
-    "start": "开始",
-    "stop": "停止",
+    "start": "开始练习",
+    "stop": "结束",
     "pause": "暂停",
     "continue": "继续",
     "reset": "重置",
@@ -103,9 +103,9 @@
   },
   "stage": {
     "status": "状态",
-    "notStarted": "未开始",
-    "running": "运行中",
-    "paused": "已暂停",
+    "notStarted": "准备好了就开始",
+    "running": "跟随圆点，保持头部不动",
+    "paused": "已暂停，深呼吸",
     "randomOn": "随机:开",
     "randomOff": "随机:关",
     "randomLocked": "随机:锁"
@@ -174,6 +174,47 @@
     }
   },
   "locked": "🔒",
+  "guided": {
+    "title": "今天想怎么练习？",
+    "subtitle": "选一个场景，节奏交给我们，你只需要跟随。",
+    "durationLabel": "时长",
+    "min": "分钟",
+    "begin": "开始练习",
+    "freeTitle": "自由练习",
+    "freeDesc": "完整参数控制",
+    "backToGuided": "引导模式",
+    "getReady": "找个舒服的姿势，眼睛跟随圆点",
+    "restTitle": "这一组完成了",
+    "restPrompt": "深呼吸，留意此刻身体的感受",
+    "skipRest": "继续下一组",
+    "endEarly": "结束练习",
+    "pausedHint": "已暂停 · 点击屏幕继续",
+    "tapHint": "点击屏幕可随时暂停",
+    "doneTitle": "做得很好",
+    "doneSubtitle": "花几秒钟，感受一下现在的状态",
+    "statsTime": "练习时长",
+    "statsSets": "完成组数",
+    "statsCycles": "总轮数",
+    "again": "再练一次",
+    "changeScene": "换个场景",
+    "backHome": "返回首页",
+    "setPrefix": "第 ",
+    "setSuffix": " 组",
+    "scenes": {
+      "calm": {
+        "name": "平复焦虑",
+        "desc": "中速节奏与柔和铃声，帮助情绪慢慢落地"
+      },
+      "sleep": {
+        "name": "睡前放松",
+        "desc": "缓慢节奏、暗色背景与风铃声，陪你安静下来"
+      },
+      "classic": {
+        "name": "标准 EMDR",
+        "desc": "经典节奏与分组停顿，适合常规练习"
+      }
+    }
+  },
   "landing": {
     "nav": {
       "learn": "了解 EMDR",

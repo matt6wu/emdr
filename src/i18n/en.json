@@ -1,7 +1,7 @@
 {
   "common": {
-    "start": "Start",
-    "stop": "Stop",
+    "start": "Begin",
+    "stop": "End",
     "pause": "Pause",
     "continue": "Resume",
     "reset": "Reset",
@@ -103,9 +103,9 @@
   },
   "stage": {
     "status": "Status",
-    "notStarted": "Not started",
-    "running": "Running",
-    "paused": "Paused",
+    "notStarted": "Start whenever you're ready",
+    "running": "Follow the dot, keep your head still",
+    "paused": "Paused — take a breath",
     "randomOn": "Random: on",
     "randomOff": "Random: off",
     "randomLocked": "Random: locked"
@@ -174,6 +174,47 @@
     }
   },
   "locked": "🔒",
+  "guided": {
+    "title": "How would you like to practice today?",
+    "subtitle": "Pick a scene — we'll set the pace, you just follow along.",
+    "durationLabel": "Duration",
+    "min": "min",
+    "begin": "Begin practice",
+    "freeTitle": "Free practice",
+    "freeDesc": "full manual control",
+    "backToGuided": "Guided mode",
+    "getReady": "Get comfortable and follow the dot with your eyes",
+    "restTitle": "Set complete",
+    "restPrompt": "Take a deep breath and notice how your body feels",
+    "skipRest": "Next set",
+    "endEarly": "End session",
+    "pausedHint": "Paused · tap anywhere to continue",
+    "tapHint": "Tap the screen anytime to pause",
+    "doneTitle": "Well done",
+    "doneSubtitle": "Take a few seconds to notice how you feel now",
+    "statsTime": "Duration",
+    "statsSets": "Sets",
+    "statsCycles": "Passes",
+    "again": "Practice again",
+    "changeScene": "Change scene",
+    "backHome": "Back to home",
+    "setPrefix": "Set ",
+    "setSuffix": "",
+    "scenes": {
+      "calm": {
+        "name": "Calm anxiety",
+        "desc": "Medium pace with soft bells to help emotions settle"
+      },
+      "sleep": {
+        "name": "Wind down",
+        "desc": "Slow pace, dark backdrop and gentle chimes for bedtime"
+      },
+      "classic": {
+        "name": "Classic EMDR",
+        "desc": "Traditional pacing with structured sets and pauses"
+      }
+    }
+  },
   "landing": {
     "nav": {
       "learn": "Learn EMDR",

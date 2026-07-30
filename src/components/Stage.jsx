@@ -13,7 +13,9 @@ export default function Stage({
   dotEmojiMode,
   dotEmoji,
   dotColor,
-  hideControls,
+  showMiniBar,
+  uiHidden = false,
+  onStageClick = () => {},
   start,
   stop,
   togglePaused,
@@ -26,10 +28,19 @@ export default function Stage({
 
   return (
     <div className="flex-1 relative h-full overflow-hidden">
-      <div ref={stageRef} className="absolute inset-0" style={{ background: bgColor }} />
+      <div
+        ref={stageRef}
+        className="absolute inset-0"
+        style={{ background: bgColor }}
+        onClick={onStageClick}
+      />
 
       {/* 状态角标 */}
-      <div className="absolute right-4 bottom-4 pointer-events-none">
+      <div
+        className={`absolute right-4 bottom-4 pointer-events-none transition-opacity duration-500 ${
+          uiHidden ? "opacity-0" : "opacity-100"
+        }`}
+      >
         <div className="rounded-xl bg-white/85 backdrop-blur border border-stone-200/80 shadow-sm px-3.5 py-2 flex items-center gap-2.5">
           <span
             className={`h-2 w-2 rounded-full ${
@@ -71,8 +82,12 @@ export default function Stage({
       )}
 
       {/* 面板隐藏时的迷你控制条 */}
-      {hideControls && (
-        <div className="absolute inset-x-0 top-4 flex justify-center px-2">
+      {showMiniBar && (
+        <div
+          className={`absolute inset-x-0 top-4 flex justify-center px-2 transition-opacity duration-500 ${
+            uiHidden ? "opacity-0 pointer-events-none" : "opacity-100"
+          }`}
+        >
           <div className="pointer-events-auto rounded-full bg-white/90 backdrop-blur border border-stone-200/80 shadow-md px-2.5 py-1.5 flex flex-wrap items-center justify-center gap-1.5">
             {!running ? (
               <button
