@@ -7,3 +7,4 @@ activation-codes.txt
 # Ambient audio files (download manually, see AUDIO_DOWNLOAD_GUIDE.md)
 public/audio/*.mp3
 public/audio/*.wav
+package-lock.json
