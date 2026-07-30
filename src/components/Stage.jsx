@@ -28,12 +28,18 @@ export default function Stage({
     <div className="flex-1 relative h-full overflow-hidden">
       <div ref={stageRef} className="absolute inset-0" style={{ background: bgColor }} />
 
-      <div className="absolute right-4 bottom-4 flex flex-col gap-2 items-end pointer-events-none">
-        <div className="pointer-events-auto rounded-2xl bg-white/80 backdrop-blur border px-3 py-2 text-sm text-slate-800 shadow">
-          <div className="font-medium">{t('stage.status')}</div>
-          <div className="text-xs text-slate-600">
-            {running ? (paused ? t('stage.paused') : t('stage.running')) : t('stage.notStarted')} · {freqHz.toFixed(2)} Hz
-          </div>
+      {/* 状态角标 */}
+      <div className="absolute right-4 bottom-4 pointer-events-none">
+        <div className="rounded-xl bg-white/85 backdrop-blur border border-stone-200/80 shadow-sm px-3.5 py-2 flex items-center gap-2.5">
+          <span
+            className={`h-2 w-2 rounded-full ${
+              running ? (paused ? "bg-amber-400" : "bg-brand-500") : "bg-stone-300"
+            }`}
+          />
+          <span className="text-sm text-stone-700">
+            {running ? (paused ? t('stage.paused') : t('stage.running')) : t('stage.notStarted')}
+          </span>
+          <span className="text-xs text-stone-400 tabular-nums">{freqHz.toFixed(2)} Hz</span>
         </div>
       </div>
 
@@ -56,38 +62,55 @@ export default function Stage({
             fontSize: Math.max(14, Math.floor(dotSize * 0.6)),
             userSelect: "none",
             pointerEvents: "none",
-            textShadow: dotEmojiMode ? "0 2px 10px rgba(0,0,0,0.15)" : "none"
+            textShadow: dotEmojiMode ? "0 2px 10px rgba(0,0,0,0.15)" : "none",
+            boxShadow: dotEmojiMode ? "none" : "0 4px 24px rgba(0,0,0,0.12)"
           }}
         >
           {dotEmojiMode ? <span>{dotEmoji}</span> : null}
         </div>
       )}
 
+      {/* 面板隐藏时的迷你控制条 */}
       {hideControls && (
         <div className="absolute inset-x-0 top-4 flex justify-center px-2">
-          <div className="pointer-events-auto rounded-2xl bg-white/90 backdrop-blur border shadow px-3 py-2 flex flex-wrap items-center justify-center gap-2">
+          <div className="pointer-events-auto rounded-full bg-white/90 backdrop-blur border border-stone-200/80 shadow-md px-2.5 py-1.5 flex flex-wrap items-center justify-center gap-1.5">
             {!running ? (
-              <button className="px-4 py-2 rounded-xl bg-emerald-600 text-white min-h-[44px] touch-manipulation" onClick={start}>
+              <button
+                className="px-5 py-2 rounded-full bg-brand-700 text-white text-sm font-medium hover:bg-brand-800 min-h-[40px] touch-manipulation transition-colors"
+                onClick={start}
+              >
                 {t('common.start')}
               </button>
             ) : (
               <>
-                <button className="px-3 py-2 rounded-xl border bg-white min-h-[44px] touch-manipulation" onClick={togglePaused}>
+                <button
+                  className="px-4 py-2 rounded-full border border-stone-300 bg-white text-sm text-stone-700 hover:bg-stone-50 min-h-[40px] touch-manipulation transition-colors"
+                  onClick={togglePaused}
+                >
                   {paused ? t('common.continue') : t('common.pause')}
                 </button>
-                <button className="px-3 py-2 rounded-xl bg-slate-900 text-white min-h-[44px] touch-manipulation" onClick={stop}>
+                <button
+                  className="px-4 py-2 rounded-full bg-stone-900 text-white text-sm hover:bg-stone-700 min-h-[40px] touch-manipulation transition-colors"
+                  onClick={stop}
+                >
                   {t('common.stop')}
                 </button>
               </>
             )}
             <button
-              className={`px-3 py-2 rounded-xl border bg-white min-h-[44px] touch-manipulation ${!isActivated ? "opacity-50 cursor-not-allowed" : ""}`}
+              className={`px-4 py-2 rounded-full border text-sm min-h-[40px] touch-manipulation transition-colors ${
+                !isActivated
+                  ? "border-stone-200 text-stone-400 cursor-not-allowed"
+                  : randomizeEnabled
+                    ? "border-brand-300 bg-brand-50 text-brand-800"
+                    : "border-stone-300 bg-white text-stone-700 hover:bg-stone-50"
+              }`}
               onClick={() => setRandomizeEnabled((v) => !v)}
               disabled={!isActivated}
             >
               {!isActivated ? t('stage.randomLocked') : randomizeEnabled ? t('stage.randomOn') : t('stage.randomOff')}
             </button>
-            <div className="text-sm text-slate-700 tabular-nums px-2">{mmss}</div>
+            <div className="text-sm text-stone-600 tabular-nums px-2">{mmss}</div>
           </div>
         </div>
       )}

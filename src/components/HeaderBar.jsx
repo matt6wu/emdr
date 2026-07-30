@@ -4,39 +4,39 @@ import { useTranslation } from "../i18n";
 export default function HeaderBar({ hideControls, setHideControls, fullscreen, toggleFullscreen, returnToLanding }) {
   const { t, language, setLanguage } = useTranslation();
 
+  const ghostBtn =
+    "px-3 py-2 rounded-lg border border-stone-200 hover:bg-stone-50 text-sm text-stone-600 min-h-[44px] touch-manipulation transition-colors";
+
   return (
-    <div className="w-full px-3 lg:px-4 py-2 lg:py-3 flex items-center justify-between border-b bg-white">
-      <div className="flex items-center gap-2 lg:gap-3">
+    <div className="w-full px-3 lg:px-4 py-2 flex items-center justify-between border-b border-stone-200 bg-white">
+      <div className="flex items-center gap-3">
         <button
-          className="font-semibold text-base lg:text-lg hover:text-blue-600 transition-colors cursor-pointer"
+          className="flex items-center gap-2 cursor-pointer group"
           onClick={returnToLanding}
           title={t('header.backToHome')}
         >
-          {t('header.title')}
+          <span className="relative flex h-7 w-7 items-center justify-center rounded-full bg-brand-700">
+            <span className="h-2 w-2 rounded-full bg-brand-100" />
+            <span className="absolute right-1 h-1 w-1 rounded-full bg-brand-300" />
+          </span>
+          <span className="font-semibold text-stone-900 group-hover:text-brand-700 transition-colors hidden sm:inline">
+            REM Restore Studio
+          </span>
         </button>
-        <div className="text-xs text-slate-500 hidden md:block">
+        <div className="text-xs text-stone-400 hidden xl:block">
           {t('header.shortcuts')}
         </div>
       </div>
       <div className="flex items-center gap-2">
-        {returnToLanding && (
-          <button
-            className="px-3 py-2 rounded-xl border hover:bg-slate-50 text-sm min-h-[44px] touch-manipulation"
-            onClick={returnToLanding}
-            title={t('header.backToHome')}
-          >
-            {t('header.backToHome')}
-          </button>
-        )}
         <button
-          className="px-3 py-2 rounded-xl border hover:bg-slate-50 text-sm min-h-[44px] touch-manipulation"
+          className={ghostBtn}
           onClick={() => setLanguage(language === 'zh-CN' ? 'en' : 'zh-CN')}
           title={language === 'zh-CN' ? 'Switch to English' : '切换到中文'}
         >
-          {language === 'zh-CN' ? '🇬🇧 EN' : '🇨🇳 中文'}
+          {language === 'zh-CN' ? 'EN' : '中文'}
         </button>
         <button
-          className="px-3 py-2 rounded-xl border hover:bg-slate-50 text-sm min-h-[44px] touch-manipulation"
+          className={ghostBtn}
           onClick={() => setHideControls((v) => !v)}
           title={t('header.togglePanelTitle')}
         >
@@ -44,7 +44,7 @@ export default function HeaderBar({ hideControls, setHideControls, fullscreen, t
           <span className="sm:hidden">{hideControls ? t('common.show') : t('common.hide')}</span>
         </button>
         <button
-          className="px-3 py-2 rounded-xl border hover:bg-slate-50 text-sm min-h-[44px] touch-manipulation hidden sm:block"
+          className={`${ghostBtn} hidden sm:block`}
           onClick={toggleFullscreen}
           title={t('header.fullscreenTitle')}
         >

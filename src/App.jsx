@@ -509,15 +509,15 @@ export default function App() {
     <div className="h-screen w-full flex flex-col bg-white overflow-hidden">
       {/* 移动端竖屏提示 */}
       {isPortrait && !dismissedPortraitHint && (
-        <div className="fixed inset-0 bg-black/90 z-[100] flex items-center justify-center p-6">
-          <div className="bg-white rounded-2xl p-6 max-w-sm text-center space-y-4">
-            <div className="text-6xl">{t('portrait.emoji')}</div>
-            <div className="text-xl font-semibold">{t('portrait.title')}</div>
-            <div className="text-sm text-slate-600">
+        <div className="fixed inset-0 bg-stone-950/85 backdrop-blur-sm z-[100] flex items-center justify-center p-6">
+          <div className="bg-white rounded-2xl p-7 max-w-sm text-center space-y-4 shadow-2xl">
+            <div className="text-5xl">{t('portrait.emoji')}</div>
+            <div className="text-xl font-semibold text-stone-900">{t('portrait.title')}</div>
+            <div className="text-sm text-stone-500 leading-relaxed">
               {t('portrait.message')}
             </div>
             <button
-              className="w-full px-4 py-3 rounded-xl bg-slate-900 text-white hover:bg-slate-800 min-h-[44px] touch-manipulation"
+              className="w-full px-4 py-3 rounded-full bg-brand-700 text-white font-medium hover:bg-brand-800 min-h-[44px] touch-manipulation transition-colors"
               onClick={() => setDismissedPortraitHint(true)}
             >
               {t('portrait.dismiss')}
