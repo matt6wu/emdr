@@ -201,17 +201,13 @@
     "setPrefix": "Set ",
     "setSuffix": "",
     "scenes": {
-      "calm": {
-        "name": "Calm anxiety",
-        "desc": "Medium pace with soft bells to help emotions settle"
+      "classic": {
+        "name": "Classic EMDR",
+        "desc": "Gentle pacing with structured sets and soft percussion cues"
       },
       "sleep": {
         "name": "Wind down",
         "desc": "Slow pace, dark backdrop and gentle chimes for bedtime"
-      },
-      "classic": {
-        "name": "Classic EMDR",
-        "desc": "Traditional pacing with structured sets and pauses"
       }
     }
   },

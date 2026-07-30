@@ -17,7 +17,7 @@ export function SceneSelect({ scenes, selected, setSelected, duration, setDurati
           </div>
 
           {/* 场景卡片 */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6 max-w-lg mx-auto">
             {scenes.map((s) => (
               <button
                 key={s.id}

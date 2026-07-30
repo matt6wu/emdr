@@ -1,16 +1,16 @@
 // 引导模式的场景预设：每个场景配好节奏/视觉/听觉，用户只选场景和时长
 export const SCENES = [
   {
-    id: "calm",
+    id: "classic",
     accent: "#0d9488",
     freqHz: 0.25,
     bgMode: "gray",
     dotColorMode: "blue",
-    audioPreset: "bell",
+    audioPreset: "shuttle",
     volume: 0.5,
     setSec: 45,
     restSec: 15,
-    durations: [5, 10, 15]
+    durations: [5, 10, 15, 20]
   },
   {
     id: "sleep",
@@ -23,17 +23,5 @@ export const SCENES = [
     setSec: 60,
     restSec: 20,
     durations: [5, 10, 15]
-  },
-  {
-    id: "classic",
-    accent: "#2563eb",
-    freqHz: 0.35,
-    bgMode: "gray",
-    dotColorMode: "blue",
-    audioPreset: "shuttle",
-    volume: 0.5,
-    setSec: 40,
-    restSec: 12,
-    durations: [10, 15, 20]
   }
 ];

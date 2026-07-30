@@ -38,7 +38,7 @@ export default function App() {
   const [mode, setMode] = useState("guided"); // guided | free
   const [phase, setPhase] = useState("idle");
   const [guided, setGuidedCfg] = useState(null);
-  const [selectedSceneId, setSelectedSceneId] = useState("calm");
+  const [selectedSceneId, setSelectedSceneId] = useState("classic");
   const [guidedDuration, setGuidedDuration] = useState(10);
   const [countdown, setCountdown] = useState(3);
   const [setsDone, setSetsDone] = useState(0);

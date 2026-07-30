@@ -201,17 +201,13 @@
     "setPrefix": "第 ",
     "setSuffix": " 组",
     "scenes": {
-      "calm": {
-        "name": "平复焦虑",
-        "desc": "中速节奏与柔和铃声，帮助情绪慢慢落地"
+      "classic": {
+        "name": "标准 EMDR",
+        "desc": "舒缓节奏与分组停顿，配羽毛球提示音"
       },
       "sleep": {
         "name": "睡前放松",
         "desc": "缓慢节奏、暗色背景与风铃声，陪你安静下来"
-      },
-      "classic": {
-        "name": "标准 EMDR",
-        "desc": "经典节奏与分组停顿，适合常规练习"
       }
     }
   },
