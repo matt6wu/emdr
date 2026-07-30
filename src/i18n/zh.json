@@ -10,17 +10,6 @@
     "show": "面板",
     "hide": "隐藏"
   },
-  "header": {
-    "title": "REM Restore Studio™",
-    "shortcuts": "快捷键：B 开始/停止｜空格 暂停｜↑↓ 调频率｜H 隐藏面板｜F 全屏",
-    "showPanel": "显示面板",
-    "hidePanel": "隐藏面板",
-    "panel": "面板",
-    "fullscreen": "全屏",
-    "exitFullscreen": "退出全屏",
-    "fullscreenTitle": "全屏 (F)",
-    "togglePanelTitle": "隐藏/显示控制面板 (H)"
-  },
   "control": {
     "panelTitle": "控制面板",
     "session": "会话",
@@ -187,19 +176,23 @@
   "locked": "🔒",
   "landing": {
     "nav": {
+      "learn": "了解 EMDR",
       "difference": "产品优势",
       "features": "功能特色",
       "pricing": "价格方案",
       "startFree": "免费开始"
     },
     "hero": {
-      "headline": "专业级 EMDR 自愈疗愈工具",
-      "subheadline": "科学认证的双侧刺激疗法，现在可在家中使用",
+      "kicker": "EMDR · 双侧刺激练习",
+      "headline": "专业级 EMDR 双侧刺激工具",
+      "subheadline": "可深度自定义的视觉与听觉双侧刺激，在家即可随时练习",
       "ctaPrimary": "免费试用",
       "ctaSecondary": "了解 EMDR 原理",
-      "noCreditCard": "无需信用卡"
+      "noCreditCard": "无需信用卡",
+      "previewLabel": "双侧刺激效果预览"
     },
     "education": {
+      "kicker": "科普",
       "title": "了解 EMDR 疗法",
       "whatTitle": "什么是 EMDR？",
       "whatDesc": "眼动脱敏与再加工疗法是一种经科学验证的疗法，用于处理创伤性记忆并减少情绪困扰。",
@@ -209,6 +202,7 @@
       "whoDesc": "适用于处理创伤后应激障碍、焦虑、恐惧症、创伤记忆或慢性压力的人群。EMDR 获世卫组织和主要健康机构认可。"
     },
     "features": {
+      "kicker": "功能",
       "title": "强大功能助力有效疗愈",
       "subtitle": "在家进行专业 EMDR 疗法所需的一切",
       "visual": {
@@ -243,6 +237,7 @@
       }
     },
     "pricing": {
+      "kicker": "价格",
       "title": "人人可负担的价格",
       "subtitle": "免费开始，随时升级",
       "free": {
@@ -278,27 +273,7 @@
           "终身访问"
         ]
       },
-      "comparison": "对比单次治疗 ¥1500+",
-      "guarantee": "30 天退款保证"
-    },
-    "testimonials": {
-      "title": "全球用户信赖",
-      "subtitle": "真实用户的真实故事",
-      "testimonial1": {
-        "quote": "这个工具帮助我按自己的节奏处理困难记忆。随机化功能让我的大脑保持专注。物超所值！",
-        "name": "Sarah L.",
-        "location": "美国"
-      },
-      "testimonial2": {
-        "quote": "作为一个焦虑症患者，这个工具让我可以随时进行自我疗愈。中文界面很贴心，功能专业。",
-        "name": "李明",
-        "location": "中国"
-      },
-      "testimonial3": {
-        "quote": "起初我持怀疑态度，但科学依据很扎实。免费版让我入门，高级功能令人惊艳。",
-        "name": "James T.",
-        "location": "英国"
-      }
+      "comparison": "对比单次线下治疗 ¥1500+"
     },
     "studioDifference": {
       "badge": "为什么选择我们",
@@ -339,12 +314,11 @@
       "note": "无需信用卡"
     },
     "footer": {
-      "tagline": "专业 EMDR 疗法，人人可用",
+      "tagline": "专业 EMDR 双侧刺激工具，人人可用",
+      "quickLinks": "快速链接",
       "about": "关于我们",
-      "contact": "联系我们",
-      "privacy": "隐私政策",
-      "terms": "服务条款",
-      "copyright": "© 2025 REM Restore Studio. 版权所有。"
+      "backToTop": "回到顶部",
+      "copyright": "© 2026 REM Restore Studio. 版权所有。"
     }
   },
   "header": {

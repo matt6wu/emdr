@@ -125,8 +125,6 @@ export default function App() {
 
   const normalizeCode = (value) => value.trim().toUpperCase();
 
-  // 硬编码激活码（部署前删除）
-  const HARDCODED_CODE = "888888";
   const isActivated = activationCode.length > 0;
 
   const activateCode = async () => {
@@ -134,14 +132,6 @@ export default function App() {
     if (!code) {
       setActivationStatus("error");
       setActivationError(t('activation.errorRequired'));
-      return;
-    }
-
-    // 检查硬编码激活码（部署前删除此段）
-    if (code === HARDCODED_CODE) {
-      localStorage.setItem("activation_code", code);
-      setActivationCode(code);
-      setActivationStatus("success");
       return;
     }
 
@@ -358,6 +348,9 @@ export default function App() {
 
   useEffect(() => {
     const onKey = async (e) => {
+      // 输入框/下拉框聚焦时不响应快捷键，避免打字触发开始/暂停
+      const tag = e.target?.tagName;
+      if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || e.target?.isContentEditable) return;
       if (e.key === " ") {
         e.preventDefault();
         if (!running) return;

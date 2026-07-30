@@ -5,7 +5,6 @@ import EducationSection from "./landing/EducationSection.jsx";
 import StudioDifferenceSection from "./landing/StudioDifferenceSection.jsx";
 import FeaturesSection from "./landing/FeaturesSection.jsx";
 import PricingSection from "./landing/PricingSection.jsx";
-import TestimonialsSection from "./landing/TestimonialsSection.jsx";
 import CTASection from "./landing/CTASection.jsx";
 import Footer from "./landing/Footer.jsx";
 
@@ -18,7 +17,6 @@ export default function LandingPage({ enterTool }) {
       <StudioDifferenceSection />
       <FeaturesSection />
       <PricingSection enterTool={enterTool} />
-      <TestimonialsSection />
       <CTASection enterTool={enterTool} />
       <Footer />
     </div>
