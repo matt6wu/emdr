@@ -2,7 +2,7 @@ import React from "react";
 
 /* 引导模式的全部覆盖层：场景选择、倒计时、组间休息、暂停提示、结束页、会话浮层 */
 
-export function SceneSelect({ scenes, selected, setSelected, duration, setDuration, onBegin, onFreeMode, t }) {
+export function SceneSelect({ scenes, selected, setSelected, duration, setDuration, speed, setSpeed, onBegin, onFreeMode, t }) {
   const scene = scenes.find((s) => s.id === selected) || scenes[0];
 
   return (
@@ -41,6 +41,25 @@ export function SceneSelect({ scenes, selected, setSelected, duration, setDurati
               </button>
             ))}
           </div>
+
+          {/* 速度调节（仅支持的场景） */}
+          {scene.adjustableSpeed && (
+            <div className="flex items-center justify-center gap-3 mb-5 max-w-sm mx-auto">
+              <span className="text-sm text-stone-500 shrink-0">{t('guided.speedLabel')}</span>
+              <span className="text-xs text-stone-400">{t('guided.speedSlow')}</span>
+              <input
+                type="range"
+                min={0.1}
+                max={0.6}
+                step={0.05}
+                value={speed}
+                onChange={(e) => setSpeed(parseFloat(e.target.value))}
+                className="flex-1 accent-brand-700"
+              />
+              <span className="text-xs text-stone-400">{t('guided.speedFast')}</span>
+              <span className="text-xs text-stone-500 tabular-nums w-14 text-right">{speed.toFixed(2)} Hz</span>
+            </div>
+          )}
 
           {/* 时长选择 */}
           <div className="flex items-center justify-center gap-2 mb-8">

@@ -40,6 +40,7 @@ export default function App() {
   const [guided, setGuidedCfg] = useState(null);
   const [selectedSceneId, setSelectedSceneId] = useState("classic");
   const [guidedDuration, setGuidedDuration] = useState(10);
+  const [guidedSpeed, setGuidedSpeed] = useState(0.2);
   const [countdown, setCountdown] = useState(3);
   const [setsDone, setSetsDone] = useState(0);
   const [restLeft, setRestLeft] = useState(0);
@@ -470,7 +471,7 @@ export default function App() {
     setVisualEnabled(true);
     setDotEmojiMode(false);
     setDirection("lr");
-    setFreqHz(scene.freqHz);
+    setFreqHz(scene.adjustableSpeed ? guidedSpeed : scene.freqHz);
     setBgMode(scene.bgMode);
     setDotColorMode(scene.dotColorMode);
     setAudioEnabled(true);
@@ -908,6 +909,8 @@ export default function App() {
             setSelected={setSelectedSceneId}
             duration={guidedDuration}
             setDuration={setGuidedDuration}
+            speed={guidedSpeed}
+            setSpeed={setGuidedSpeed}
             onBegin={beginGuided}
             onFreeMode={() => setMode('free')}
             t={t}

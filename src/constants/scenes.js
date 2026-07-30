@@ -3,7 +3,8 @@ export const SCENES = [
   {
     id: "classic",
     accent: "#0d9488",
-    freqHz: 0.25,
+    adjustableSpeed: true,
+    freqHz: 0.2,
     bgMode: "gray",
     dotColorMode: "blue",
     audioPreset: "shuttle",
