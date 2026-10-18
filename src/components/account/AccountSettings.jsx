@@ -15,7 +15,7 @@ export default function AccountSettings({ user, onBack, onLogout }) {
   };
   return <main className="min-h-screen bg-stone-50 p-5"><div className="max-w-lg mx-auto py-8">
     <button className="text-brand-700" onClick={onBack}>← 返回练习</button>
-    <h1 className="text-2xl font-semibold mt-7">账号设置</h1><p className="text-stone-500 mt-2">{user.nick || user.u} · 两站共用账号</p>
+    <h1 className="rest-serif text-2xl font-semibold mt-7">账号设置</h1><p className="text-stone-500 mt-2">{user.nick || user.u} · 两站共用账号</p>
     <form onSubmit={submit} className="bg-white border border-stone-200 rounded-2xl p-6 mt-6 space-y-4">
       <h2 className="font-semibold">修改密码</h2>
       <input className="account-input" type="text" autoComplete="username" value={user.u} readOnly aria-label="用户名" />

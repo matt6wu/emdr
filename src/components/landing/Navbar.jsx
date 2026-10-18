@@ -12,22 +12,22 @@ export default function Navbar({ enterTool }) {
   };
 
   return (
-    <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-stone-200/70">
+    <nav className="sticky top-0 z-50 rest-navbar backdrop-blur-md border-b border-stone-200">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <div className="flex items-center gap-2.5">
             <span className="relative flex h-8 w-8 items-center justify-center rounded-full bg-brand-700">
               <span className="h-2.5 w-2.5 rounded-full bg-brand-100" />
               <span className="absolute right-1.5 h-1.5 w-1.5 rounded-full bg-brand-300" />
             </span>
-            <span className="text-lg font-semibold tracking-tight text-stone-900">
+            <span className="text-sm sm:text-base font-medium tracking-wide text-stone-900">
               REM Restore Studio
             </span>
           </div>
 
           {/* Navigation Links - Hidden on mobile */}
-          <div className="hidden md:flex items-center gap-8 text-sm">
+          <div className="hidden md:flex items-center gap-6 text-xs">
             <button
               onClick={() => scrollToSection("education")}
               className="text-stone-500 hover:text-stone-900 transition-colors"
@@ -57,7 +57,7 @@ export default function Navbar({ enterTool }) {
           {/* Right side buttons */}
           <div className="flex items-center gap-2.5">
             <button
-              className="px-3 py-1.5 rounded-lg text-sm text-stone-500 hover:text-stone-900 hover:bg-stone-100 transition-colors"
+              className="px-3 py-1.5 rounded-full text-xs text-stone-500 hover:text-stone-900 hover:bg-stone-100 transition-colors"
               onClick={() => setLanguage(language === 'zh-CN' ? 'en' : 'zh-CN')}
               title={language === 'zh-CN' ? 'Switch to English' : '切换到中文'}
             >
@@ -66,7 +66,7 @@ export default function Navbar({ enterTool }) {
 
             <button
               onClick={enterTool}
-              className="px-5 py-2 rounded-full bg-brand-700 text-white text-sm font-medium hover:bg-brand-800 transition-colors shadow-sm"
+              className="px-4 sm:px-5 py-2.5 rounded-full bg-brand-700 text-white text-sm font-medium hover:bg-brand-800 transition-colors shadow-sm"
             >
               {t('landing.nav.startFree')}
             </button>

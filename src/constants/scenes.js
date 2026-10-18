@@ -2,11 +2,11 @@
 export const SCENES = [
   {
     id: "classic",
-    accent: "#0d9488",
+    accent: "#78966d",
     adjustableSpeed: true,
     freqHz: 0.2,
-    bgMode: "gray",
-    dotColorMode: "blue",
+    bgMode: "paper",
+    dotColorMode: "sage",
     audioPreset: "shuttle",
     volume: 0.5,
     setSec: 45,
@@ -15,7 +15,7 @@ export const SCENES = [
   },
   {
     id: "sleep",
-    accent: "#6366f1",
+    accent: "#6c827c",
     freqHz: 0.15,
     bgMode: "dark",
     dotColorMode: "purple",

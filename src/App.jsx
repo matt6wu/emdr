@@ -61,9 +61,9 @@ export default function App() {
   const [freqHz, setFreqHz] = useState(0.25);
   const [marginPct, setMarginPct] = useState(6);
   const [dotSize, setDotSize] = useState(145);
-  const [dotColorMode, setDotColorMode] = useState("blue");
+  const [dotColorMode, setDotColorMode] = useState("sage");
   const [dotCustom, setDotCustom] = useState("#3b82f6");
-  const [bgMode, setBgMode] = useState("gray");
+  const [bgMode, setBgMode] = useState("paper");
   const [bgCustom, setBgCustom] = useState("#cfd3d6");
   const [dotEmojiMode, setDotEmojiMode] = useState(false);
   const [dotEmoji, setDotEmoji] = useState("🐵");
@@ -435,8 +435,8 @@ export default function App() {
     setFreqHz(0.25);
     setDotEmojiMode(false);
     setDotEmoji("🐵");
-    setDotColorMode("blue");
-    setBgMode("gray");
+    setDotColorMode("sage");
+    setBgMode("paper");
     setAudioEnabled(true);
     setMute(false);
     setVolume(0.5);

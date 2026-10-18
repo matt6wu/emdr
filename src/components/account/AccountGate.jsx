@@ -17,7 +17,7 @@ export default function AccountGate({ account, onHome }) {
   return <main className="min-h-screen bg-stone-50 flex items-center justify-center p-5">
     <div className="w-full max-w-md bg-white rounded-3xl border border-stone-200 p-7 shadow-sm">
       <p className="text-brand-700 text-sm font-medium mb-3">REM Restore Studio · 心理花园账号</p>
-      <h1 className="text-2xl font-semibold">{register ? '创建你的账号' : '登录后开始练习'}</h1>
+      <h1 className="rest-serif text-2xl font-semibold">{register ? '创建你的账号' : '登录后开始练习'}</h1>
       <p className="text-stone-500 text-sm mt-3 leading-relaxed">与心理花园共用账号，练习记录随账号保存。已有花园账号可直接登录。</p>
       {account.loading ? <p role="status" className="mt-6">正在检查登录状态…</p> : account.error ?
         <div className="mt-6"><p role="alert">{account.error}</p><button className="account-primary mt-4" onClick={account.check}>重新连接</button></div> :

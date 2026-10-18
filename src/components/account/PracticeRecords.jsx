@@ -50,7 +50,7 @@ export default function PracticeRecords({ onBack, onAccount, user, saveState, on
   return <main className="min-h-screen bg-stone-50 text-stone-900 px-4 py-7 sm:px-8">
     <div className="max-w-5xl mx-auto">
       <div className="flex flex-wrap items-center justify-between gap-3"><button onClick={onBack} className="text-brand-700">← 返回练习</button><button onClick={onAccount} className="text-sm text-stone-600">{user.nick || user.u} · 账号设置</button></div>
-      <h1 className="mt-8 text-3xl font-semibold tracking-tight">我的练习记录</h1>
+      <h1 className="rest-serif mt-8 text-3xl font-semibold tracking-tight">我的练习记录</h1>
       <p className="mt-2 text-stone-500 text-sm">每次练习，都给自己留一点空间。日期按悉尼时间显示。</p>
       {['error', 'expired', 'saving'].includes(saveState) && <div role="status" className="mt-5 p-4 rounded-xl bg-amber-50 text-amber-900 text-sm">{saveState === 'saving' ? '正在保存本次练习…' : saveState === 'expired' ? '本次记录尚未保存，请到账号设置退出后重新登录。' : '本次练习尚未保存。网络恢复后将自动重试。'}{saveState === 'error' && <button onClick={onRetry} className="ml-3 underline">立即重试</button>}</div>}
       <div className="grid grid-cols-3 gap-3 mt-7">

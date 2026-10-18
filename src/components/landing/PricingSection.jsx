@@ -51,7 +51,7 @@ export default function PricingSection({ enterTool }) {
               key={index}
               className={`relative rounded-3xl p-8 flex flex-col ${
                 plan.highlighted
-                  ? 'bg-brand-950 text-white shadow-xl'
+                  ? 'bg-brand-50 text-brand-900 border border-brand-200 shadow-sm'
                   : 'bg-white border border-stone-200/80 shadow-sm'
               }`}
             >
@@ -59,7 +59,7 @@ export default function PricingSection({ enterTool }) {
               <span
                 className={`absolute top-6 right-6 inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${
                   plan.highlighted
-                    ? 'bg-brand-300/20 text-brand-200 border border-brand-300/30'
+                    ? 'bg-white/60 text-brand-700 border border-brand-200'
                     : 'bg-stone-100 text-stone-600 border border-stone-200'
                 }`}
               >
@@ -68,14 +68,14 @@ export default function PricingSection({ enterTool }) {
 
               {/* Plan Name & Price */}
               <div className="mb-8">
-                <h3 className={`text-lg font-medium mb-4 ${plan.highlighted ? 'text-brand-200' : 'text-stone-600'}`}>
+                <h3 className={`text-lg font-medium mb-4 ${plan.highlighted ? 'text-brand-700' : 'text-stone-600'}`}>
                   {plan.name}
                 </h3>
                 <div className="flex items-baseline gap-2">
-                  <span className={`text-5xl font-semibold tracking-tight ${plan.highlighted ? 'text-white' : 'text-stone-900'}`}>
+                  <span className={`text-5xl font-semibold tracking-tight ${plan.highlighted ? 'text-brand-900' : 'text-stone-900'}`}>
                     {plan.price}
                   </span>
-                  <span className={`text-sm ${plan.highlighted ? 'text-brand-200/70' : 'text-stone-500'}`}>
+                  <span className={`text-sm ${plan.highlighted ? 'text-stone-500' : 'text-stone-500'}`}>
                     {plan.period}
                   </span>
                 </div>
@@ -87,12 +87,12 @@ export default function PricingSection({ enterTool }) {
                   <li key={idx} className="flex items-start gap-3">
                     <span
                       className={`flex-shrink-0 mt-0.5 flex items-center justify-center w-5 h-5 rounded-full ${
-                        plan.highlighted ? 'bg-brand-300/20 text-brand-300' : 'bg-brand-50 text-brand-700'
+                        plan.highlighted ? 'bg-brand-100 text-brand-700' : 'bg-brand-50 text-brand-700'
                       }`}
                     >
                       <Icon name="check" className="w-3 h-3" strokeWidth={2.5} />
                     </span>
-                    <span className={`text-sm ${plan.highlighted ? 'text-brand-50/90' : 'text-stone-700'}`}>
+                    <span className={`text-sm ${plan.highlighted ? 'text-stone-700' : 'text-stone-700'}`}>
                       {feature}
                     </span>
                   </li>
@@ -104,8 +104,8 @@ export default function PricingSection({ enterTool }) {
                 onClick={plan.onClick}
                 className={`mt-auto w-full py-3.5 rounded-full font-medium transition-colors ${
                   plan.highlighted
-                    ? 'bg-white text-brand-900 hover:bg-brand-50'
-                    : 'bg-stone-900 text-white hover:bg-stone-700'
+                    ? 'bg-brand-700 text-white hover:bg-brand-800'
+                    : 'bg-brand-700 text-white hover:bg-brand-800'
                 }`}
               >
                 {plan.cta}

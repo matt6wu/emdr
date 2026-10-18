@@ -5,10 +5,10 @@ export default function HeaderBar({ hideControls, setHideControls, fullscreen, t
   const { t, language, setLanguage } = useTranslation();
 
   const ghostBtn =
-    "px-3 py-2 rounded-lg border border-stone-200 hover:bg-stone-50 text-sm text-stone-600 min-h-[44px] touch-manipulation transition-colors";
+    "px-3 py-2 rounded-full border border-stone-200 hover:bg-stone-50 text-sm text-stone-600 min-h-[44px] touch-manipulation transition-colors";
 
   return (
-    <div className="w-full px-3 lg:px-4 py-2 flex items-center justify-between border-b border-stone-200 bg-white">
+    <div className="w-full px-3 lg:px-4 py-2 flex items-center justify-between border-b border-stone-200 bg-stone-50 rest-tool-header">
       <div className="flex items-center gap-3">
         <button
           className="flex items-center gap-2 cursor-pointer group"
@@ -19,7 +19,7 @@ export default function HeaderBar({ hideControls, setHideControls, fullscreen, t
             <span className="h-2 w-2 rounded-full bg-brand-100" />
             <span className="absolute right-1 h-1 w-1 rounded-full bg-brand-300" />
           </span>
-          <span className="font-semibold text-stone-900 group-hover:text-brand-700 transition-colors hidden sm:inline">
+          <span className="font-medium tracking-wide text-stone-900 group-hover:text-brand-700 transition-colors hidden sm:inline">
             REM Restore Studio
           </span>
         </button>

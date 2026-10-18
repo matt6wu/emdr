@@ -137,14 +137,16 @@
       "orange": "Deep Orange",
       "pink": "Deep Pink",
       "lime": "Deep Lime",
-      "custom": "Custom"
+      "custom": "Custom",
+      "sage": "Sage"
     },
     "bgColors": {
       "gray": "Light Gray",
       "dark": "Dark",
       "white": "White",
       "pink": "Light Pink",
-      "custom": "Custom"
+      "custom": "Custom",
+      "paper": "Warm paper"
     },
     "sounds": {
       "snap": "👏 Snap/Click",
@@ -212,7 +214,13 @@
         "name": "Wind down",
         "desc": "Slow pace, dark backdrop and gentle chimes for bedtime"
       }
-    }
+    },
+    "previewTitle": "Follow. Unwind.",
+    "previewNote": "Let your eyes move gently. Make a little room for yourself.",
+    "breathingPrompt": "Want to begin with a breath?",
+    "breathingLink": "Visit the breathing room",
+    "roomKicker": "A little time, just for you",
+    "roomNote": "Find a comfortable place and settle into the rhythm."
   },
   "landing": {
     "nav": {

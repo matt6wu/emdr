@@ -10,7 +10,7 @@ import Footer from "./landing/Footer.jsx";
 
 export default function LandingPage({ enterTool }) {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="landing-page min-h-screen">
       <Navbar enterTool={enterTool} />
       <HeroSection enterTool={enterTool} />
       <EducationSection />

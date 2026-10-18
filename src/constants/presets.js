@@ -25,6 +25,7 @@ export const DIRECTIONS = [
 ];
 
 export const DOT_COLORS = [
+  { id: "sage", hex: "#587951", nameKey: "presets.dotColors.sage" },
   { id: "blue", hex: "#0a2a8f", nameKey: "presets.dotColors.blue" },
   { id: "green", hex: "#007a4e", nameKey: "presets.dotColors.green" },
   { id: "yellow", hex: "#b88600", nameKey: "presets.dotColors.yellow" },
@@ -38,6 +39,7 @@ export const DOT_COLORS = [
 ];
 
 export const BG_COLORS = [
+  { id: "paper", hex: "#f5f4ed", nameKey: "presets.bgColors.paper" },
   { id: "gray", hex: "#cfd3d6", nameKey: "presets.bgColors.gray" },
   { id: "dark", hex: "#1f2328", nameKey: "presets.bgColors.dark" },
   { id: "white", hex: "#ffffff", nameKey: "presets.bgColors.white" },

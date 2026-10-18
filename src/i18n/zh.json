@@ -137,14 +137,16 @@
       "orange": "深橙",
       "pink": "深粉",
       "lime": "深黄绿",
-      "custom": "自定义"
+      "custom": "自定义",
+      "sage": "鼠尾草绿"
     },
     "bgColors": {
       "gray": "浅灰",
       "dark": "深色",
       "white": "白",
       "pink": "淡粉",
-      "custom": "自定义"
+      "custom": "自定义",
+      "paper": "暖白"
     },
     "sounds": {
       "snap": "👏 响指/啪嗒",
@@ -212,7 +214,13 @@
         "name": "睡前放松",
         "desc": "缓慢节奏、暗色背景与风铃声，陪你安静下来"
       }
-    }
+    },
+    "previewTitle": "跟随，放松",
+    "previewNote": "让目光轻轻移动，给自己一点安静的时间。",
+    "breathingPrompt": "想先从一口呼吸开始？",
+    "breathingLink": "去一息之间",
+    "roomKicker": "给自己一点安静的时间",
+    "roomNote": "找到舒服的位置，让节奏慢慢带着你。"
   },
   "landing": {
     "nav": {

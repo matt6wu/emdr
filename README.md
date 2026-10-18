@@ -386,3 +386,7 @@ src/components/
 4. `src/i18n/zh.json` - Landing 翻译
 5. `src/components/LandingPage.jsx` - Landing 容器
 6. `src/components/landing/*.jsx` - 8 个子组件
+
+## 2026-10-18 视觉统一
+
+首页、引导选择、完成页、账号和练习记录页面统一采用 heal「一息之间」的暖白/鼠尾草绿配色与宋体标题。标准场景和自由模式默认使用新增的 `paper` 背景与 `sage` 圆点；原有配色选择及睡前暗色场景保留。圆形预览组件 `CalmPreview.jsx` 只用于首页和开始前的展示，正式练习仍使用原有位置计算与音频逻辑。
