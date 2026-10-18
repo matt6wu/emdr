@@ -200,7 +200,7 @@
     "statsCycles": "Passes",
     "again": "Practice again",
     "changeScene": "Change scene",
-    "backHome": "Back to home",
+    "backToPractice": "Back to practice",
     "setPrefix": "Set ",
     "setSuffix": "",
     "scenes": {

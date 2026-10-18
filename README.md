@@ -2,6 +2,23 @@
 
 这是一个可本地运行的 EMDR/BLS 练习页面（前端单页），已将原单文件拆分为组件/逻辑/音频模块，便于后续扩展（例如加入后端 WebSocket/远程控制）。
 
+## 共用账号与练习记录（2026-10-18）
+
+`/tool`、`/records`、`/account` 需登录；网站首页公开。生产环境通过带凭据的请求使用 `https://heal.mattlu.com/garden/` 的同一份账号和会话，不扩大 Cookie 的域范围。已有花园账号可直接使用，新注册支持用户名和 8–50 位密码，无需邮箱。忘记密码联系 heal 管理员重置。
+
+记录按用户保存于 family-call 的 `FAMILY_KV`（每次练习单独一键），包含引导/自由模式、开始/结束时间、实际练习时长、组数、轮数及完成状态。暂停与组间休息不计时；不足 1 秒不保存。提供悉尼时区日历、7/30 天趋势及分页明细。失败的待保存记录暂存在当前标签页的 sessionStorage，支持重试；成功后清除。
+
+本地开发需同时运行账号后端（只使用隔离的本地 KV）：
+
+```bash
+cd ../family-call
+wrangler dev --local --ip 127.0.0.1 --port 8787 --local-upstream 127.0.0.1 --persist-to /tmp/relax-local-state --var HEAL_LOCAL_DEV:1
+```
+
+然后在本项目运行 `npm run dev -- --host 127.0.0.1`。Vite 将 `/garden` 代理到本地后端。测试账号与线上数据隔离。
+
+发布时先部署 family-call，再发布 emdr 的 Pages 构建，确保账号 API 先可用。后台接口只允许 `https://relax.mattlu.com` 跨域访问指定账号/记录端点，不开放花园的其他记录接口。
+
 ## 快速开始
 
 ```bash

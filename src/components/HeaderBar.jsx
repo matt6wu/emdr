@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "../i18n";
 
-export default function HeaderBar({ hideControls, setHideControls, fullscreen, toggleFullscreen, returnToLanding, mode = "free", onBackToGuided = null }) {
+export default function HeaderBar({ hideControls, setHideControls, fullscreen, toggleFullscreen, returnToLanding, mode = "free", onBackToGuided = null, accountName, onRecords, onAccount }) {
   const { t, language, setLanguage } = useTranslation();
 
   const ghostBtn =
@@ -28,6 +28,8 @@ export default function HeaderBar({ hideControls, setHideControls, fullscreen, t
         </div>
       </div>
       <div className="flex items-center gap-2">
+        <button className={ghostBtn} onClick={onRecords}>练习记录</button>
+        <button className={ghostBtn} onClick={onAccount} title={accountName}>账号<span className="hidden lg:inline"> · {accountName}</span></button>
         {mode === "free" && onBackToGuided && (
           <button className={ghostBtn} onClick={onBackToGuided}>
             {t('guided.backToGuided')}

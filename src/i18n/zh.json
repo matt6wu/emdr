@@ -200,7 +200,7 @@
     "statsCycles": "总轮数",
     "again": "再练一次",
     "changeScene": "换个场景",
-    "backHome": "返回首页",
+    "backToPractice": "返回练习",
     "setPrefix": "第 ",
     "setSuffix": " 组",
     "scenes": {

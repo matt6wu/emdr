@@ -1,5 +1,9 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
+import { useAccount } from "./hooks/useAccount.js";
+import AccountGate from "./components/account/AccountGate.jsx";
+import AccountSettings from "./components/account/AccountSettings.jsx";
+import PracticeRecords from "./components/account/PracticeRecords.jsx";
 import LandingPage from "./components/LandingPage.jsx";
 import ControlPanel from "./components/ControlPanel.jsx";
 import HeaderBar from "./components/HeaderBar.jsx";
@@ -30,6 +34,9 @@ export default function App() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
+  const account = useAccount();
+  const practiceRef = useRef(null);
+  const [accountMessage, setAccountMessage] = useState("");
 
   const [running, setRunning] = useState(false);
   const [paused, setPaused] = useState(false);
@@ -261,6 +268,7 @@ export default function App() {
       setUiHidden(false);
     }
 
+    if (!account.user || location.pathname !== '/tool') return;
     let ro = null;
     let resizeHandler = null;
     let cancelled = false;
@@ -310,7 +318,7 @@ export default function App() {
       if (ro) ro.disconnect();
       if (resizeHandler) window.removeEventListener("resize", resizeHandler);
     };
-  }, [location.pathname]);
+  }, [location.pathname, account.user?.u]);
 
   useEffect(() => {
     if (!isActivated && randomizeEnabled) setRandomizeEnabled(false);
@@ -436,6 +444,8 @@ export default function App() {
   };
 
   const start = async () => {
+    if (!account.user || location.pathname !== '/tool') return;
+    practiceRef.current = { id: crypto.randomUUID(), startedAt: Date.now(), scene: mode === 'guided' ? selectedSceneId : 'free' };
     resetSession();
     setRunning(true);
     setPaused(false);
@@ -454,7 +464,17 @@ export default function App() {
     }
   };
 
+  const savePractice = (completed = false) => {
+    const practice = practiceRef.current;
+    if (!practice) return;
+    practiceRef.current = null;
+    account.save({ ...practice, endedAt: Date.now(), durationMs: Math.round(elapsedMsRef.current),
+      sets: mode === 'guided' ? Math.min(setsDone + 1, Math.ceil(elapsedMsRef.current / (guided?.setMs || 45000))) : 0,
+      cycles: lastCycleRef.current, completed });
+  };
+
   const stop = () => {
+    if (mode === 'free') savePractice(false);
     setRunning(false);
     setPaused(false);
     stopBeatClock();
@@ -481,6 +501,7 @@ export default function App() {
   };
 
   const beginGuided = async () => {
+    if (!account.user) return;
     const scene = SCENES.find((s) => s.id === selectedSceneId);
     if (!scene) return;
     applyScene(scene);
@@ -506,6 +527,7 @@ export default function App() {
   };
 
   const finishGuided = () => {
+    savePractice(elapsedMsRef.current >= (guided?.durationMs || Infinity));
     clearGuidedTimers();
     stop();
     setUiHidden(false);
@@ -513,6 +535,7 @@ export default function App() {
   };
 
   const exitGuidedToIdle = () => {
+    savePractice(false);
     clearGuidedTimers();
     stop();
     setGuidedCfg(null);
@@ -647,8 +670,9 @@ export default function App() {
     navigate('/tool');
   }, [navigate]);
 
-  const returnToLanding = useCallback(() => {
+  const returnToLanding = () => {
     // Stop any running processes before returning to landing
+    savePractice(false);
     setRunning(false);
     setPaused(false);
     clearGuidedTimers();
@@ -657,8 +681,7 @@ export default function App() {
     setUiHidden(false);
 
     navigate('/');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [navigate]);
+  };
 
   const mmss = useMemo(() => {
     const s = Math.floor(elapsedMs / 1000);
@@ -682,6 +705,22 @@ export default function App() {
   if (location.pathname === '/') {
     return <LandingPage enterTool={enterTool} />;
   }
+
+  if (account.loading || !account.user) {
+    return <AccountGate account={account} onHome={() => navigate('/')} />;
+  }
+  const openPage = (path) => {
+    savePractice(false); stop(); clearGuidedTimers(); setPhase('idle'); navigate(path);
+  };
+  const logout = async () => {
+    savePractice(false); stop(); clearGuidedTimers(); setPhase('idle');
+    try { await account.logout(); navigate('/tool'); }
+    catch { setAccountMessage('退出失败，请检查网络后重试'); }
+  };
+  if (location.pathname === '/records') return <PracticeRecords user={account.user} onBack={() => navigate('/tool')}
+    onAccount={() => navigate('/account')} saveState={account.saveState} onRetry={account.retrySave} />;
+  if (location.pathname === '/account') return <><AccountSettings user={account.user} onBack={() => navigate('/tool')} onLogout={logout} />
+    {accountMessage && <div role="alert" className="fixed bottom-5 inset-x-5 text-center bg-red-50 text-red-800 p-4 rounded-xl">{accountMessage}</div>}</>;
 
   // Show tool view
   return (
@@ -713,6 +752,9 @@ export default function App() {
           toggleFullscreen={toggleFullscreen}
           returnToLanding={returnToLanding}
           mode={mode}
+          accountName={account.user.nick || account.user.u}
+          onRecords={() => openPage('/records')}
+          onAccount={() => openPage('/account')}
           onBackToGuided={() => {
             stop();
             setMode("guided");
@@ -721,6 +763,12 @@ export default function App() {
         />
       )}
 
+      {showHeader && ['saving', 'saved', 'error', 'expired'].includes(account.saveState) && (
+        <div role="status" className="text-xs text-center px-3 py-2 bg-brand-50 text-brand-900">
+          {account.saveState === 'saving' ? '正在保存练习…' : account.saveState === 'saved' ? '练习记录已保存' : account.saveState === 'expired' ? '登录已失效，请到账号设置退出后重新登录以保存记录' : '练习记录保存失败'}
+          {account.saveState === 'error' && <button className="ml-3 underline" onClick={account.retrySave}>重试保存</button>}
+        </div>
+      )}
       <div
         className="flex-1 min-h-0 w-full flex flex-col lg:flex-row relative"
         style={uiHidden ? { cursor: "none" } : undefined}
@@ -935,7 +983,10 @@ export default function App() {
             cycles={cycles}
             onAgain={beginGuided}
             onChangeScene={exitGuidedToIdle}
-            onHome={returnToLanding}
+            onBackToPractice={exitGuidedToIdle}
+            onRecords={() => openPage('/records')}
+            saveState={account.saveState}
+            onRetry={account.retrySave}
             t={t}
           />
         )}

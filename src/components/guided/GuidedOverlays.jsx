@@ -148,7 +148,7 @@ export function PausedOverlay({ t, onResume }) {
   );
 }
 
-export function DoneOverlay({ mmss, sets, cycles, onAgain, onChangeScene, onHome, t }) {
+export function DoneOverlay({ mmss, sets, cycles, onAgain, onChangeScene, onBackToPractice, onRecords, saveState, onRetry, t }) {
   return (
     <div className="absolute inset-0 z-30 bg-brand-950 overflow-auto">
       <div className="absolute inset-0 pointer-events-none">
@@ -189,11 +189,16 @@ export function DoneOverlay({ mmss, sets, cycles, onAgain, onChangeScene, onHome
             {t('guided.changeScene')}
           </button>
         </div>
+        <div role="status" className="mt-5 text-sm text-brand-100/80">
+          {saveState === 'saving' ? '正在保存练习记录…' : saveState === 'saved' ? '练习记录已保存' : saveState === 'expired' ? '登录已失效，请重新登录后保存记录' : saveState === 'error' ? '保存失败，请重试' : '不足 1 秒的练习不计入记录'}
+          {saveState === 'error' && <button onClick={onRetry} className="ml-3 underline">重试保存</button>}
+        </div>
+        <button onClick={onRecords} className="mt-4 text-sm text-brand-100 underline underline-offset-4">查看练习记录</button>
         <button
-          onClick={onHome}
+          onClick={onBackToPractice}
           className="mt-6 text-sm text-brand-200/60 hover:text-brand-100 transition-colors"
         >
-          {t('guided.backHome')}
+          {t('guided.backToPractice')}
         </button>
       </div>
     </div>
