@@ -912,7 +912,10 @@ export default function App() {
             speed={guidedSpeed}
             setSpeed={setGuidedSpeed}
             onBegin={beginGuided}
-            onFreeMode={() => setMode('free')}
+            onFreeMode={() => {
+              setMode('free');
+              setHideControls(false);
+            }}
             t={t}
           />
         )}

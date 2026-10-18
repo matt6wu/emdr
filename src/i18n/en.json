@@ -184,7 +184,7 @@
     "min": "min",
     "begin": "Begin practice",
     "freeTitle": "Free practice",
-    "freeDesc": "full manual control",
+    "freeDesc": "open control panel",
     "backToGuided": "Guided mode",
     "getReady": "Get comfortable and follow the dot with your eyes",
     "restTitle": "Set complete",
@@ -298,7 +298,7 @@
       "premium": {
         "name": "Premium Plan",
         "badge": "Best Value",
-        "price": "$9.99",
+        "price": "CN¥368",
         "period": "One-time payment",
         "cta": "Get Activation Code",
         "features": [
@@ -337,7 +337,7 @@
         "regular": "Clinic-bound: Requires therapist appointments, limited by time and location, high cost per session"
       },
       "cost": {
-        "studio": "One-time payment of $9.99: Lifetime access, unlimited sessions, less than $0.10 per session average",
+        "studio": "One-time payment of CN¥368: Lifetime access, unlimited sessions",
         "regular": "Pay per session: $200-400 per therapy session, thousands of dollars in cumulative costs"
       },
       "technology": {
